@@ -1,0 +1,82 @@
+<script> 
+	Game=
+	{
+		Rally: 
+		{
+			Ball: 
+			{
+				BallCollisions: {}, BallEval: {}
+			},
+			Player: 
+			{
+				PlayerCollisions: {}, PlayerEvalA: {}, PlayerEvalXY: {}, KeyHandler: {}
+			},
+			Referee: {},
+			Scale: {},
+			Time: {},
+			Timer: {}
+		},
+		Referee: {},
+		Wait: {},		
+	};
+	NetworkClient={};
+</script>
+<script src='classes/Main.as'></script>
+<script src='classes/MathLib.as'></script>
+<script src='classes/View.as'></script>
+<script src='classes/NetworkClient/NetworkClient.as'></script>
+<script src='classes/Game/Game.as'></script>
+<script src='classes/Game/GameView.as'></script>
+<script src='classes/Game/Rally/Rally.as'></script>
+<script src='classes/Game/Rally/Ball/Ball.as'></script>
+<script src='classes/Game/Rally/Ball/BallView.as'></script>
+<script src='classes/Game/Rally/Ball/BallCollisions/BallCollisions.as'></script>
+<script src='classes/Game/Rally/Ball/BallEval/BallEval.as'></script>
+<script src='classes/Game/Rally/Player/Player.as'></script>
+<script src='classes/Game/Rally/Player/PlayerView.as'></script>
+<script src='classes/Game/Rally/Player/LocalPlayer.as'></script>
+<script src='classes/Game/Rally/Player/RemotePlayer.as'></script>
+<script src='classes/Game/Rally/Player/PlayerCollisions/PlayerCollisions.as'></script>
+<script src='classes/Game/Rally/Player/PlayerEvalA/PlayerEvalA.as'></script>
+<script src='classes/Game/Rally/Player/PlayerEvalXY/PlayerEvalXY.as'></script>
+<script src='classes/Game/Rally/Player/KeyHandler/KeyHandler.as'></script>
+<script src='classes/Game/Rally/Referee/Referee.as'></script>
+<script src='classes/Game/Rally/Scale/Scale.as'></script>
+<script src='classes/Game/Rally/Time/Time.as'></script>
+<script src='classes/Game/Rally/Timer/Timer.as'></script>
+<script src='classes/Game/Referee/Referee.as'></script>
+<script src='classes/Game/Wait/Wait.as'></script>
+<script src='classes/Game/Wait/NetworkWait.as'></script>
+
+
+<html>
+	<head>		
+		<style>
+			body {background: rgb(136, 231, 136);}
+			#page_game {width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;}
+			#center {width: 0; height: 0; position: relative}
+			#border_out {position: absolute; width: 1234px; height: 699px; border: 1px solid rgb(170, 68, 68); left: -617px; top: -349.5px}
+			#border_cort {position: absolute; width: 945px; height: 498px; border: 2px solid rgb(85, 85, 85); border-width: 2px 0; left: -477.5px; top: -249px}
+			
+			.view{position: absolute}
+		</style>
+	</head>
+	<body>
+		<div id=page_game>
+			<div id=center>
+				<div id=field>
+					<div id=border_out>
+					</div>
+					<div id=border_cort>
+					</div>
+					<div id=border_net>
+					</div>
+					<div id=border_center>
+					</div>
+					<div id=border_start>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
