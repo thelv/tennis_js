@@ -123,7 +123,7 @@ class MathLib
 	{
 		var x = x1 - x0;
 		var y = y1 - y0;			
-		var l = getLengthByCoords(x, y);			
+		var l = MathLib.getLengthByCoords(x, y);			
 		if (l != 0)
 		{
 			x = x / l;

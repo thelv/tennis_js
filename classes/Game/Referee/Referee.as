@@ -59,8 +59,8 @@ Game.Referee.Referee=function(game, whoMain)
 		rallyEnd: function(whoWin)
 		{
 			whoServe = ! whoServe;
-			scoreChange(whoWin);
-			viewShowScore();
+			this.scoreChange(whoWin);
+			this.viewShowScore();
 			if (score[2][0] == setsNumber)
 			{
 				winner = 0;
@@ -80,7 +80,7 @@ Game.Referee.Referee=function(game, whoMain)
 			if (winner>=0)
 			{
 				winner = -1;
-				scoreInit();
+				this.scoreInit();
 			}
 			game.rally.referee.start(whoServe, t);
 			
@@ -104,7 +104,7 @@ Game.Referee.Referee=function(game, whoMain)
 					if (scoreAdv == whoWinInt)
 					{						
 						score[type] = [0, 0];
-						scoreChange(whoWin, type + 1);
+						this.scoreChange(whoWin, type + 1);
 						scoreAdv = -1;
 					}
 					else if(scoreAdv==notWhoWinInt)
@@ -119,7 +119,7 @@ Game.Referee.Referee=function(game, whoMain)
 				else
 				{
 					score[type] = [0, 0];
-					scoreChange(whoWin, type + 1);
+					this.scoreChange(whoWin, type + 1);
 				}
 			}			
 		},

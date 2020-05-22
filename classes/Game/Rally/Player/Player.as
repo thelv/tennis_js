@@ -62,8 +62,8 @@ Game.Rally.Player.Player=function(game, side)
 					if (hold)
 					{
 						holded = true;
-						setControlPointXY(startX, 0, 0, 0, movingX, movingY, t);
-						setControlPointA(startA, 0, movingA, t);
+						this.setControlPointXY(startX, 0, 0, 0, movingX, movingY, t);
+						this.setControlPointA(startA, 0, movingA, t);
 						collisions.init(t);
 					}
 					else

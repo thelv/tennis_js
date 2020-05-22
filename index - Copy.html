@@ -63,7 +63,6 @@
 <html>
 	<head>		
 		<style>
-			*{font-family:tahoma;font-size:15px}
 			body {background: rgb(136, 231, 136);}
 			#page_game {width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;}
 			#center {width: 0; height: 0; position: relative}
@@ -85,20 +84,19 @@
 			#lobby:hover {background: rgba(0, 0, 0, 0.4);0.5)}
 			#lobby:hover h1{color: #c33;;#c33}
 			
-			h1 {margin:0px 0px 10px; font-size: 19px; color: #b63333;#a33}
+			h1 {margin:0px 0px 10px; font-size: 20px; color: #b63333;#a33}
 			#free_players, #invites {display: inline-block; width: 240px; margin-right: 0 10px 0 10px; vertical-align: top}
 			
-			#help {position: absolute; top: 270px;259px;267px; left: -300px; width: 600px; text-align: center;color:#333}
-			#game_head {position: absolute; top: /*-329px;*/-312px; left: -300px; width: 600px; text-align: center;font-size: 18px;color: #333}
-			#score{margin-top: 6px; font-size: 16px}
+			#help {position: absolute; top: 269px;259px;267px; left: -300px; width: 600px; text-align: center;color:#333}
+			#game_head {position: absolute; top: -312px; left: -300px; width: 600px; text-align: center;font-size: 19px;color: #333}
 			
 			#help h3{margin: 0 0 4px 0}
-			#help h3 a {font-weight: normal; font-size: 15px;text-decoration: underline;display: none}
-			#help > a {font-weight: normal; font-size: 15px;text-decoration: underline;color: gray;margin-top: 3px;display: inline-block}
+			#help h3 a {font-weight: normal; font-size: 16px;text-decoration: underline;display: none}
+			#help > a {font-weight: normal; font-size: 16px;text-decoration: underline;color: gray;margin-top: 3px;display: inline-block}
 			
-			#wait {position: absolute; width: 250px; padding: 10px; -height: 50px; background: rgba(190, 240, 190, 0.8);#cec; top:-120px; -150px; left: -126px; border: 1px solid #888; text-align: center}
+			#wait {position: absolute; width: 250px; padding: 10px; -height: 50px; background: rgba(190, 240, 190, 0.8);#cec; top: -150px; left: -126px; border: 1px solid #888; text-align: center}
 			#wait b {color: #595; display: block; margin-bottom: 3px; display: -none}
-			#wait span {font-size: 13px; margin-top: 4px; display: block; color: #777}
+			#wait span {font-size: 14px; margin-top: 4px; display: block; color: #777}
 			.list a {text-decoration: underline;}
 			.list {color:#d5d5d5 !important;margin-bottom: 15px !important}
 			
@@ -113,7 +111,7 @@
 			<div id=lobby_close style=''></div>
 			<h1>Pong 3.0</h1>
 			<div id=auth>
-				<a>Авторизуйтесь</a>, чтобы не потерять накопленный рейтинг.<br>
+				<a>Авторизуйтесь</a>, чтобы не потерять накопленный рейтинг<br>
 				Реальные данные аккаунта будут скрыты.
 				<!-- Привет, thelv (<a>изменить имя</a>, <a>выйти</a>). -->
 			</div>
@@ -170,12 +168,12 @@
 					<div id=border_start>
 					</div>
 					<div id=wait>
-						<!-- <b>Вы выиграли очко.</b> -->
-						Нажмите пробел, чтобы начать.
-						<!--Нажмите пробел, если готовы.
-						Соперник не готов. -->
+						<b>Вы выиграли очко.</b>
+						<!-- Нажмите пробел, чтобы начать. -->
+						Нажмите пробел, если готовы.
+						Соперник не готов.
 						<!-- <span>Совет: набегайте на мяч под углом, чтобы придать ему вращение.</span> -->
-						<!-- <span>Совет: если мяч от соперника летит прямиком в аут, не отбивайте его.</span> -->
+						<span>Совет: если мяч от соперника летит прямиком в аут, не отбивайте его.</span>
 					</div>
 					<div id=help>
 						<!--<h3>Как играть <a>скрыть</a></h3>-->
@@ -184,9 +182,9 @@
 						<a>скрыть подсказку</a>
 					</div>
 					<div id=game_head>						
-						Обучение со статичным соперником.
-						<!--Матч с petronya (41 игр)
-						<div id=score>Счет (сеты/геймы/подачи): 0:1 / 2:3 / 5:6*</div>-->
+						<!-- Обучение со статичным соперником. -->
+						Матч с petronya (41 игр)
+						<div id=score>Счет (сеты/геймы/подачи): 0:1 / 2:3 / 5:6*</div>
 					</div>
 				</div>
 			</div>

@@ -202,15 +202,15 @@ Game.Rally.Player.PlayerEvalXY.PlayerEvalXY=function(player)
 						}						
 						else
 						{
-							//var middleLine: MiddleLine = player.game.rally.middleLines.lines[playerNumber];
-							//var middleLineXandV:Object = middleLine.xAndVByY(y);							
-							/*if(playerSideInt*x<-middleLineXandV.x)
+							var middleLine=player.game.rally.middleLines.lines[playerNumber];
+							var middleLineXandV=middleLine.xAndVByY(y);
+							if(playerSideInt*x<-middleLineXandV.x)
 							{								
 								evalX = -playerSideInt * middleLineXandV.x;//middleLine.x;
 								evalVx = -playerSideInt * middleLineXandV.v;//middleLine.v;
 								x = evalX;
 								vx = evalVx;
-							}*/
+							}
 						}
 						
 						player.vx=vx;

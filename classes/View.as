@@ -14,6 +14,7 @@ View=function()
 		},
 		addChild: function()
 		{
+			//
 		}
 	}
 }

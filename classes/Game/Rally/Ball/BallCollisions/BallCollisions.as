@@ -32,7 +32,7 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball)
 		collise: function(t)
 		{
 			//столкновение с линиями поля
-			/*for (var i = 0; i < game.rally.fieldLines.lines.length; i++)
+			for (var i = 0; i < game.rally.fieldLines.lines.length; i++)
 			{
 				if (i != excludeLine)				
 				{
@@ -47,13 +47,13 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball)
 						line[1] += ball.r/2;
 						line[3] += ball.r/2;
 					}					
-					var collisionPoint = collisionWithLine(line, t);
+					var collisionPoint = this.collisionWithLine(line, t);
 					if (collisionPoint.exists)
 					{											
-						bounceOfLine(line);
+						this.bounceOfLine(line);
 						ball.setControlPoint(collisionPoint.x, collisionPoint.y, ball.vx, ball.vy, ball.va, collisionPoint.t);
 						ball.viewShowPos();
-						init(collisionPoint.t);
+						this.init(collisionPoint.t);
 						excludeLine = i;						
 						ball.shiftTime(t);						
 						game.rally.referee.collision('field', i);
@@ -70,13 +70,13 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball)
 			for (var i = 0; i < game.rally.borderLines.lines.length; i++)
 			{				
 				var line = game.rally.borderLines.lines[i];
-				var collisionPoint = collisionWithLine(line, t);
+				var collisionPoint = this.collisionWithLine(line, t);
 				if (collisionPoint.exists)
 				{					
 					game.rally.referee.collision('border', 0);
 				}
 			}
-			*/
+			
 			//столкновение с нашим игроком
 			if (excludePlayer != 0)
 			{
@@ -88,7 +88,7 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball)
 					ball.setControlPoint(collisionPoint.x, collisionPoint.y, ball.vx, ball.vy, ball.va, collisionPoint.t);
 					game.rally.middleLines.hit(0, collisionPoint.x, collisionPoint.t);
 					ball.viewShowPos();
-					init(collisionPoint.t);
+					this.init(collisionPoint.t);
 					excludePlayer = 0;
 					excludeLine = -1;
 					ball.messageSendHit(collisionPoint.t);
@@ -108,7 +108,7 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball)
 					ball.setControlPoint(collisionPoint.x, collisionPoint.y, ball.vx, ball.vy, ball.va, collisionPoint.t);
 					game.rally.middleLines.hit(1, collisionPoint.x, collisionPoint.t);
 					ball.viewShowPos();
-					init(collisionPoint.t);
+					this.init(collisionPoint.t);
 					excludePlayer = 1;
 					excludeLine = -1;
 					ball.shiftTime(t);					

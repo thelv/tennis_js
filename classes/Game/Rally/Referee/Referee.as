@@ -42,17 +42,17 @@ Game.Rally.Referee.Referee=function(game)
 				{				
 					if (stage == 'on win')
 					{
-						rallyEnd(wasOurHit);
+						this.rallyEnd(wasOurHit);
 					}
 					else if (type == 'border')
 					{										
-						rallyEnd(! wasOurHit);
+						this.rallyEnd(! wasOurHit);
 					}
 					else
 					{
 						if ((number == 0 || number == 1) == wasOurHit)
 						{
-							rallyEnd(! wasOurHit);
+							this.rallyEnd(! wasOurHit);
 						}
 						else
 						{
@@ -67,7 +67,7 @@ Game.Rally.Referee.Referee=function(game)
 		{									
 			if (! isMessageFromHe)
 			{
-				messageSendRallyEnd(whoWin);
+				this.messageSendRallyEnd(whoWin);
 			}
 			game.referee.rallyEnd(whoWin);
 			
@@ -91,7 +91,7 @@ Game.Rally.Referee.Referee=function(game)
 			switch(message.mt)
 			{
 				case 'rw':
-					rallyEnd(! message.w, true);
+					this.rallyEnd(! message.w, true);
 					break;
 			}
 		}

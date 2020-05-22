@@ -1,10 +1,10 @@
 Game.Rally.Rally=function(game)
 {	
 	var Referee=Game.Rally.Referee.Referee;
-	/*var FieldLines=Game.Rally.FieldLines.FieldLines;
+	var FieldLines=Game.Rally.FieldLines.FieldLines;
 	var BorderLines=Game.Rally.BorderLines.BorderLines;
 	var MiddleLines=Game.Rally.MiddleLines.MiddleLines;
-	var ServeLines=Game.Rally.ServeLines.ServeLines;*/
+	var ServeLines=Game.Rally.ServeLines.ServeLines;
 	var Time=Game.Rally.Time.Time;
 	var Timer=Game.Rally.Timer.Timer;
 	var Player=Game.Rally.Player.Player;
@@ -13,6 +13,8 @@ Game.Rally.Rally=function(game)
 	var Ball=Game.Rally.Ball.Ball;
 
 	var referee=0, fieldLines=0, borderLines=0, middleLines=0, serveLines=0, time=0, timer=0, ball=0, player0=0, player1=0;
+
+	var serveLinesNode=document.querySelector('#border_serve');
 
 	var res=
 	{				
@@ -33,10 +35,10 @@ Game.Rally.Rally=function(game)
 			this.game = game;
 			
 			time = Time(game);
-			/*fieldLines = FieldLines();
+			fieldLines = FieldLines();
 			borderLines = BorderLines();
 			middleLines = MiddleLines();
-			serveLines = ServeLines();*/
+			serveLines = ServeLines();
 			referee = Referee(game);
 			ball = Ball(game);
 			player0 = LocalPlayer(game, true);
@@ -57,8 +59,8 @@ Game.Rally.Rally=function(game)
 		
 		shiftTime: function(t)
 		{						
-			/*middleLines.lines[0].shiftTime(t);
-			middleLines.lines[1].shiftTime(t);*/
+			middleLines.lines[0].shiftTime(t);
+			middleLines.lines[1].shiftTime(t);
 			player0.shiftTime(t);
 			player1.shiftTime(t);
 			ball.shiftTime(t);			
@@ -66,15 +68,15 @@ Game.Rally.Rally=function(game)
 		
 		viewShowServeLines: function(show)
 		{
-			return;
-			//
 			if (show)
 			{
 				serveLines.view.visible = true;
+				serveLinesNode.style.display='block';
 			}
 			else
 			{
 				serveLines.view.visible = false;
+				serveLinesNode.style.display='none';
 			}
 		}
 	}
