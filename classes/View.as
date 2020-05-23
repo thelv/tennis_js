@@ -2,7 +2,7 @@ View=function()
 {		
 
 	var e=document.createElement('div');
-	e.innerHTML='view';
+	//e.innerHTML='view';
 	e.setAttribute('class', 'view');
 	document.querySelector('#center').append(e);
 

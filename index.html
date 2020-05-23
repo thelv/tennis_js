@@ -61,15 +61,16 @@
 
 
 <html>
-	<head>		
+	<head>	
+		<meta charset=utf8>
 		<style>
 			*{font-family:tahoma;font-size:15px}
 			body {background: rgb(136, 231, 136);}
 			#page_game {width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;}
 			#center {width: 0; height: 0; position: relative}
-			#border_out {position: absolute; width: 1234px; height: 699px; border: 1px solid #aa4444; left: -618px; top: -350.5px}
+			#border_out {position: absolute; width: 1234px; height: 699px; border: 1px solid /*#77aa77;*/#80bb80;#aa4444; left: -618px; top: -350.5px}
 			#border_cort {position: absolute; width: 945px; height: 498px; border: 2px solid #555555; border-width: 2px 0; left: -477.5px; top: -251px}
-			#border_cort_blue {position: absolute; width: 477.5px; height: 498px; border: 2px solid /*#494;*/#119;#0000aa; border-width: 2px 0; left: -477.5px; top: -251px}
+			#border_cort_blue {position: absolute; width: 477.5px; height: 498px; border: 2px solid #227;#843030;#227;/*#494;*/#119;#0000aa; border-width: 2px 0; left: -477.5px; top: -251px}
 			#border_net {position: absolute; width:2px; background: #77aa77; height: 498px; border-width: 2px 0; left: -1px; top: -249px}
 			#border_point {position: absolute; width:0px; height: 0px; border: 5px solid #77aa77; left: -5px; top: -5px;  border-radius: 5px}
 			#border_serve {position: absolute; width: 717px; height: 498px; border: 1px solid #80bb80; left: -359.5px; top: -249px}
@@ -82,13 +83,13 @@
 				#ball div {position: absolute; top: -5px; left: -5px; background: url(img/ball.png); width: 10px; height: 10px}
 				
 			#lobby {position: absolute; left: 0px; width: 470px; bottom: 0px; top: 0px; background: rgba(0, 0, 0, 0.3);0.2); z-index: 100;padding: 15px; color: white;border: 1px solid rgba(0,0,0,0.05);border-width:0 1px 0 0}
-			#lobby:hover {background: rgba(0, 0, 0, 0.4);0.5)}
-			#lobby:hover h1{color: #c33;;#c33}
+			#lobby/*:hover*/ {background: rgba(0, 0, 0, 0.5);0.4);0.5)}
+			#lobby/*:hover*/ h1{color: #c33;#c92424;;#c33}
 			
 			h1 {margin:0px 0px 10px; font-size: 19px; color: #b63333;#a33}
 			#free_players, #invites {display: inline-block; width: 230px; margin-right: 0 10px 0 10px; vertical-align: top}
 			
-			#help {position: absolute; top: 270px;259px;267px; left: -300px; width: 600px; text-align: center;color:#333}
+			#help {position: absolute; top: 270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333}
 			#game_head {position: absolute; top: /*-329px;*/-312px; left: -300px; width: 600px; text-align: center;font-size: 18px;color: #333}
 			#score{margin-top: 6px; font-size: 16px}
 			
