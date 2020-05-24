@@ -7,6 +7,9 @@ Game.Rally.Player.Player=function(game, side)
 	
 	var view=0, startX=0, startA=0, holded=0, collisions=0, x=0, y=0, a=0, vx=0, vy=0, va=0, movingX=0, movingY=0, movingA=0, evalXY=0, evalA=0, length=40;
 	
+	var trainingAMax=0.3155192913420435;
+	var trainingAMin=0.13631929134204346;
+	
 	var res=
 	{			
 			get view(){return view;}, set view(a){view=a;},
@@ -36,7 +39,7 @@ Game.Rally.Player.Player=function(game, side)
 				evalA = PlayerEvalA(this);
 				holded = true;
 				startX = side ? 360: -360;
-				startA = side? -Math.PI / 2 : Math.PI / 2;
+				startA = side ? -Math.PI / 2 : Math.PI / 2;
 				this.setControlPointXY(startX, 0, 0, 0, 0, 0, 0);
 				this.setControlPointA(side ? -Math.PI/2 : Math.PI/2, 0, 0, 0);								
 				collisions = PlayerCollisions(this);
@@ -62,12 +65,16 @@ Game.Rally.Player.Player=function(game, side)
 					if (hold)
 					{
 						holded = true;
-						this.setControlPointXY(startX, 0, 0, 0, movingX, movingY, t);
-						this.setControlPointA(startA, 0, movingA, t);
+						this.setControlPointXY(startX, 0, 0, 0, movingX, movingY, t);						
+						this.setControlPointA(startA, 0, movingA, t)						
 						collisions.init(t);
 					}
 					else
 					{
+						if(this.game.type=='local' && this.side==false)
+						{						
+							this.setControlPointA(startA+Math.sign(Math.random()-0.5)*(trainingAMin+Math.random()*(trainingAMax-trainingAMin)), 0, movingA, t);
+						}
 						holded = false;
 					}
 				},
