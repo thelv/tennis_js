@@ -3,6 +3,8 @@ Game.Wait.Wait=function(game)
 	
 	var view=0, m=0;
 	
+	var e=document.querySelector('#wait');
+	
 	res=
 	{
 		
@@ -49,6 +51,7 @@ Game.Wait.Wait=function(game)
 			document.body.addEventListener('keydown', m);
 			//view
 			view.visible = true;
+			e.style.display='block';
 		},
 		
 		ready: function(event)
@@ -61,6 +64,7 @@ Game.Wait.Wait=function(game)
 				
 				//view
 				view.visible = false;				
+				e.style.display='none';
 				/*if (typeof event.stopPropagation != "undefined") {
 					event.stopPropagation();
 				} else {

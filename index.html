@@ -27,6 +27,7 @@
 		NetworkClient={};
 	</script>
 	<script src='classes/Main.as'></script>
+	<script src='classes/MainView.as'></script>
 	<script src='classes/MathLib.as'></script>
 	<script src='classes/View.as'></script>
 	<script src='classes/NetworkClient/NetworkClient.as'></script>
@@ -85,25 +86,25 @@
 				#ball {position: absolute}
 					#ball div {position: absolute; top: -5px; left: -5px; background: url(img/ball.png); width: 10px; height: 10px}
 					
-				#lobby {position: absolute; left: 0px; width: 470px; bottom: 0px; top: 0px; background: rgba(0, 0, 0, 0.3);0.2); z-index: 100;padding: 15px; color: white;border: 1px solid rgba(0,0,0,0.05);border-width:0 1px 0 0}
+				#lobby {position: absolute; left: 0px; width: 410px; bottom: 0px; top: 0px; background: rgba(0, 0, 0, 0.3);0.2); z-index: 100;padding: 15px; color: white;border: 1px solid rgba(0,0,0,0.05);border-width:0 1px 0 0}
 				#lobby/*:hover*/ {background: rgba(0, 0, 0, 0.5);0.4);0.5)}
 				#lobby/*:hover*/ h1{color: #c33;#c92424;;#c33}
 				
 				h1 {margin:0px 0px 10px; font-size: 19px; color: #b63333;#a33}
-				#free_players, #invites {display: inline-block; width: 230px; margin-right: 0 10px 0 10px; vertical-align: top}
+				#free_players, #invites {display: inline-block; width: 200px;230px; margin-right: 0 10px 0 10px; vertical-align: top}
 				
 				#help {position: absolute; top: /*281px;*/267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333}
-				#game_head {position: absolute; top: /*-322px;*//*-329px;*/-301px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
+				#game_head {position: absolute; top: /*-322px;*//*-329px;*/-301px;bottom:274px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
 				#score{margin-top: 6px; font-size: 16px}
 				
 				#help h3{margin: 0 0 4px 0}
 				#help h3 a {font-weight: normal; font-size: 15px;text-decoration: underline;display: none}
 				#help > a {font-weight: normal; font-size: 15px;text-decoration: underline;color: gray;margin-top: 3px;display: inline-block}
 				
-				#wait {position: absolute; width: 250px; padding: 10px; -height: 50px; background: rgba(190, 240, 190, 0.8);#cec; top:-120px; -150px; left: -126px; border: 1px solid #888; text-align: center}
+				#wait {position: absolute; width: 250px; padding: 10px; -height: 50px; background: rgba(190, 240, 190, 0.8);#cec; top:/*-120px;*/ -165px;-150px; left: -126px; border: 1px solid #888; text-align: center}
 				#wait b {color: #595; display: block; margin-bottom: 3px; display: -none}
 				#wait span {font-size: 13px; margin-top: 4px; display: block; color: #777}
-				.list a {text-decoration: underline;}
+				.list a, .list .user {text-decoration: underline;}
 				.list {color:#d5d5d5 !important;margin-bottom: 15px !important}
 				
 				#auth {margin: 10px 0; color: #d5d5d5}
@@ -122,50 +123,52 @@
 					#chat_close:hover{border-width:11px;margin-left:-11px}
 					#chat_close{position:absolute;left:50%;margin-left:-10px;border:10px solid transparent;border-bottom:10px solid #aaa; bottom: 6px}
 					
+				#game_out {color: gray; text-decoration: underline; position: absolute; top: 6px; right: 13px}
+				
+				#vk {position: absolute; bottom: 12px; color: #d4d4d4; font-size: 14px}
+					
+				#name_change {cursor: pointer}
 			</style>
 		</head>	
 		<body>
-			<div id=lobby>			
+			<div id=lobby>	
+				<div id=vk>Группа ВКонтакте: <u>vk.com/tennis2d</u></div> 
 				<div id=lobby_close style=''></div>
 				<h1>Tennis 2D</h1>
 				<div id=auth>
-					<a>Авторизуйтесь</a>, чтобы не потерять накопленный рейтинг.<br>
-					Реальные данные аккаунта будут скрыты.
-					<!-- Привет, thelv (<a>изменить имя</a>, <a>выйти</a>). -->
+					<!-- <a>Авторизуйтесь</a>, чтобы не потерять накопленный рейтинг.<br>
+					Реальные данные аккаунта будут скрыты. -->
+					Привет, <span id=name>user</span> (<a id=name_change>изменить имя</a>).
 				</div>
 				<div id=free_players>Свободные игроки
-				<div class=list style='color:#ccc;line-height:24px;margin:4px 0 10px '>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br><a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					</div></div>
+				<div class=list id=users_free_list style='color:#ccc;line-height:24px;margin:4px 0 10px '>
+					...
+					</div>
+					
+					Занятые игроки
+					<div class=list id=users_not_free_list style='color:#ccc;line-height:24px;margin:4px 0 10px '>
+					...
+					</div>
+					</div>
 				<div id=invites>
 					<div id=invites_to_me>Поступившие приглашения</div>
 					<div class=list style='color:#118;#33a;line-height:24px;margin:4px 0 10px '>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br></div>
+					<!-- <a>thelv</a> <br>
+					<a>thelv</a> <br>
+					<a>thelv</a> <br>
+					<a>thelv</a> <br>
+					<a>thelv</a> <br>-->
+					<span style='line-height:18px'>Вас пока никто не пригласил.</span>
+					</div>
 					<div id=invites_from_me>Отправленные приглашения</div>
 					<div class=list style='color:#118;#33a;line-height:24px;margin:4px 0 10px '>
-					<a>thelv</a> (104 игр)<br>			
-					<a>thelv</a> (104 игр)<br>
-					<a>thelv</a> (104 игр)<br></div>
+					<span style='line-height:18px'>Пригласите свободного игрока поиграть.</span>
+					<!-- <a>thelv</a> <br>			
+					<a>thelv</a> <br>
+					<a>thelv</a> <br>--></div>
 				</div>
 			</div>	
+			<!-- <div id=game_out>выйти из игры</div> -->
 			<div id=chat>
 				<div id=chat_close style=''></div>
 				<input type=text placeholder='Введите сообщение' />				
@@ -209,10 +212,11 @@
 						<div id=border_start>
 						</div>
 						<div id=wait>
-							<!-- <b>Вы выиграли очко.</b> -->
+							<!-- <b>Вы выиграли очко.</b>  -->
 							Нажмите пробел, чтобы начать.
-							<!--Нажмите пробел, если готовы.
-							Соперник не готов. -->
+							<!-- Нажмите пробел, если готовы.<br>							
+							Соперник не готов.<br>
+							<!-- Нажмите ESC, чтобы выйти из игры.<br> -->
 							<!-- <span>Совет: набегайте на мяч под углом, чтобы придать ему вращение.</span> -->
 							<!-- <span>Совет: если мяч от соперника летит прямиком в аут, не отбивайте его.</span> -->
 						</div>
@@ -223,15 +227,16 @@
 							<a>скрыть подсказку</a>
 						</div>
 						<div id=game_head>						
-							Обучение со статичным соперником.
-							<!--Матч с petronya (41 игр)
-							<div id=score>Счет (сеты/геймы/подачи): 0:1 / 2:3 / 5:6*</div>-->
-						</div>
+							Обучение со статичным соперником
+							<!-- Матч с petronya --><!-- (41 игр)-->
+							<!-- <div id=score>Счет (сеты/геймы/подачи): 0:1 / 2:3 / 5:6*</div> -->
+						</div>					
 					</div>
 				</div>
 			</div>
 			<script>
-				Main.gameCreate('local', false);
+				//Main.gameCreate('local', false);
+				Main.init();
 				var chatInput=document.querySelector('#chat input');
 				chatInput.addEventListener('focusin', function(){ chatInput.setAttribute('class', 'focus'); });
 				chatInput.addEventListener('focusout', function(){ chatInput.setAttribute('class', ''); });

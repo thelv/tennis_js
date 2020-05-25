@@ -1,36 +1,67 @@
-NetworkClient.NetworkClient=function()
-{		
+NetworkClient.NetworkClient=function(host, port)
+{	
+	var ws=false;
+
 	var res=
-	{
-		
-		
-		NetworkClient: function(host, port, connectionsCount)
+	{				
+		NetworkClient: function(host, port)
 		{
-			//	
-		},
-		
-		connectionsReady: function(success)
-		{
-			//
+			host=host;
+			port=port;
+			this.connect();
 			
-		},
-		
-		sessionReady: function()
-		{			
-			//
 		},
 		
 		messageSend: function(message, sendType=null)
 		{
-			//
+			if(ws) ws.send(JSON.stringify(message), function(){});
+		},				
+		
+		reconnect: function()
+		{
+			if(ws)
+			{	
+				ws=false;
+				setTimeout(res.connect, 1000);
+			}
 		},
 		
-		messageReceive: function(message, connectionNumber)
+		connect: function()
 		{
-			//
+			ws=new WebSocket('ws://'+host+':'+port);
+			
+			ws.onclose=function()
+			{
+				res.reconnect();
+			};
+			
+			ws.onerror=function()
+			{
+				res.reconnect();
+			};
+			
+			ws.onmessage=function(message)
+			{
+				message=JSON.parse(message.data);
+				if (message.g)
+				{
+					Main.game.messageReceive(message);
+				}
+				else
+				{
+					Main.messageReceive(message);
+				}
+			};
+			
+			ws.onopen=function()
+			{
+				Main.connectionEstablished();
+			};
 		}
 		
 	}
+	
+	res.NetworkClient(host, port);
 	
 	return res;
 
