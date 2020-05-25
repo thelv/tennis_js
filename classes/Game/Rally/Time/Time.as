@@ -1,24 +1,25 @@
 Game.Rally.Time.Time=function()
 {
 
-	var shiftTime=0, shiftTimes=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], i=0, l=0;
+	shiftTime=0, startTime=0, shiftTimes=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], i=0, l=0;
 	
 	var echo=function()
 	{
 		var time=new Date().getTime();
 		var xhr=new XMLHttpRequest();
-		xhr.open('GET', 'sync.php', true);
+		xhr.open('GET', 'service/sync.php', true);
 		xhr.send();	
 		xhr.onreadystatechange = function() 
-		{				
-			if(xhr.readyState!=4 && xhr.status!=200) return;   
+		{									
+			if(xhr.readyState!=4 || xhr.status!=200) return;   
 			shiftTimes[i]=(new Date().getTime()+time)/2-xhr.responseText;
 			if(l!=10) l++;
+			if(i!=9) i++; else i=0;
 		}		
-	});
+	};
  
 	
-	var j=5;
+	var j=11;
 	var m=function()
 	{
 		j--;
@@ -29,23 +30,28 @@ Game.Rally.Time.Time=function()
 		}
 	}
 	m();
-	setInterval(echo, 3000);
+	setInterval(echo, 10000);
 		 
 	var res=
 	{		
 		get: function()
 		{			
-			return new Date().getTime()-shiftTime;
+			return new Date().getTime()-shiftTime-startTime;
 		},
 		
-		sync: function(startTime)
+		reset: function(startTime_)
+		{
+			startTime=startTime_;
+		},
+		
+		sync: function()
 		{
 			var shiftTime_=0;
 			for (var j=0; j<l; j++)
 			{
 				shiftTime_+=shiftTimes[i];
 			}
-			shiftTime=shiftTime_/10+startTime;
+			shiftTime=shiftTime_/10;
 		}
 	}
 	

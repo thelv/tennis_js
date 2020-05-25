@@ -60,7 +60,7 @@ Game.Wait.Wait=function(game)
 			{					
 			///	Main.stage.removeEventListener(KeyboardEvent.KEY_UP, ready);
 				document.body.removeEventListener('keydown', m);
-				game.referee.rallyStart(game.rally.time.get());
+				game.referee.rallyStart(time.get());
 				
 				//view
 				view.visible = false;				

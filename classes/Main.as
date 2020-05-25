@@ -5,11 +5,11 @@ Main=class
 {						
 	static init()
 	{
-		time=Time.Time();
+		time=Game.Rally.Time.Time();
 		Main.view=MainView();
 		if(! localStorage.auth) localStorage.auth=(Math.random())+(Math.random())+(Math.random())+(Math.random());		
-		networkClient=Main.networkClient=NetworkClient.NetworkClient('thelv.ru', 8083);
-		Main.gameCreate('local', false);
+		networkClient=Main.networkClient=NetworkClient.NetworkClient('tennis2d.org', 8084);
+		Main.gameCreate('local', false, time.get());
 		if(localStorage.name) Main.nameSet(localStorage.name);
 	}
 	
@@ -18,7 +18,7 @@ Main=class
 		Main.networkClient.messageSend(message, sendType);
 	}				
 	
-	static gameCreate(type, whoMain)
+	static gameCreate(type, whoMain, t)
 	{
 		if(Main.game)
 		{
@@ -27,7 +27,7 @@ Main=class
 			Main.game.rally.player1.unbind();
 			Main.game.rally.wait.unbind();
 		}
-		Main.game = Game.Game(type, whoMain);
+		Main.game = Game.Game(type, whoMain, t);
 	}	
 	
 	static connectionEstablished()
@@ -47,10 +47,8 @@ Main=class
 				Main.view.invites();
 				break;
 				
-			case 'game_create':
-				time.reset();
-				time.sync();
-				Main.gameCreate('remote', message.first_serve);
+			case 'game_create':				
+				Main.gameCreate('network', message.first_serve, message.t);
 				break;				
 				
 			case 'name_set': 

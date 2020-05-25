@@ -71,7 +71,9 @@ Game.Rally.Referee.Referee=function(game)
 			}
 			game.referee.rallyEnd(whoWin);
 			
-			var t = game.rally.time.get();
+			if(game.type!='local') time.sync();
+			
+			var t = time.get();
 			game.rally.player0.hold(true, t);
 			game.rally.player1.hold(true, t);
 			game.rally.ball.serve(false, false, t);

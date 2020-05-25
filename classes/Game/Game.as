@@ -1,4 +1,4 @@
-Game.Game=function(type, whoMain)
+Game.Game=function(type, whoMain, t)
 {		
 	
 	var 
@@ -16,7 +16,7 @@ Game.Game=function(type, whoMain)
 		get wait(){return wait;}, set wait(a){wait=a;},
 		get referee(){return referee;}, set referee(a){referee=a;},
 	
-		Game: function(type, whoMain) 
+		Game: function(type, whoMain, t) 
 		{
 			//view
 			this.type = type;
@@ -26,8 +26,11 @@ Game.Game=function(type, whoMain)
 			
 			rally = Game.Rally.Rally(this);
 			wait = (type=='local') ? Game.Wait.Wait(this) : Game.Wait.NetworkWait(this);
-			referee = Game.Referee.Referee(this, whoMain);
-			rally.time.synchronize(); 
+			referee=Game.Referee.Referee(this, whoMain);
+			
+			time.reset(t);
+			if(type!='local') time.sync();
+			referee.start();
 			//referee.start() executes from string time.synchronize()
 		},
 		
@@ -37,7 +40,7 @@ Game.Game=function(type, whoMain)
 			{
 				case 'pcp':
 				case 'pcpa':
-					(rally.player1).messageReceive(message);
+					rally.player1.messageReceive(message);
 					break;
 				case 'bh':
 					rally.ball.messageReceive(message);
@@ -46,25 +49,25 @@ Game.Game=function(type, whoMain)
 					rally.referee.messageReceive(message);
 					break;
 				case 'wr':
-					(wait).messageReceive(message);
+					wait.messageReceive(message);
 					break;
-				case 'ts':
+				/*case 'ts':
 					rally.time.messageReceive(message);
-					break;
+					break;*/
 			}
 		},
 		
 		messageSend: function(message, sendType=null)
 		{
-			message.g = true;
-			if (type == 'network')
+			message.g=true;
+			if (type=='network')
 			{
 				Main.networkClient.messageSend(message, sendType);
 			}
 		}
 	}
 	
-	res.Game(type, whoMain);
+	res.Game(type, whoMain, t);
 	
 	return res;
 

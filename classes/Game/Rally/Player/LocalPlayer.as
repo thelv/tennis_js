@@ -55,7 +55,7 @@ Game.Rally.Player.LocalPlayer=function(game, side)
 				
 				if (movingX != this.movingX || movingY != this.movingY || movingA != this.movingA)
 				{
-					var t = game.rally.time.get();					
+					var t = time.get();
 					this.shiftTime(t);
 												
 					if(movingX!=this.movingX || movingY!=this.movingY)

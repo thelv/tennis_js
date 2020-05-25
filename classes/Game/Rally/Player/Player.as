@@ -41,7 +41,7 @@ Game.Rally.Player.Player=function(game, side)
 				startX = side ? 360: -360;
 				startA = side ? -Math.PI / 2 : Math.PI / 2;
 				this.setControlPointXY(startX, 0, 0, 0, 0, 0, 0);
-				this.setControlPointA(side ? -Math.PI/2 : Math.PI/2, 0, 0, 0);								
+				this.setControlPointA(side ? -Math.PI/2 : Math.PI/2, 0, 0, 0);		
 				collisions = PlayerCollisions(this);
 
 				//view					

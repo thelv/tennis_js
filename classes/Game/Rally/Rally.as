@@ -34,7 +34,7 @@ Game.Rally.Rally=function(game)
 		{
 			this.game = game;
 			
-			time = Time(game);
+			time = window.time;
 			fieldLines = FieldLines();
 			borderLines = BorderLines();
 			middleLines = MiddleLines();
