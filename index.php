@@ -106,9 +106,9 @@
 				#free_players, #invites {display: inline-block; width: 200px;230px; margin-right: 0 10px 0 10px; vertical-align: top}
 				
 				#help {position: absolute; top: /*281px;*/268px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333}
-				#help_open {position: absolute; top: /*281px;*/267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333; font-weight: normal; font-size: 15px;text-decoration: underline;color: gray; display:none; cursor: pointer}
+				#help_open {position: absolute; top: /*281px;*/268px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333; font-weight: normal; font-size: 15px;text-decoration: underline;color: gray; display:none; cursor: pointer}
 				#help_close {cursor:pointer}
-				#game_head {position: absolute; top: /*-322px;*//*-329px;*/-301px;bottom:274px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
+				#game_head {position: absolute; top: /*-322px;*//*-329px;*/-300px;bottom:274px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
 				#score{margin-top: 6px; font-size: 16px}
 				
 				#help h3{margin: 0 0 4px 0}
@@ -118,8 +118,8 @@
 				#wait {position: absolute; width: 250px; padding: 10px; -height: 50px; background: rgba(190, 240, 190, 0.8);#cec; top:/*-120px;*/ -165px;-150px; left: -126px; border: 1px solid #888; text-align: center}
 				#wait b {color: #595; display: block; margin-bottom: 3px; display: -none}
 				#wait span {font-size: 13px; margin-top: 4px; display: block; color: #777}
-				.list a, .list .user {text-decoration: underline;margin-bottom:6px}
-				.list {color:#d5d5d5 !important;margin-bottom: 15px !important; line-height-:24px;margin-top:6px}
+				.list a, .list .user {text-decoration: underline;margin-bottom:5px}
+				.list {color:#d5d5d5 !important;margin-bottom: 15px !important; line-height-:24px;margin-top:5px}
 				
 				#auth {margin: 10px 0; color: #d5d5d5}
 				#auth a {text-decoration: underline}
@@ -133,14 +133,14 @@
 					#chat input {border: 0; background: transparent; font-size: 15px; border-bottom: 1px solid #fff; width:189px; line-height: 28px; color: white; display: block; margin-bottom: 6px; margin-top: 1px; padding-bottom: 3px}
 					#chat input::placeholder {color: #bbb; font-style: italic-}
 					#chat input.focus::placeholder {color: transparent; font-style: italic}
-					#chat .message {margin: 6px 0; display: -flex; flex-direction: row;}							
+					#chat .message {margin: 5px 0; display: -flex; flex-direction: row;}							
 				
 				#chat.chat2 {position: absolute; width: 200px; top: 0; right: 0; color: #d5d5d5;/*#f3f3f3;#e9e9e9;*/#f8f8f8; margin-top: 0px; z-index: 1000; background: rgba(0, 0, 0, 0.5); padding: 0 0 0px 12px;19px; height: 100%; padding-right:0px; height:300px;bottom:0;top:auto;position-:relative;z-index:200;padding-top:12px}
 					#chat_head {margin-bottom: 10px}
 					#chat.chat2 input {border: 0; background: transparent; font-size: 15px; border-bottom: 1px solid #fff; width:189px; line-height: 28px; color: #d5d5d5; display: block; margin-bottom: 6px; margin-top: 1px; padding-bottom: 3px}
 					#chat.chat2 input::placeholder {color: #bbb; font-style: italic-}
 					#chat.chat2 input.focus::placeholder {color: transparent; font-style: italic}
-					#chat .message {margin: 6px 0; display: -flex; flex-direction: row;}							
+					#chat .message {margin:5px 0; display: -flex; flex-direction: row;}							
 						
 				#chat.chat2 #chat_close {top: 6px; bottom: auto; border-bottom:0; border-top :10px solid #aaa; right-:12px; left-: auto; margin-left: -5px; -top: 15px}
 						
@@ -284,7 +284,7 @@
 						<div id=help>
 							<!--<h3>Как играть <a>скрыть</a></h3>-->
 							<b>Управление</b>: WSAD - движение, стрелки влево и вправо - поворот.<br>
-							<b>Задача</b>: отбить мяч в <span id=help_blue>синие</span> ограждения (навылет или в серые ограждения нельзя!).
+							<div style='-margin-top:1px'></div><b>Задача</b>: отбить мяч в <span id=help_blue>синие</span> ограждения (навылет или в серые ограждения нельзя!).
 							<a id=help_close>скрыть подсказку</a>
 						</div>
 						<div id=help_open>
