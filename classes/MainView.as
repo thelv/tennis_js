@@ -47,7 +47,7 @@ MainView=function()
 				var user=notFree[i]; 
 				var e=document.createElement('div');
 				e.setAttribute('class', 'user');
-				e.innerText=free[i].name;
+				e.innerText=notFree[i].name;
 				(function(id)
 				{
 					e.addEventListener('click', function()
@@ -61,7 +61,11 @@ MainView=function()
 			{
 				usersNotFreeNode.innerText='Никого нет.';
 			}
-		}	
+		},
+
+		invites: function()
+		{
+		}
 	}
 	
 	return res;

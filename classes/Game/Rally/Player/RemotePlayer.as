@@ -7,7 +7,7 @@ Game.Rally.Player.RemotePlayer=function(game, side)
 	
 	res.messageReceive=function(message)
 	{
-		switch(message.mt)
+		switch(message.tp)
 		{
 			case 'pcp':
 				this.setControlPointXY(-message.x, -message.y, -message.vx, -message.vy, -message.mx, -message.my, message.t);
@@ -17,6 +17,8 @@ Game.Rally.Player.RemotePlayer=function(game, side)
 				break;
 		}
 	}
+	
+	res.unbind=function(){};
 	
 	return res;
 

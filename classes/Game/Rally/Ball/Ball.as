@@ -81,7 +81,7 @@ Game.Rally.Ball.Ball=function(game)
 			messageSendHit: function(t)
 			{					
 				game.messageSend(
-					{mt: 'bh', t: t, x: this.x, y: this.y, vx: this.vx, vy: this.vy, va: this.va}
+					{tp: 'bh', t: t, x: this.x, y: this.y, vx: this.vx, vy: this.vy, va: this.va}
 					,{firstConnection: 9, connectionsRange: 3, connectionsCount: 2, seriesName: 'bh'}
 				);
 				//"bh" == "ball hit"
@@ -89,14 +89,14 @@ Game.Rally.Ball.Ball=function(game)
 			
 			messageReceive: function(message)
 			{
-				switch(message.mt)
+				switch(message.tp)
 				{
 					case 'bh':
-						setControlPoint( -message.x, -message.y, -message.vx, -message.vy, message.va, message.t);
+						this.setControlPoint( -message.x, -message.y, -message.vx, -message.vy, message.va, message.t);
 						game.rally.middleLines.hit(1, -message.x, message.t);
 						game.rally.referee.collision('player', 1);
 						collisions.hitWas(1);
-						shiftTime(game.rally.time.get());
+						this.shiftTime(game.rally.time.get());
 						break;
 				}
 			}

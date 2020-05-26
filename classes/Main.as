@@ -8,7 +8,8 @@ Main=class
 		time=Game.Rally.Time.Time();
 		Main.view=MainView();
 		if(! localStorage.auth) localStorage.auth=(Math.random())+(Math.random())+(Math.random())+(Math.random());		
-		networkClient=Main.networkClient=NetworkClient.NetworkClient('tennis2d.org', 8084);
+		//networkClient=Main.networkClient=NetworkClient.NetworkClient('tennis2d.org', 8084);
+		networkClient=Main.networkClient=NetworkClient.NetworkClient('tennis.thelv.ru', 8083);
 		Main.gameCreate('local', false, time.get());
 		if(localStorage.name) Main.nameSet(localStorage.name);
 	}
@@ -25,7 +26,7 @@ Main=class
 			Main.game.rally.timer.unbind();
 			Main.game.rally.player0.unbind();
 			Main.game.rally.player1.unbind();
-			Main.game.rally.wait.unbind();
+			Main.game.wait.unbind();
 		}
 		Main.game = Game.Game(type, whoMain, t);
 	}	
@@ -72,6 +73,11 @@ Main=class
 			Main.nameSet(name);
 			Main.messageSend({tp: 'name_set', name: name});
 		}
+	}
+	
+	static invite(id)
+	{
+		networkClient.messageSend({tp: 'invite_send', id: id});
 	}
 }
 

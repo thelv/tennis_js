@@ -31,7 +31,7 @@ Game.Rally.Player.LocalPlayer=function(game, side)
 			:
 				KeyHandler(this, 65, 68, 83, 87, 78, 86)
 			;
-		}				
+		}	
 		
 		//logic						
 			
@@ -75,7 +75,7 @@ Game.Rally.Player.LocalPlayer=function(game, side)
 			res.messageSendControlPointXY=function(t)
 			{
 				game.messageSend(
-					{mt: 'pcp', t: t, x: this.x, y: this.y, mx: this.movingX, my: this.movingY, vx: this.vx, vy: this.vy}
+					{tp: 'pcp', t: t, x: this.x, y: this.y, mx: this.movingX, my: this.movingY, vx: this.vx, vy: this.vy}
 					,{firstConnection: 1, connectionsRange: 4, connectionsCount: 2, seriesName: 'pcp'}
 				);
 				//"pcp"=="player_control_point"
@@ -84,7 +84,7 @@ Game.Rally.Player.LocalPlayer=function(game, side)
 			res.messageSendControlPointA=function(t)
 			{
 				game.messageSend(
-					{mt: 'pcpa', t: t, a: this.a, ma: this.movingA}
+					{tp: 'pcpa', t: t, a: this.a, ma: this.movingA}
 					,{firstConnection: 1, connectionsRange: 4, connectionsCount: 2, seriesName: 'pcp'}
 				);
 				//"pcpa"=="player_control_point"				
@@ -105,6 +105,7 @@ Game.Rally.Player.LocalPlayer=function(game, side)
 			}
 			
 	res.LocalPlayer(game, side);
+	res.unbind=keyHandler.unbind;
 			
 	return res;
 

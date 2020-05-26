@@ -17,6 +17,11 @@ Game.Rally.Timer.Timer=function(game)
 		action: function(event)
 		{
 			game.rally.shiftTime(time.get());
+		},
+		
+		unbind: function()
+		{
+			clearInterval(timer);
 		}
 	}
 	

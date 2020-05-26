@@ -28,7 +28,7 @@ NetworkClient.NetworkClient=function(host, port)
 		
 		connect: function()
 		{
-			ws=new WebSocket('wss://'+host+':'+port);
+			ws=new WebSocket('ws://'+host+':'+port);
 			
 			ws.onclose=function()
 			{

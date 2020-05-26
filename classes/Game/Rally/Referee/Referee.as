@@ -84,13 +84,13 @@ Game.Rally.Referee.Referee=function(game)
 		
 		messageSendRallyEnd: function(whoWin)
 		{
-			game.messageSend({mt: 'rw', w: whoWin});
+			game.messageSend({tp: 'rw', w: whoWin});
 			//"rw"=="rally_win (or loose)"
 		},
 		
 		messageReceive: function(message)
 		{
-			switch(message.mt)
+			switch(message.tp)
 			{
 				case 'rw':
 					this.rallyEnd(! message.w, true);

@@ -46,20 +46,27 @@ Game.Rally.Player.KeyHandler.KeyHandler=function(localPlayer, keyLeft, keyRight,
 				//Main.stage.addEventListener(KeyboardEvent.KEY_DOWN, uiKeyDown);
 				//Main.stage.addEventListener(KeyboardEvent.KEY_UP, uiKeyUp);
 				var this_=this;
-				document.body.addEventListener('keydown', function(e){this_.uiKeyDown(e);});
-				document.body.addEventListener('keyup', function(e){this_.uiKeyUp(e);});
+				var m=this_.uiKeyDown;
+				document.body.addEventListener('keydown', res.uiKeyDown);
+				document.body.addEventListener('keyup', res.uiKeyUp);
 			},		
 		
 		//ui methods
 			
 			uiKeyDown: function(event)
 			{								
-				this.keyDownF(event.keyCode);
+				res.keyDownF(event.keyCode);
 			},
 			
 			uiKeyUp: function(event)
 			{
-				this.keyUpF(event.keyCode);
+				res.keyUpF(event.keyCode);
+			},
+			
+			unbind: function()
+			{
+				document.body.removeEventListener('keydown', res.uiKeyDown);
+				document.body.removeEventListener('keyup', res.uiKeyUp);
 			},
 			
 		//logic methods

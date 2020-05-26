@@ -1,7 +1,7 @@
 Game.Wait.Wait=function(game)
 {
 	
-	var view=0, m=0;
+	var view=0, ready=0;
 	
 	var e=document.querySelector('#wait');
 	
@@ -47,8 +47,7 @@ Game.Wait.Wait=function(game)
 		wait: function()
 		{			
 		//	Main.stage.addEventListener(KeyboardEvent.KEY_UP, ready);
-			m=this.ready;
-			document.body.addEventListener('keydown', m);
+			document.body.addEventListener('keydown', ready);
 			//view
 			view.visible = true;
 			e.style.display='block';
@@ -59,7 +58,7 @@ Game.Wait.Wait=function(game)
 			if (event.keyCode == 32)
 			{					
 			///	Main.stage.removeEventListener(KeyboardEvent.KEY_UP, ready);
-				document.body.removeEventListener('keydown', m);
+				document.body.removeEventListener('keydown', ready);
 				game.referee.rallyStart(time.get());
 				
 				//view
@@ -73,11 +72,17 @@ Game.Wait.Wait=function(game)
 				event.preventDefault();
 				return true;
 			}		
+		},
+		
+		unbind: function()
+		{
+			document.body.removeEventListener('keydown', ready);
 		}
 		
 	}
 	
 	res.Wait(game);
+	ready=res.ready;
 	
 	return res;
 

@@ -36,7 +36,7 @@ Game.Game=function(type, whoMain, t)
 		
 		messageReceive: function(message)
 		{
-			switch(message.mt)
+			switch(message.tp)
 			{
 				case 'pcp':
 				case 'pcpa':

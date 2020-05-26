@@ -188,7 +188,7 @@ Game.Referee.Referee=function(game, whoMain)
 		
 	}
 	
-	res.Referee(game, whoServe);
+	res.Referee(game, whoMain);
 	
 	return res;
 

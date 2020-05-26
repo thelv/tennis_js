@@ -1,7 +1,7 @@
 Game.Wait.NetworkWait=function(game)
 {
 	
-	var isReadyWe=0, isReadyHe=0, timer=0, startTime=0;
+	var isReadyWe=0, isReadyHe=0, timer=0, startTime=0, readyWe=0;
 	
 	var res=
 	{	
@@ -63,8 +63,8 @@ Game.Wait.NetworkWait=function(game)
 		
 		wait: function()
 		{
-			//Main.stage.addEventListener(KeyboardEvent.KEY_UP, readyWe);
-			
+			//Main.stage.addEventListener(KeyboardEvent.KEY_UP, readyWe);			
+			document.body.addEventListener('keydown', readyWe);
 			//view
 			this.viewShowReady();
 			//view.visible = true;
@@ -75,13 +75,13 @@ Game.Wait.NetworkWait=function(game)
 			if (event.keyCode == 32)
 			{								
 				isReadyWe = ! isReadyWe;
-				start(-1);
+				res.start(-1);
 			}
 		},
 		
 		start: function(time)
 		{
-			viewShowReady();
+			this.viewShowReady();
 			
 			if (time < 0)
 			{
@@ -89,33 +89,35 @@ Game.Wait.NetworkWait=function(game)
 				{
 					if (time == -1) 
 					{
-						messageSendReady(isReadyWe, -2);
+						this.messageSendReady(isReadyWe, -2);
 					}
 					return;
 				}
 				else
 				{					
 					time = game.rally.time.get();
-					messageSendReady(true, time);
+					this.messageSendReady(true, time);
 				}
 			}			
 			
-			Main.stage.removeEventListener(KeyboardEvent.KEY_UP, ready);
+			//Main.stage.removeEventListener(KeyboardEvent.KEY_UP, this.ready);
+			document.body.removeEventListener('keydown', readyWe);
 			isReadyWe = false;
 			isReadyHe = false;
 			
-			timer.reset();
+			//timer.reset();
 			startTime = time + 1000;
 			var delay = startTime-game.rally.time.get();
 			if(delay<=0)
 			{
-				startImmediately(null);
+				this.startImmediately(null);
 			}
 			else
 			{
-				timer.reset();
-				timer.delay = delay;
-				timer.start();
+				//timer.reset();
+				//timer.delay = delay;
+				//timer.start();
+				setTimeout(this.startImmediately, delay);
 			}
 			
 			//view
@@ -130,11 +132,11 @@ Game.Wait.NetworkWait=function(game)
 		
 		messageReceive: function(message)
 		{
-			switch(message.mt)
+			switch(message.tp)
 			{
 				case 'wr':										
 					isReadyHe = message.r;
-					start(message.t);					
+					this.start(message.t);					
 					break;
 			}
 		},
@@ -142,7 +144,7 @@ Game.Wait.NetworkWait=function(game)
 		messageSendReady: function(ready, time)
 		{
 			game.messageSend(
-				{mt: 'wr', r: ready, t: time}
+				{tp: 'wr', r: ready, t: time}
 			);
 			//"wr" == "wait ready (or not)"
 		},
@@ -155,6 +157,7 @@ Game.Wait.NetworkWait=function(game)
 	}
 	
 	res.NetworkWait(game);
+	readyWe=res.readyWe;
 
 	return res;
 
