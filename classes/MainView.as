@@ -25,7 +25,7 @@ MainView=function()
 				var user=free[i]; 
 				var e=document.createElement('div');
 				e.setAttribute('class', 'user');
-				e.innerText=free[i].name;
+				e.innerHTML='<u>'+free[i].name+'</u> (24, 120, 43)';
 				(function(id)
 				{
 					e.addEventListener('click', function()
@@ -47,7 +47,7 @@ MainView=function()
 				var user=notFree[i]; 
 				var e=document.createElement('div');
 				e.setAttribute('class', 'user');
-				e.innerText=notFree[i].name;
+				e.innerHTML='<u>'+notFree[i].name+'</u> (24, 120, 43)';
 				(function(id)
 				{
 					e.addEventListener('click', function()

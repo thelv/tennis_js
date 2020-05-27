@@ -118,7 +118,7 @@
 				#wait {position: absolute; width: 250px; padding: 10px; -height: 50px; background: rgba(190, 240, 190, 0.8);#cec; top:/*-120px;*/ -165px;-150px; left: -126px; border: 1px solid #888; text-align: center}
 				#wait b {color: #595; display: block; margin-bottom: 3px; display: -none}
 				#wait span {font-size: 13px; margin-top: 4px; display: block; color: #777}
-				.list a, .list .user {text-decoration: underline;margin-bottom:5px}
+				.list a, .list .user {-text-decoration: underline;margin-bottom:5px}
 				.list {color:#d5d5d5 !important;margin-bottom: 15px !important; line-height-:24px;margin-top:5px}
 				
 				#auth {margin: 10px 0; color: #d5d5d5}
@@ -166,17 +166,18 @@
 				<div id=vk>Группа ВКонтакте: <u>vk.com/tennis2d</u></div> 
 				<div id=lobby_close style=''></div>
 				<h1>Теннис 2D</h1>
+				<div style='position:absolute; bottom:40px; color:#d4d4d4;-background:rgba(0,0,0,0.3);-padding:4px 6px;-margin-left:-6px'>(*) запись игрока: имя (рейтинг, кол-во игр, пинг до вас)</div>
 				<div id=auth>
 					<!-- <a>Авторизуйтесь</a>, чтобы не потерять накопленный рейтинг.<br>
 					Реальные данные аккаунта будут скрыты. -->
-					Привет, <span id=name>user</span> (<a id=name_change>изменить имя</a>).
+					Привет, <span id=name>user</span> (10, 2, 33)*, <a id=name_change>изменить имя</a>, <a>выйти</a>.
 				</div>
 				<div id=free_players>Свободные игроки
 				<div class=list id=users_free_list style=''>
 					...
 					</div>
 					
-					Занятые игроки
+					Смотреть игры онлайн
 					<div class=list id=users_not_free_list style=''>
 					...
 					</div>
