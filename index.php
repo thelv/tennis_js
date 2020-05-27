@@ -119,6 +119,7 @@
 				#wait b {color: #595; display: block; margin-bottom: 3px; display: -none}
 				#wait span {font-size: 13px; margin-top: 4px; display: block; color: #777}
 				.list a, .list .user {-text-decoration: underline;margin-bottom:5px}
+				.list .user:hover{background:rgba(0,0,0,0.1);width:185px}
 				.list {color:#d5d5d5 !important;margin-bottom: 15px !important; line-height-:24px;margin-top:5px}
 				
 				#auth {margin: 10px 0; color: #d5d5d5}
@@ -163,10 +164,10 @@
 		</head>	
 		<body>
 			<div id=lobby>	
-				<div id=vk>Группа ВКонтакте: <u>vk.com/tennis2d</u></div> 
+				<!-- <div id=vk>Группа ВКонтакте: <u>vk.com/tennis2d</u></div>  -->
 				<div id=lobby_close style=''></div>
-				<h1>Теннис 2D</h1>
-				<div style='position:absolute; bottom:40px; color:#d4d4d4;-background:rgba(0,0,0,0.3);-padding:4px 6px;-margin-left:-6px'>(*) запись игрока: имя (рейтинг, кол-во игр, пинг до вас)</div>
+				<h1 style='margin-left-:19px'>Теннис 2D</h1><div style='position:absolute; left-:120px;4px;right:0px;top:12px;background: 0px 0 url(img/menu3.png) no-repeat;width:20px;height:30px;background-size:15px;40px 25px; cursor:pointer'></div>
+				<div style='position:absolute; bottom:12px; color:#d4d4d4;-background:rgba(0,0,0,0.3);-padding:4px 6px;-margin-left:-6px'>*<span style='padding-left:2px'></span>имя (рейтинг, кол-во игр, пинг до вас)</div>
 				<div id=auth>
 					<!-- <a>Авторизуйтесь</a>, чтобы не потерять накопленный рейтинг.<br>
 					Реальные данные аккаунта будут скрыты. -->
