@@ -159,19 +159,19 @@
 				
 				#vk {position: absolute; bottom: 12px; color: #d4d4d4; font-size: 14px}
 					
-				#name_change {cursor: pointer}
+				#name_change {cursor: pointer; display:none}
 			</style>
 		</head>	
 		<body>
 			<div id=lobby>	
 				<!-- <div id=vk>Группа ВКонтакте: <u>vk.com/tennis2d</u></div>  -->
 				<div id=lobby_close style=''></div>
-				<h1 style='margin-left-:19px'>Теннис 2D</h1><div style='position:absolute; left-:120px;4px;right:0px;top:12px;background: 0px 0 url(img/menu3.png) no-repeat;width:20px;height:30px;background-size:15px;40px 25px; cursor:pointer'></div>
+				<h1 style='margin-left-:19px'>Теннис 2D</h1><div style='position:absolute; left-:120px;4px;right:0px;top:14px;background: 0px 0 url(img/menu3.png) no-repeat;width:20px;height:30px;background-size:14px;40px 25px; cursor:pointer'></div>
 				<div style='position:absolute; bottom:12px; color:#d4d4d4;-background:rgba(0,0,0,0.3);-padding:4px 6px;-margin-left:-6px'>*<span style='padding-left:2px'></span>имя (рейтинг, кол-во игр, пинг до вас)</div>
 				<div id=auth>
 					<!-- <a>Авторизуйтесь</a>, чтобы не потерять накопленный рейтинг.<br>
 					Реальные данные аккаунта будут скрыты. -->
-					Привет, <span id=name>user</span> (10, 2, 33)*, <a id=name_change>изменить имя</a>, <a>выйти</a>.
+					Привет, <span id=name>user</span> (10, 2, 33)*<!--, --><a id=name_change>изменить имя</a><!--, <a>выйти</a>-->.
 				</div>
 				<div id=free_players>Свободные игроки
 				<div class=list id=users_free_list style=''>
