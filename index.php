@@ -165,7 +165,7 @@
 			<div id=lobby>	
 				<div id=vk>Группа ВКонтакте: <u>vk.com/tennis2d</u></div> 
 				<div id=lobby_close style=''></div>
-				<h1>Tennis 2D</h1>
+				<h1>Теннис 2D</h1>
 				<div id=auth>
 					<!-- <a>Авторизуйтесь</a>, чтобы не потерять накопленный рейтинг.<br>
 					Реальные данные аккаунта будут скрыты. -->
