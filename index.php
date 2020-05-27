@@ -159,7 +159,7 @@
 				
 				#vk {position: absolute; bottom: 12px; color: #d4d4d4; font-size: 14px}
 					
-				#name_change {cursor: pointer; display:none}
+				#name_change {cursor: pointer; -display:none}
 			</style>
 		</head>	
 		<body>
@@ -171,7 +171,7 @@
 				<div id=auth>
 					<!-- <a>Авторизуйтесь</a>, чтобы не потерять накопленный рейтинг.<br>
 					Реальные данные аккаунта будут скрыты. -->
-					Привет, <span id=name>user</span> (10, 2, 33)*<!--, --><a id=name_change>изменить имя</a><!--, <a>выйти</a>-->.
+					Привет, <span id=name>user</span> (10, 2, 33)* - <div style='display:none;height:5px'></div> <a id=name_change>изменить имя</a>, <a>выйти</a>.
 				</div>
 				<div id=free_players>Свободные игроки
 				<div class=list id=users_free_list style=''>
