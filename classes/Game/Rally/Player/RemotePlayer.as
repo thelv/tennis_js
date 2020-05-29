@@ -2,7 +2,7 @@ Game.Rally.Player.RemotePlayer=function(game, side)
 {
 	
 	
-	res=Game.Rally.Player.Player(game, side);
+	var res=Game.Rally.Player.Player(game, side);
 	
 	
 	res.messageReceive=function(message)
@@ -18,7 +18,7 @@ Game.Rally.Player.RemotePlayer=function(game, side)
 		}
 	}
 	
-	res.unbind=function(){};
+	res.unbind=function(){res.view.remove();};
 	
 	return res;
 

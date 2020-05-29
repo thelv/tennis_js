@@ -49,6 +49,11 @@ Game.Rally.Time.Time=function()
 			return new Date().getTime()-shiftTime-startTime;
 		},
 		
+		getAbs: function()
+		{
+			return this.get()+startTime;
+		},
+		
 		reset: function(startTime_)
 		{
 			startTime=startTime_;
@@ -72,7 +77,7 @@ Game.Rally.Time.Time=function()
 				shiftTime_+=shiftTimes[i];
 			}
 			shiftTime=shiftTime_/10;
-			latencyCalc();
+			this.latencyCalc();
 		}
 	}
 	

@@ -6,7 +6,7 @@ Game.Rally.Player.LocalPlayer=function(game, side)
 			
 	var keyHandler=0;
 	
-	res=Game.Rally.Player.Player(game, side);
+	var res=Game.Rally.Player.Player(game, side);
 	
 	
 		
@@ -105,7 +105,11 @@ Game.Rally.Player.LocalPlayer=function(game, side)
 			}
 			
 	res.LocalPlayer(game, side);
-	res.unbind=keyHandler.unbind;
+	res.unbind=function()
+	{
+		res.view.remove();
+		keyHandler.unbind;
+	}
 			
 	return res;
 

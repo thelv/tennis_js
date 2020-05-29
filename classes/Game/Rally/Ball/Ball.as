@@ -99,6 +99,11 @@ Game.Rally.Ball.Ball=function(game)
 						this.shiftTime(game.rally.time.get());
 						break;
 				}
+			},
+			
+			destroy: function()
+			{
+				view.remove();
 			}
 						
 	}

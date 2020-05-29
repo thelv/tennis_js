@@ -1,8 +1,10 @@
 var networkClient=false;
 var time=false;
+var gameStopWait=false;
+var gameStopped=false;
 
 Main=class
-{						
+{					
 	static init()
 	{
 		time=Game.Rally.Time.Time();
@@ -19,21 +21,22 @@ Main=class
 		Main.networkClient.messageSend(message, sendType);
 	}				
 	
-	static gameCreate(type, whoMain, t)
+	static gameCreate(type, whoMain, t, opponent=false)
 	{
+		document.body.classList.remove('game_local');
+		document.body.classList.remove('game_network');
+		document.body.classList.remove('game_remote');
+		document.body.classList.add('game_'+type);
 		if(Main.game)
 		{
-			Main.game.rally.timer.unbind();
-			Main.game.rally.player0.unbind();
-			Main.game.rally.player1.unbind();
-			Main.game.wait.unbind();
+			Main.game.destroy();
 		}
-		Main.game = Game.Game(type, whoMain, t);
+		Main.game = Game.Game(type, whoMain, t, opponent);
 	}	
 	
-	static connectionEstablished()
+	static connectionEstablished(reconnect)
 	{
-		Main.messageSend({auth: localStorage.auth, name: localStorage.name});
+		Main.messageSend({auth: localStorage.auth, name: localStorage.name, reconnect: reconnectIs});
 	}
 	
 	static messageReceive(message)
@@ -45,16 +48,23 @@ Main=class
 				break;
 				
 			case 'invites':
-				Main.view.invites();
+				Main.view.invites(message);
 				break;
 				
 			case 'game_create':				
-				Main.gameCreate('network', message.first_serve, message.t);
+				Main.gameCreate('network', message.first_serve, message.t, message.opponent);
 				break;				
 				
 			case 'name_set': 
 				Main.nameSet(message.name);
 				break;
+				
+			case 'game_stop':
+				Main.gameStop();
+				break;
+				
+			case 'chat':
+				chat.receive(message);
 				
 		}
 	}
@@ -78,6 +88,41 @@ Main=class
 	static invite(id)
 	{
 		networkClient.messageSend({tp: 'invite_send', id: id});
+	}
+	
+	static uninvite(id)
+	{
+		networkClient.messageSend({tp: 'invite_cancel', id: id});
+	}
+	
+	static gameLeave()
+	{		
+		if(gameStopped) 
+		{			
+			Main.gameCreate('local', false, time.getAbs()); 
+			gameStopped=false;
+		}
+		else
+		{			
+			networkClient.messageSend({tp: 'game_leave'});
+			gameStopWait=true;
+		}		
+	}
+	
+	static gameStop()
+	{
+		gameStopped=true;
+		if(gameStopWait)
+		{
+			Main.gameCreate('local', false, time.getAbs()); 
+			gameStopWait=false;
+		}
+		else
+		{
+			//Main.game.rally.player0.view.hide();
+			//Main.view.gameLeaveOpponent();
+			Main.game.wait.opponentLeave();
+		}
 	}
 }
 

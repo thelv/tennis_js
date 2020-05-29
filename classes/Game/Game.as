@@ -1,4 +1,4 @@
-Game.Game=function(type, whoMain, t)
+Game.Game=function(type, whoMain, t, opponent=false)
 {		
 	
 	var 
@@ -6,6 +6,11 @@ Game.Game=function(type, whoMain, t)
 		rally=0,
 		wait=0,
 		referee=0;
+		
+	//view
+	var gameHeadNode=document.querySelector((type=='local') ? '#game_local_head' : '#game_network_head');
+	var gameCaptionNode=gameHeadNode.querySelector('._caption');
+	
 	
 	var res=
 	{
@@ -32,6 +37,9 @@ Game.Game=function(type, whoMain, t)
 			if(type!='local') time.sync();
 			referee.start();
 			//referee.start() executes from string time.synchronize()
+			
+			gameHeadNode.style.display='block';
+			if(type=='network') gameCaptionNode.innerText='Матч с '+opponent.name;
 		},
 		
 		messageReceive: function(message)
@@ -64,6 +72,17 @@ Game.Game=function(type, whoMain, t)
 			{
 				Main.networkClient.messageSend(message, sendType);
 			}
+		},
+		
+		destroy: function()
+		{
+			rally.ball.destroy();
+			rally.timer.unbind();
+			rally.player0.unbind();
+			rally.player1.unbind();
+			wait.unbind();
+			
+			gameHeadNode.style.display='none';
 		}
 	}
 	

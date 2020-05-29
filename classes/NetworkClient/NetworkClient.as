@@ -1,6 +1,7 @@
 NetworkClient.NetworkClient=function(host, port)
 {	
 	var ws=false;
+	reconnectIs=false;
 
 	var res=
 	{				
@@ -12,13 +13,14 @@ NetworkClient.NetworkClient=function(host, port)
 			
 		},
 		
-		messageSend: function(message, sendType=null)
+		messageSend: function(message)
 		{
 			if(ws) ws.send(JSON.stringify(message), function(){});
 		},				
 		
 		reconnect: function()
 		{
+			reconnectIs=true;
 			if(ws)
 			{	
 				ws=false;
@@ -55,7 +57,7 @@ NetworkClient.NetworkClient=function(host, port)
 			
 			ws.onopen=function()
 			{
-				Main.connectionEstablished();
+				Main.connectionEstablished(reconnectIs);
 			};
 		}
 		

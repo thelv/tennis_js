@@ -3,7 +3,9 @@ Game.Wait.Wait=function(game)
 	
 	var view=0, ready=0;
 	
-	var e=document.querySelector('#wait');
+	var waitNode=document.querySelector('#wait');
+	
+	var e=document.querySelector('#wait_ready');
 	
 	res=
 	{
@@ -14,7 +16,7 @@ Game.Wait.Wait=function(game)
 		Wait: function(game)
 		{		
 			this.game = game;
-			
+			e.innerHTML='Нажмите пробел, чтобы начать';
 			//view
 			/*var style:StyleSheet = new StyleSheet(); 
 			
@@ -50,12 +52,12 @@ Game.Wait.Wait=function(game)
 			document.body.addEventListener('keydown', ready);
 			//view
 			view.visible = true;
-			e.style.display='block';
+			waitNode.style.display='block';
 		},
 		
 		ready: function(event)
-		{
-			if (event.keyCode == 32)
+		{			
+			if(event.keyCode == 32 && ! keySpaceOccupied)
 			{					
 			///	Main.stage.removeEventListener(KeyboardEvent.KEY_UP, ready);
 				document.body.removeEventListener('keydown', ready);
@@ -63,7 +65,7 @@ Game.Wait.Wait=function(game)
 				
 				//view
 				view.visible = false;				
-				e.style.display='none';
+				waitNode.style.display='none';
 				/*if (typeof event.stopPropagation != "undefined") {
 					event.stopPropagation();
 				} else {
@@ -77,6 +79,16 @@ Game.Wait.Wait=function(game)
 		unbind: function()
 		{
 			document.body.removeEventListener('keydown', ready);
+		},
+		
+		opponentLeave: function()
+		{
+			this.unbind();
+			waitNode.classList.remove('success');
+			waitNode.classList.remove('fail');
+			advice.hide();
+			e.innerHTML='Оппонент покинул игру';
+			e.style.display='block';
 		}
 		
 	}

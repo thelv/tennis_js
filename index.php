@@ -66,9 +66,11 @@
 	<html>
 		<head>	
 			<title>Tennis 2D</title>
-			<link rel="shortcut icon" href="img/ball.png">
+			<link rel="shortcut icon" href="img/favicon.png">
 			<meta charset=utf8>
 			<style>
+				templates {display:none}
+			
 				body {margin: 0; padding: 0}
 				body.lobby_closed #lobby {display: none}
 				body.lobby_closed #lobby_open {display: block}
@@ -77,9 +79,20 @@
 				body.help_closed #border_cort_blue {display:none}
 				body.chat_closed #chat_open {display:block}
 				body.chat_closed #chat {display:none}
+				
+				#wait.success #wait_success{display:block}
+				#wait #wait_fail{display:none}				
+				#wait #wait_success{display:none}
+				#wait.fail #wait_fail{display:block}
+				#wait_advice {display:none}
+				
+				body #game_leave {display:none;z-index:1000}
+				body.game_network #game_leave, body.game_remote #game_leave{display:block}
+				
+				#game_network_head{display:none}
 					
 					
-				*{font-family:tahoma;font-size:15px}
+				body, input, table{font-family:tahoma;font-size:15px}
 				body {background: rgb(136, 231, 136);}
 				#page_game {width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;}
 				#center {width: 0; height: 0; position: relative}
@@ -108,7 +121,8 @@
 				#help {position: absolute; top: /*281px;*/268px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333}
 				#help_open {position: absolute; top: /*281px;*/268px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333; font-weight: normal; font-size: 15px;text-decoration: underline;color: gray; display:none; cursor: pointer}
 				#help_close {cursor:pointer}
-				#game_head {position: absolute; top: /*-322px;*//*-329px;*/-300px;bottom:274px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
+				#game_local_head {position: absolute; top: /*-322px;*//*-329px;*/-300px;bottom:274px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
+				#game_network_head {position: absolute; top: -322px;/*-329px;*/-300px;-bottom:274px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
 				#score{margin-top: 6px; font-size: 16px}
 				
 				#help h3{margin: 0 0 4px 0}
@@ -116,10 +130,12 @@
 				#help > a {font-weight: normal; font-size: 15px;text-decoration: underline;color: gray;margin-top: 3px;display: inline-block}
 				
 				#wait {position: absolute; width: 250px; padding: 10px; -height: 50px; background: rgba(190, 240, 190, 0.8);#cec; top:/*-120px;*/ -165px;-150px; left: -126px; border: 1px solid #888; text-align: center}
-				#wait b {color: #595; display: block; margin-bottom: 3px; display: -none}
-				#wait span {font-size: 13px; margin-top: 4px; display: block; color: #777}
-				.list a, .list .user {-text-decoration: underline;margin-bottom:5px}
-				.list .user:hover{background:rgba(0,0,0,0.1);width:185px}
+				#wait #wait_success {color: #595;  margin-bottom: 3px; display: -none}
+				#wait #wait_fail {color: #955;  margin-bottom: 3px; display: -none}
+				#wait #wait_advice{font-size: 13px; margin-top: 4px; display: block; color: #777}
+				.list a, .list .user {-text-decoration: underline;margin-bottom:5px;-cursor:pointer}
+				.user u{cursor:pointer}
+				.list .user:hover{-background:rgba(0,0,0,0.1);-width:185px}
 				.list {color:#d5d5d5 !important;margin-bottom: 15px !important; line-height-:24px;margin-top:5px}
 				
 				#auth {margin: 10px 0; color: #d5d5d5}
@@ -133,15 +149,17 @@
 				#chat {display-:none; position: absolute; width: 200px; top: 0; right: 0; color: /*#f3f3f3;#e9e9e9;*/#f8f8f8; margin-top: 0px; z-index: 1000; background: rgba(0, 0, 0, 0.4); padding: 0 0 0px 12px;19px; height: 100%; padding-right:0px; height:300px; border-top: 1px solid rgba(0,0,0,0.05)}
 					#chat input {border: 0; background: transparent; font-size: 15px; border-bottom: 1px solid #fff; width:189px; line-height: 28px; color: white; display: block; margin-bottom: 6px; margin-top: 1px; padding-bottom: 3px}
 					#chat input::placeholder {color: #bbb; font-style: italic-}
-					#chat input.focus::placeholder {color: transparent; font-style: italic}
+					#chat input:focus::placeholder {color: transparent; font-style: italic}
 					#chat .message {margin: 5px 0; display: -flex; flex-direction: row;}							
 				
 				#chat.chat2 {position: absolute; width: 200px; top: 0; right: 0; color: #d5d5d5;/*#f3f3f3;#e9e9e9;*/#f8f8f8; margin-top: 0px; z-index: 1000; background: rgba(0, 0, 0, 0.5); padding: 0 0 0px 12px;19px; height: 100%; padding-right:0px; height:300px;bottom:0;top:auto;position-:relative;z-index:200;padding-top:12px}
 					#chat_head {margin-bottom: 10px}
 					#chat.chat2 input {border: 0; background: transparent; font-size: 15px; border-bottom: 1px solid #fff; width:189px; line-height: 28px; color: #d5d5d5; display: block; margin-bottom: 6px; margin-top: 1px; padding-bottom: 3px}
 					#chat.chat2 input::placeholder {color: #bbb; font-style: italic-}
-					#chat.chat2 input.focus::placeholder {color: transparent; font-style: italic}
-					#chat .message {margin:5px 0; display: -flex; flex-direction: row;}							
+					#chat.chat2 input.focus::placeholder {color: transparent; font-style: italic;border:0}
+					#chat .chat_message {margin:0 0 5px 0; display: -flex; flex-direction: row;}
+					#chat .chat_message ._name {text-decoration:underline}
+					#chat ._list{height:220px; overflow:auto}
 						
 				#chat.chat2 #chat_close {top: 6px; bottom: auto; border-bottom:0; border-top :10px solid #aaa; right-:12px; left-: auto; margin-left: -5px; -top: 15px}
 						
@@ -155,7 +173,7 @@
 				#chat_open{display: none; position:absolute; bottom: 0; right:0; -padding: 5px 22px 11px 23px; text-decoration: underline; color: #666; background: #aca;border: 1px solid #9fbf9f; border-width: 1px 0 0 1px; widt-h: 100px; text-align: center;width:211px;color:transparent;height:17px; cursor: pointer; z-index:10000}
 					#chat_open #chat_close {border-bottom:10px solid #888;margin-bottom-s:7px; bottom:4px}
 					
-				#game_out {display:none; color: gray; text-decoration: underline; position: absolute; top: 7px;7px;6px; right: 12px; -right:224px}
+				#game_leave {-display:none; color: gray; text-decoration: underline; position: absolute; top: 7px;7px;6px; right: 12px; -right:224px; cursor:pointer}
 				
 				#vk {position: absolute; bottom: 12px; color: #d4d4d4; font-size: 14px}
 					
@@ -164,38 +182,38 @@
 		</head>	
 		<body>
 			<div id=lobby>	
-				<!-- <div id=vk>Группа ВКонтакте: <u>vk.com/tennis2d</u></div>  -->
+				<div id=vk>Группа ВКонтакте: <u>vk.com/tennis2d</u></div> 
 				<div id=lobby_close style=''></div>
-				<h1 style='margin-left-:19px'>Теннис 2D</h1><div style='position:absolute; left-:120px;4px;right:0px;top:14px;background: 0px 0 url(img/menu3.png) no-repeat;width:20px;height:30px;background-size:14px;40px 25px; cursor:pointer'></div>
-				<div style='position:absolute; bottom:12px; color:#d4d4d4;-background:rgba(0,0,0,0.3);-padding:4px 6px;-margin-left:-6px'>*<span style='padding-left:2px'></span>имя (рейтинг, кол-во игр, пинг до вас)</div>
+				<h1 style='margin-left-:19px'>Теннис 2D</h1><div style='position:absolute; left-:120px;4px;right:0px;top:14px;background: 0px 0 url(img/menu.png) no-repeat;width:20px;height:30px;background-size:14px;40px 25px; cursor:pointer'></div>
+				<div style='display:none;position:absolute; bottom:12px; color:#d4d4d4;-background:rgba(0,0,0,0.3);-padding:4px 6px;-margin-left:-6px'>*<span style='padding-left:2px'></span>имя ([личные встречи,] рейтинг, кол-во игр, пинг до вас)</div>
 				<div id=auth>
 					<!-- <a>Авторизуйтесь</a>, чтобы не потерять накопленный рейтинг.<br>
 					Реальные данные аккаунта будут скрыты. -->
-					Привет, <span id=name>user</span> (10, 2, 33)* - <div style='display:none;height:5px'></div> <a id=name_change>изменить имя</a>, <a>выйти</a>.
+					Привет, <span id=name>user</span> (<!-- - <div style='display:none;height:5px'></div>--><a id=name_change>изменить имя</a><!--, <a>выйти</a>-->).
 				</div>
 				<div id=free_players>Свободные игроки
 				<div class=list id=users_free_list style=''>
 					...
 					</div>
 					
-					Смотреть игры онлайн
+					Занятые игроки
 					<div class=list id=users_not_free_list style=''>
 					...
 					</div>
 					</div>
 				<div id=invites>
 					<div id=invites_to_me>Поступившие приглашения</div>
-					<div class=list style=''>
+					<div class=list  id=users_invites_from_list style=''>
 					<!-- <a>thelv</a> <br>
 					<a>thelv</a> <br>
 					<a>thelv</a> <br>
 					<a>thelv</a> <br>
 					<a>thelv</a> <br>-->
-					<span style='line-height-:18px'>Вас пока никто не пригласил.</span>
+					<span style='line-height-:18px'>...</span>
 					</div>
 					<div id=invites_from_me>Отправленные приглашения</div>
-					<div class=list style=''>
-					<span style='line-height-:18px'>Пригласите свободного игрока поиграть.</span>
+					<div class=list id=users_invites_who_list style=''>
+					<span style='line-height-:18px'>...</span>
 					<!-- <a>thelv</a> <br>			
 					<a>thelv</a> <br>
 					<a>thelv</a> <br>--></div>
@@ -204,7 +222,7 @@
 			<div id=lobby_open>
 				<div></div>
 			</div>
-			<div id=game_out>выйти из игры</div>
+			<div id=game_leave>выйти из игры</div>
 			<!-- <div id=chat>
 				<div id=chat_close style=''></div>
 				<input type=text placeholder='Введите сообщение' />			
@@ -232,27 +250,8 @@
 			<div id=chat class=chat2>
 				<div id=chat_head style='color:#fff'>Чат</div>
 				<div id=chat_close style=''></div>
-				<!-- <input type=text placeholder='Введите сообщение' />				-->
-				<div class=message>
-					<u>thelv</u>:
-
-						вот эта подача была збс
-
-				</div>
-				<div class=message>
-					<u>susaNin</u>: 
-
-						ну не понимаю как крутить
-
-				</div>
-				<div class=message>
-					<u>thelvs</u>: 
-					да не, просто
-					
-					
-				</div>
-				<input class=a2 type=text placeholder='Введите сообщение' />				
-				
+				<div class=_list></div>
+				<input class=a2 type=text placeholder='Введите сообщение' />								
 			</div>
 			<div id=chat_open><div id=chat_close><div></div></div></div>
 			<div id=border_out>
@@ -275,8 +274,11 @@
 						<div id=border_start>
 						</div>
 						<div id=wait>
-							<!-- <b>Вы выиграли очко.</b>  -->
-							Нажмите пробел, чтобы начать.
+							<div id=wait_success>Вы выиграли очко.</div>
+							<div id=wait_fail>Вы проиграли очко.</div>
+							<div id=wait_ready>Нажмите пробел, чтобы начать.</div>
+							<div id=wait_advice></div>
+							<!-- <b>Вы выиграли очко.</b>  -->							
 							<!-- Нажмите пробел, если готовы.<br>							
 							Соперник не готов.<br>
 							<!-- Нажмите ESC, чтобы выйти из игры.<br> -->
@@ -292,31 +294,31 @@
 						<div id=help_open>
 							показать подсказку
 						</div>
-						<div id=game_head>						
+						<div id=game_local_head>						
 							Обучение с неподвижным соперником
+							<!-- Матч с petronya --><!-- (41 игр)-->
+							<!-- <div id=score>Счет (сеты/геймы/подачи): 0:1 / 2:3 / 5:6*</div> -->
+						</div>					
+						<div id=game_network_head>						
+							<div class=_caption>Матч с </div>
+							<div id=score>Счет</div>
 							<!-- Матч с petronya --><!-- (41 игр)-->
 							<!-- <div id=score>Счет (сеты/геймы/подачи): 0:1 / 2:3 / 5:6*</div> -->
 						</div>					
 					</div>
 				</div>
 			</div>
-			<script>
-				//Main.gameCreate('local', false);
-				Main.init();
-				var chatInput=document.querySelector('#chat input');
-				chatInput.addEventListener('focusin', function(){ chatInput.setAttribute('class', 'focus'); });
-				chatInput.addEventListener('focusout', function(){ chatInput.setAttribute('class', ''); });
-				var lobbyClose=document.querySelector('#lobby_close');
-				lobbyClose.addEventListener('click', function(){document.body.classList.add('lobby_closed');});
-				var lobbyOpen=document.querySelector('#lobby_open');
-				lobbyOpen.addEventListener('click', function(){document.body.classList.remove('lobby_closed');});
-				
-				document.getElementById('help_close').addEventListener('click', function(){document.body.classList.add('help_closed');});
-				document.getElementById('help_open').addEventListener('click', function(){document.body.classList.remove('help_closed');});
-				
-					document.querySelector('#chat #chat_close').addEventListener('click', function(){document.body.classList.add('chat_closed');});
-				document.getElementById('chat_open').addEventListener('click', function(){document.body.classList.remove('chat_closed');});
-			</script>
+			<templates>
+				<div class=chat_message>
+					<span class=_name>
+						<!-- -->
+					</span>:
+					<span class=_text>
+						<!-- -->
+					</span>
+				</div>				
+			</templates>
+			<script src='js/main.js'></script>	
 		</body>
 	</html>
 	<!--

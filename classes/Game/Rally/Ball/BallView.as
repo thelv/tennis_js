@@ -14,6 +14,11 @@ Game.Rally.Ball.BallView=function()
 		},
 		addChild: function()
 		{
+		},
+		
+		remove: function()
+		{
+			e.remove();
 		}
 	}
 

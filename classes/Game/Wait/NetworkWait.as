@@ -2,6 +2,8 @@ Game.Wait.NetworkWait=function(game)
 {
 	
 	var isReadyWe=0, isReadyHe=0, timer=0, startTime=0, readyWe=0;
+	var waitNode=document.querySelector('#wait');
+	var waitReadyNode=document.querySelector('#wait_ready');
 	
 	var res=
 	{	
@@ -20,6 +22,8 @@ Game.Wait.NetworkWait=function(game)
 				
 				//view
 				//view.visible = false;
+				event.preventDefault();
+				return true;
 			}		
 		},
 	
@@ -27,9 +31,12 @@ Game.Wait.NetworkWait=function(game)
 		{
 			//super(game);			
 			this.game=game;
+						
 			
 			isReadyWe = false;
 			isReadyHe = false;			
+			this.viewShowReady();
+			waitNode.style.display='block';
 			//timer = new Timer(100, 1);
 			//timer.addEventListener(TimerEvent.TIMER, startImmediately);
 			
@@ -67,15 +74,18 @@ Game.Wait.NetworkWait=function(game)
 			document.body.addEventListener('keydown', readyWe);
 			//view
 			this.viewShowReady();
+			waitNode.style.display='block';
 			//view.visible = true;
 		},
 		
 		readyWe: function(event)
 		{			
-			if (event.keyCode == 32)
+			if (event.keyCode == 32 && ! keySpaceOccupied)
 			{								
 				isReadyWe = ! isReadyWe;
 				res.start(-1);
+				event.preventDefault();
+				return true;
 			}
 		},
 		
@@ -104,6 +114,7 @@ Game.Wait.NetworkWait=function(game)
 			document.body.removeEventListener('keydown', readyWe);
 			isReadyWe = false;
 			isReadyHe = false;
+			waitNode.style.display='none';
 			
 			//timer.reset();
 			startTime = time + 1000;
@@ -152,8 +163,22 @@ Game.Wait.NetworkWait=function(game)
 		viewShowReady: function()
 		{
 			//view.htmlText="<span class='wait'>Press <u>space</u> if you're "+(isReadyWe ? "not " : "")+"ready (you're "+(isReadyWe ? "" : "not ")+"ready).<br>Your opponent is "+(isReadyHe ? "" : "not ")+"ready.</span>";
-		}
+			waitReadyNode.innerHTML='Нажмите пробел, если '+(isReadyWe ? 'не' : '')+' готовы. <br> Оппонент '+(isReadyHe ? '' : 'не')+' готов.';
+		},
 		
+		unbind: function()
+		{
+			document.body.removeEventListener('keydown', readyWe);
+		},
+		
+		opponentLeave: function()
+		{
+			this.unbind();
+			waitNode.classList.remove('success');
+			waitNode.classList.remove('fail');
+			advice.hide();
+			waitReadyNode.innerHTML='Оппонент покинул игру';
+		}		
 	}
 	
 	res.NetworkWait(game);

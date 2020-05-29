@@ -12,8 +12,14 @@ Game.Rally.Player.PlayerView=function()
 			e.style.top=-y+'px';
 			e.style.transform='rotate('+(-a)+'rad)';
 		},
+		
 		addChild: function()
 		{
+		},
+		
+		remove: function()
+		{
+			e.remove();
 		}
 	}
 

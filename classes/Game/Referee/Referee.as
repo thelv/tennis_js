@@ -4,6 +4,9 @@ Game.Referee.Referee=function(game, whoMain)
 	var Scale=Game.Rally.Scale.Scale;
 
 	var whoServe=0, score=0, scoreLimits=0, scoreAdv=0, scoreInc=0, winner=-1, setsNumber=-1, view=0;		
+	
+	var scoreNode=document.querySelector('#score');
+	var waitNode=document.querySelector('#wait');
 
 	var res=
 	{		
@@ -47,7 +50,11 @@ Game.Referee.Referee=function(game, whoMain)
 			game.view.addChild(view);*/
 			//Main.stage.addChild(view);
 			
+			waitNode.classList.remove('success');
+			waitNode.classList.remove('fail');
+			
 			this.viewShowScore();
+			advice.hide();
 		},
 	
 		start: function()
@@ -121,7 +128,19 @@ Game.Referee.Referee=function(game, whoMain)
 					score[type] = [0, 0];
 					this.scoreChange(whoWin, type + 1);
 				}
-			}			
+			}	
+
+			if(whoWin)
+			{	
+				waitNode.classList.remove('fail'); 
+				waitNode.classList.add('success');
+			}
+			else
+			{
+				waitNode.classList.remove('success');
+				waitNode.classList.add('fail');
+			}						
+			advice.refresh();
 		},
 		
 		scoreInit: function()
@@ -134,7 +153,7 @@ Game.Referee.Referee=function(game, whoMain)
 		
 		viewShowScore: function()
 		{
-			var str = '<span class=\'score\'>Score (sets/games/balls): ';
+			var str = '<span class=\'score\'>Счёт (сеты/геймы/подачи): ';
 			for (var i = 2; i >= 0; i--)
 			{
 				if (i == 0 && scoreAdv == 1)
@@ -184,6 +203,7 @@ Game.Referee.Referee=function(game, whoMain)
 			}
 			str += '</span>';
 			//view.htmlText = str;			
+			scoreNode.innerHTML=str;
 		}
 		
 	}
