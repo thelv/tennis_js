@@ -129,15 +129,22 @@ Game.Referee.Referee=function(game, whoMain)
 				}
 			}	
 
-			if(whoWin)
-			{	
-				waitView.status('success');
+			if(game.type!='view')
+			{
+				if(whoWin)
+				{	
+					waitView.status('success');
+				}
+				else
+				{
+					waitView.status('fail');
+				}						
+				advice.refresh();
 			}
 			else
 			{
-				waitView.status('fail');
-			}						
-			advice.refresh();
+				waitView.ready(whoWin ? 'Левый игрок выиграл очко' : 'Правый игрок выиграл очко');
+			}
 		},
 		
 		scoreInit: function()
@@ -146,6 +153,11 @@ Game.Referee.Referee=function(game, whoMain)
 			scoreLimits = [7, 2];
 			scoreAdv = -1;
 			scoreInc = [0,-1];			
+		},
+		
+		scoreSet: function(score_)
+		{
+			score=score_;
 		},
 		
 		viewShowScore: function()

@@ -56,7 +56,7 @@ MainView=function()
 				usersFreeNode.innerText='Никого нет.';
 			}
 			
-			var notFree=users.not_free;
+			/*var notFree=users.not_free;
 			usersNotFreeNode.innerHTML='';
 			for(var i in notFree)
 			{
@@ -74,6 +74,46 @@ MainView=function()
 			if(notFree.length==0)
 			{
 				usersNotFreeNode.innerText='Никого нет.';
+			}*/
+			var games=users.games;		
+			usersNotFreeNode.innerHTML='';			
+			for(var i in games)
+			{
+				var game=games[i];
+				var user0=game.players[0];
+				var user1=game.players[1];
+				var gameNode=document.createElement('div');
+				gameNode.setAttribute('class', '_game');
+				var e1=userNodeCreate(user0, 'Пригласить в игру');
+				(function(id)
+				{
+					e1.addEventListener('click', function()
+					{
+						Main.invite(id);
+					});
+				})(user0.id);				
+				var e2=userNodeCreate(user1, 'Пригласить в игру');
+				(function(id)
+				{
+					e2.addEventListener('click', function()
+					{
+						Main.invite(id);
+					});
+				})(user1.id);
+				gameNode.append(e1);
+				gameNode.append(e2);
+				usersNotFreeNode.append(gameNode);
+				(function(id)
+				{
+					gameNode.addEventListener('click', function()
+					{
+						Main.gameView(id);
+					});
+				})(game.id);
+			}
+			if(games.length==0)
+			{
+				usersNotFreeNode.innerText='Нет игр.';
 			}
 		},
 

@@ -1,4 +1,4 @@
-Game.Game=function(type, whoMain, t, opponent=false)
+Game.Game=function(type, whoMain, t, opponent=false, state=false)
 {		
 	
 	var 
@@ -23,7 +23,7 @@ Game.Game=function(type, whoMain, t, opponent=false)
 	
 		stopped: false,
 	
-		Game: function(type, whoMain, t) 
+		Game: function(type, whoMain, t, state) 
 		{
 			//view
 			this.type = type;
@@ -32,7 +32,20 @@ Game.Game=function(type, whoMain, t, opponent=false)
 			Main.stage.addChild(view);
 			
 			rally = Game.Rally.Rally(this);
-			wait = (type=='local') ? Game.Wait.Wait(this) : Game.Wait.NetworkWait(this);
+			switch(type)
+			{
+				case 'local':
+					wait =  Game.Wait.Wait(this);
+					break;
+					
+				case 'network':
+					wait=Game.Wait.NetworkWait(this);
+					break;
+					
+				case 'view':
+					wait=Game.Wait.ViewWait(this);
+					break;				
+			}
 			referee=Game.Referee.Referee(this, whoMain);
 			
 			time.reset(t);
@@ -42,8 +55,15 @@ Game.Game=function(type, whoMain, t, opponent=false)
 			
 			gameHeadNode.style.display='block';
 			if(type=='network') gameCaptionNode.innerText='Матч с '+opponent.name;
+						
+			rally.viewShowServeLines(true);						
 			
-			rally.viewShowServeLines(true);
+			if(type=='view')
+			{
+				waitView.ready('Ожидание готовности игроков');
+				this.setState(state.state);
+				gameCaptionNode.innerText='Матч '+state.players[1].name+' с '+state.players[0].name;				
+			}
 		},
 		
 		messageReceive: function(message)
@@ -96,9 +116,101 @@ Game.Game=function(type, whoMain, t, opponent=false)
 			rally.player1.hide();			
 			this.stopped=true;
 		}
+	}		
+	
+	if(type=='view')
+	{
+		res.setState=function(state)
+		{
+			console.log(state);
+			res.referee.scoreSet();
+			if(state.wait>0)
+			{
+				wait.start(state.wait);
+			}
+			else if(state.wait==-1)
+			{
+				wait.wait();
+			}
+			else 
+			{
+				wait.start(0);
+			}
+			
+			if(state.ball.h) res.messageReceive_(state.ball.h);
+			if(state.players[0].cp) res.messageReceive_(state.players[0].cp);
+			if(state.players[0].cpa) res.messageReceive_(state.players[0].cpa);
+			if(state.players[1].cp) res.messageReceive_(state.players[1].cp);
+			if(state.players[1].cpa) res.messageReceive_(state.players[1].cpa);
+		}
+	
+		res.messageReceive_= function(message)
+		{
+			switch(message.tp)
+			{
+				case 'pcp':
+					if(message.side)
+					{
+						message.x=-message.x;
+						message.y=-message.y;	
+						message.vx=-message.vx;
+						message.vy=-message.vy;						
+						message.mx=-message.mx;
+						message.my=-message.my;						
+						rally.player0.messageReceive(message);
+					}
+					else
+					{
+						rally.player1.messageReceive(message);
+					}
+					break;
+				case 'pcpa':					
+					if(message.side)
+					{						
+						//message.a=message.a-Math.PI;
+						rally.player0.messageReceive(message);
+					}
+					else
+					{
+						rally.player1.messageReceive(message);
+					}
+					break;
+				case 'bh':		
+					if(message.side)
+					{
+						message.x=-message.x;
+						message.y=-message.y;
+						message.vx=-message.vx;
+						message.vy=-message.vy;
+					}
+					rally.ball.messageReceive(message);
+					break;
+				case 'rw':
+					if(! message.side)
+					{
+						message.w=! message.w;
+					}
+					rally.referee.messageReceive(message);
+					break;
+				case 'wr':
+					if(message.t>0)
+					{
+						wait.messageReceive(message);
+						break;
+					}
+				/*case 'ts':
+					rally.time.messageReceive(message);
+					break;*/
+			}
+		};
+		
+		res.messageReceive=function(message)
+		{
+			res.messageReceive_(message);
+		}
 	}
 	
-	res.Game(type, whoMain, t);
+	res.Game(type, whoMain, t, state);
 	
 	return res;
 

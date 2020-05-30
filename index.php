@@ -59,6 +59,7 @@
 	<script src='classes/Game/Referee/Referee.as'></script>
 	<script src='classes/Game/Wait/Wait.as'></script>
 	<script src='classes/Game/Wait/NetworkWait.as'></script>
+	<script src='classes/Game/Wait/ViewWait.as'></script>
 	<script>
 		
 	</script>
@@ -80,6 +81,13 @@
 				body.chat_closed #chat_open {display:block}
 				body.chat_closed #chat {display:none}
 				
+				.list ._game:first-child {margin-top:-2px;padding-top:2px}
+				.list ._game {padding-top:4px; border-bottom:1px solid #888; width:185px; cursor:pointer;padding-bottom:2px}
+				.list ._game:last-child {border:0;padding-top:4px;}
+				.list ._game:hover{background:rgba(0, 0, 0, 0.1)}
+				.list ._game .user{display:table}
+				
+				
 				#wait.success #wait_success{display:block}
 				#wait #wait_fail{display:none}				
 				#wait #wait_success{display:none}
@@ -87,7 +95,7 @@
 				#wait_advice {display:none}
 				
 				body #game_leave {display:none;z-index:1000}
-				body.game_network #game_leave, body.game_remote #game_leave{display:block}
+				body.game_network #game_leave, body.game_view #game_leave{display:block}
 				
 				#game_network_head{display:none}
 					
@@ -97,12 +105,12 @@
 				#page_game {width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;}
 				#center {width: 0; height: 0; position: relative}
 				#border_out {position: absolute; width: 1234px; height: 100%;699px; border: 1px solid /*#77aa77;*/#80bb80;#aa4444; left: 50%;margin-left: -618px; -top: -350.5px; border-width: 0 1px 0 1px}
-				#border_cort {position: absolute; width: 945px; height: 498px; border: 2px solid #555555; border-width: 2px 0; left: -477.5px; top: -251px}
-				#border_cort_blue {position: absolute; width: 477.5px; height: 498px; border: 2px solid #227;#843030;#227;/*#494;*/#119;#0000aa; border-width: 2px 0; left: -477.5px; top: -251px}
+				#border_cort {position: absolute; width: 950px; height: 500px; border: 2px solid #555555; border-width: 2px 0; left: -475px; top: -252px}
+				#border_cort_blue {position: absolute; width: 475px; height: 500px; border: 2px solid #227;#843030;#227;/*#494;*/#119;#0000aa; border-width: 2px 0; left: -475px; top: -252px}
 					#help_blue {-color: #1a1aaa}
-				#border_net {position: absolute; width:2px; background: #77aa77; height: 498px; border-width: 2px 0; left: -1px; top: -249px}
+				#border_net {position: absolute; width:2px; background: #77aa77; height: 500px; border-width: 2px 0; left: -1px; top: -250px}
 				#border_point {position: absolute; width:0px; height: 0px; border: 5px solid #77aa77; left: -5px; top: -5px;  border-radius: 5px}
-				#border_serve {position: absolute; width: 717px; height: 498px; border: 1px solid #80bb80; left: -359.5px; top: -249px}
+				#border_serve {position: absolute; width: 717px; height: 500px; border: 1px solid #80bb80; left: -359.5px; top: -250px}
 				
 				.view {position: absolute}
 				.player {position: absolute}
@@ -118,11 +126,11 @@
 				h1 {margin:0px 0px 10px; font-size: 19px; color: #b63333;#a33}
 				#free_players, #invites {display: inline-block; width: 200px;230px; margin-right: 0 10px 0 10px; vertical-align: top}
 				
-				#help {position: absolute; top: /*281px;*/268px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333}
-				#help_open {position: absolute; top: /*281px;*/268px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333; font-weight: normal; font-size: 15px;text-decoration: underline;color: gray; display:none; cursor: pointer}
+				#help {position: absolute; top: /*281px;*/269px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333}
+				#help_open {position: absolute; top: /*281px;*/269px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333; font-weight: normal; font-size: 15px;text-decoration: underline;color: gray; display:none; cursor: pointer}
 				#help_close {cursor:pointer}
-				#game_local_head {position: absolute; top: /*-322px;*//*-329px;*/-300px;bottom:274px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
-				#game_network_head {position: absolute; top: -322px;/*-329px;*/-300px;-bottom:274px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
+				#game_local_head {position: absolute; top: /*-322px;*//*-329px;*/-301px;bottom:274px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
+				#game_network_head {position: absolute; top: -323px;/*-329px;*/-300px;-bottom:274px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
 				#score{margin-top: 6px; font-size: 16px}
 				
 				#help h3{margin: 0 0 4px 0}
@@ -131,7 +139,7 @@
 				
 				#wait {position: absolute; width: 250px; padding: 10px; -height: 50px; background: rgba(190, 240, 190, 0.8);#cec; top:/*-120px;*/ -165px;-150px; left: -126px; border: 1px solid #888; text-align: center}
 				#wait #wait_success {color: #595;  margin-bottom: 3px; display: -none}
-				#wait #wait_fail {color: #955;  margin-bottom: 3px; display: -none}
+				#wait #wait_fail {color: #8f5959;#955;  margin-bottom: 3px; display: -none}
 				#wait #wait_advice{font-size: 13px; margin-top: 4px; display: block; color: #777}
 				.list a, .list .user {-text-decoration: underline;margin-bottom:5px;-cursor:pointer}
 				.user u{cursor:pointer}
@@ -196,7 +204,7 @@
 					...
 					</div>
 					
-					Занятые игроки
+					Смотреть игры онлайн
 					<div class=list id=users_not_free_list style=''>
 					...
 					</div>

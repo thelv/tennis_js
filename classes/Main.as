@@ -21,19 +21,19 @@ Main=class
 		Main.networkClient.messageSend(message, sendType);
 	}				
 	
-	static gameCreate(type, whoMain, t, opponent=false)
+	static gameCreate(type, whoMain, t, opponent=false, state=false)
 	{
 		if(type=='network') lobby.hide(); else if(type=='local') lobby.show();
 		gameStopped=false;
 		document.body.classList.remove('game_local');
 		document.body.classList.remove('game_network');
-		document.body.classList.remove('game_remote');
+		document.body.classList.remove('game_view');
 		document.body.classList.add('game_'+type);
 		if(Main.game)
 		{
 			Main.game.destroy();
 		}
-		Main.game = Game.Game(type, whoMain, t, opponent);
+		Main.game = Game.Game(type, whoMain, t, opponent, state);
 	}	
 	
 	static connectionEstablished(reconnect)
@@ -65,6 +65,10 @@ Main=class
 				Main.gameStop();
 				break;
 				
+			case 'game_view':
+				Main.gameCreate('view', message.first_serve, message.t, false, message);
+				break;				
+			
 			case 'chat':
 				chat.receive(message);
 				
@@ -115,6 +119,11 @@ Main=class
 			networkClient.messageSend({tp: 'game_leave'});
 			gameStopWait=true;
 		}		
+	}
+	
+	static gameView(id)
+	{
+		networkClient.messageSend({tp: 'game_view', id: id});
 	}
 	
 	static gameStop()

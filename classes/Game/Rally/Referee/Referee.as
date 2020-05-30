@@ -31,6 +31,7 @@ Game.Rally.Referee.Referee=function(game)
 		
 		collision: function(type, number)
 		{			
+			if(game.type=='view') return;
 			if ((game.type == 'local') || (! wasOurHit) || (type=='player'))
 			{									
 				if (type == 'player')

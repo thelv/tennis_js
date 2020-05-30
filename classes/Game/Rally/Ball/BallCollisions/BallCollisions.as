@@ -78,7 +78,7 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball)
 			}
 			
 			//столкновение с нашим игроком
-			if (excludePlayer != 0)
+			if (excludePlayer != 0 && game.type!='view')
 			{
 				var player = game.rally.player0.collisions.getParams();
 				var collisionPoint = this.collisionWithPlayer(player, t);
@@ -98,7 +98,7 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball)
 			}
 			
 			//столкновение с его игроком						
-			if ((game.type!='network') && (excludePlayer != 1))
+			if ((game.type=='local') && (excludePlayer != 1))
 			{
 				var player = game.rally.player1.collisions.getParams();
 				var collisionPoint = this.collisionWithPlayer(player, t);

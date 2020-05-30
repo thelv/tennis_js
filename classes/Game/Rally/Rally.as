@@ -41,7 +41,7 @@ Game.Rally.Rally=function(game)
 			serveLines = ServeLines();
 			referee = Referee(game);
 			ball = Ball(game);
-			player0 = LocalPlayer(game, true);
+			player0 =  (game.type!=='view') ? LocalPlayer(game, true) : RemotePlayer(game, true);
 			player1 = (game.type == 'local') ? LocalPlayer(game, false) : RemotePlayer(game, false);
 			
 			//view
