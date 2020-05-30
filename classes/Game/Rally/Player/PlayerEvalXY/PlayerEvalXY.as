@@ -216,7 +216,8 @@ Game.Rally.Player.PlayerEvalXY.PlayerEvalXY=function(player)
 						player.vx=vx;
 						player.vy=vy;
 						player.x=x;
-						player.y=y;						
+						player.y=y;	
+if(player.y>0) console.log(player.y);;						
 						return;
 					}
 					else

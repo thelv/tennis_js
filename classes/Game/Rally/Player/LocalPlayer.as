@@ -23,15 +23,15 @@ Game.Rally.Player.LocalPlayer=function(game, side)
 					game.type == 'local'
 				)
 				?					
-					KeyHandler(this, 75, 186, 76, 79, 39, 37)
+					KeyHandler(this, 65, 68, 83, 87, 39, 37)
 				:
 					//KeyHandler(this, 65, 68, 83, 87, 39, 37)
-					KeyHandler(this, 68, 71, 70, 82, 39, 37)
+					KeyHandler(this, 65, 68, 83, 87, 39, 37)
 			)	
 			:
-				KeyHandler(this, 65, 68, 83, 87, 78, 86)
+				KeyHandler(this, -1, -1, -1, -1, -1, -1)
 			;
-		}	
+		}
 		
 		//logic						
 			
@@ -108,7 +108,7 @@ Game.Rally.Player.LocalPlayer=function(game, side)
 	res.unbind=function()
 	{
 		res.view.remove();
-		keyHandler.unbind;
+		keyHandler.unbind();
 	}
 			
 	return res;

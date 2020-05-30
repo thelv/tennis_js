@@ -23,6 +23,8 @@ Main=class
 	
 	static gameCreate(type, whoMain, t, opponent=false)
 	{
+		if(type=='network') lobby.hide(); else if(type=='local') lobby.show();
+		gameStopped=false;
 		document.body.classList.remove('game_local');
 		document.body.classList.remove('game_network');
 		document.body.classList.remove('game_remote');
@@ -87,6 +89,12 @@ Main=class
 	
 	static invite(id)
 	{
+		if(Main.game.type=='network' && ! Main.game.stopped) 
+		{
+			alert('Чтобы начать новую игру, необходимо выйти из этой.');
+			return;
+		}
+		
 		networkClient.messageSend({tp: 'invite_send', id: id});
 	}
 	
@@ -121,7 +129,8 @@ Main=class
 		{
 			//Main.game.rally.player0.view.hide();
 			//Main.view.gameLeaveOpponent();
-			Main.game.wait.opponentLeave();
+			Main.game.opponentLeave();
+			lobby.show();
 		}
 	}
 }

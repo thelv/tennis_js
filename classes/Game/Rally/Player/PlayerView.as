@@ -20,6 +20,11 @@ Game.Rally.Player.PlayerView=function()
 		remove: function()
 		{
 			e.remove();
+		},
+		
+		hide: function()
+		{
+			e.style.visibility='hidden';
 		}
 	}
 

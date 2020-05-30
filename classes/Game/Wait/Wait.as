@@ -3,8 +3,6 @@ Game.Wait.Wait=function(game)
 	
 	var view=0, ready=0;
 	
-	var waitNode=document.querySelector('#wait');
-	
 	var e=document.querySelector('#wait_ready');
 	
 	res=
@@ -16,7 +14,7 @@ Game.Wait.Wait=function(game)
 		Wait: function(game)
 		{		
 			this.game = game;
-			e.innerHTML='Нажмите пробел, чтобы начать';
+			waitView.ready('Нажмите пробел, чтобы начать');
 			//view
 			/*var style:StyleSheet = new StyleSheet(); 
 			
@@ -52,7 +50,7 @@ Game.Wait.Wait=function(game)
 			document.body.addEventListener('keydown', ready);
 			//view
 			view.visible = true;
-			waitNode.style.display='block';
+			waitView.show();
 		},
 		
 		ready: function(event)
@@ -65,7 +63,7 @@ Game.Wait.Wait=function(game)
 				
 				//view
 				view.visible = false;				
-				waitNode.style.display='none';
+				waitView.hide();
 				/*if (typeof event.stopPropagation != "undefined") {
 					event.stopPropagation();
 				} else {
@@ -84,11 +82,9 @@ Game.Wait.Wait=function(game)
 		opponentLeave: function()
 		{
 			this.unbind();
-			waitNode.classList.remove('success');
-			waitNode.classList.remove('fail');
+			waitView.status();
 			advice.hide();
-			e.innerHTML='Оппонент покинул игру';
-			e.style.display='block';
+			waitView.ready('Оппонент покинул игру');
 		}
 		
 	}

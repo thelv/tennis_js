@@ -50,11 +50,10 @@ Game.Referee.Referee=function(game, whoMain)
 			game.view.addChild(view);*/
 			//Main.stage.addChild(view);
 			
-			waitNode.classList.remove('success');
-			waitNode.classList.remove('fail');
-			
-			this.viewShowScore();
+			waitView.status();
 			advice.hide();
+			
+			this.viewShowScore();			
 		},
 	
 		start: function()
@@ -132,13 +131,11 @@ Game.Referee.Referee=function(game, whoMain)
 
 			if(whoWin)
 			{	
-				waitNode.classList.remove('fail'); 
-				waitNode.classList.add('success');
+				waitView.status('success');
 			}
 			else
 			{
-				waitNode.classList.remove('success');
-				waitNode.classList.add('fail');
+				waitView.status('fail');
 			}						
 			advice.refresh();
 		},

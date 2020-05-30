@@ -104,6 +104,11 @@ Game.Rally.Ball.Ball=function(game)
 			destroy: function()
 			{
 				view.remove();
+			},
+			
+			opponentLeave: function()
+			{
+				this.setControlPoint(x, y, 0, 0, va, game.rally.time.get());
 			}
 						
 	}

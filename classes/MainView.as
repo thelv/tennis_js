@@ -116,7 +116,7 @@ MainView=function()
 			}
 			if(from.length==0)
 			{
-				usersInvitesFromNode.innerText='Вас пока никто не Пригласил.';
+				usersInvitesFromNode.innerText='Вас пока никто не пригласил.';
 			}
 		},
 		

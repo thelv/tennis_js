@@ -105,7 +105,12 @@ Game.Rally.Player.Player=function(game, side)
 					evalXY.eval(t);
 					evalA.eval(t);
 					this.viewShowPos();
-				}						
+				},
+
+				hide: function()
+				{
+					view.hide();
+				}
 					
 	}
 	

@@ -21,6 +21,8 @@ Game.Game=function(type, whoMain, t, opponent=false)
 		get wait(){return wait;}, set wait(a){wait=a;},
 		get referee(){return referee;}, set referee(a){referee=a;},
 	
+		stopped: false,
+	
 		Game: function(type, whoMain, t) 
 		{
 			//view
@@ -40,6 +42,8 @@ Game.Game=function(type, whoMain, t, opponent=false)
 			
 			gameHeadNode.style.display='block';
 			if(type=='network') gameCaptionNode.innerText='Матч с '+opponent.name;
+			
+			rally.viewShowServeLines(true);
 		},
 		
 		messageReceive: function(message)
@@ -83,6 +87,14 @@ Game.Game=function(type, whoMain, t, opponent=false)
 			wait.unbind();
 			
 			gameHeadNode.style.display='none';
+		},
+		
+		opponentLeave: function()
+		{
+			wait.opponentLeave();
+			rally.ball.opponentLeave();
+			rally.player1.hide();			
+			this.stopped=true;
 		}
 	}
 	

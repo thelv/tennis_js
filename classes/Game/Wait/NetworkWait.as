@@ -174,10 +174,9 @@ Game.Wait.NetworkWait=function(game)
 		opponentLeave: function()
 		{
 			this.unbind();
-			waitNode.classList.remove('success');
-			waitNode.classList.remove('fail');
+			waitView.status();
 			advice.hide();
-			waitReadyNode.innerHTML='Оппонент покинул игру';
+			waitView.ready('Оппонент покинул игру');
 		}		
 	}
 	
