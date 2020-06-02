@@ -80,28 +80,31 @@ MainView=function()
 			for(var i in games)
 			{
 				var game=games[i];
-				var user0=game.players[0];
-				var user1=game.players[1];
+				var user0=game.players[1];
+				var user1=game.players[0];
 				var gameNode=document.createElement('div');
 				gameNode.setAttribute('class', '_game');
-				var e1=userNodeCreate(user0, 'Пригласить в игру');
+				var e1=userNodeCreate(user0);
 				(function(id)
 				{
 					e1.addEventListener('click', function()
 					{
-						Main.invite(id);
+						///Main.invite(id);
 					});
 				})(user0.id);				
-				var e2=userNodeCreate(user1, 'Пригласить в игру');
+				var e2=userNodeCreate(user1);
 				(function(id)
 				{
 					e2.addEventListener('click', function()
 					{
-						Main.invite(id);
+						//Main.invite(id);
 					});
 				})(user1.id);
 				gameNode.append(e1);
-				gameNode.append(e2);
+				var vs=document.createElement('span');
+				vs.innerHTML=' с ';
+				gameNode.append(vs);
+				gameNode.append(e2);			
 				usersNotFreeNode.append(gameNode);
 				(function(id)
 				{
@@ -124,7 +127,7 @@ MainView=function()
 			for(var i in who)
 			{
 				var user=who[i]; 
-				var e=userNodeCreate(user, 'Отменить Приглашение');
+				var e=userNodeCreate(user, 'Отменить приглашение');
 				(function(id)
 				{
 					e.addEventListener('click', function()
@@ -164,7 +167,12 @@ MainView=function()
 		{
 			waitNode.innerHTML='Оппонент покинул игру';
 			waitNode.style.display='block';
-		}
+		},
+		
+		newWindowOpened: function()
+		{
+			document.getElementById('new_window_opened').style.display='flex';
+		}		
 	}
 	
 	return res;

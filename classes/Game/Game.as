@@ -46,7 +46,7 @@ Game.Game=function(type, whoMain, t, opponent=false, state=false)
 					wait=Game.Wait.ViewWait(this);
 					break;				
 			}
-			referee=Game.Referee.Referee(this, whoMain);
+			referee=Game.Referee.Referee(this, (this.type=='view') ? ! state.state.who_serve: whoMain);
 			
 			time.reset(t);
 			if(type!='local') time.sync();
@@ -112,8 +112,9 @@ Game.Game=function(type, whoMain, t, opponent=false, state=false)
 		opponentLeave: function()
 		{
 			wait.opponentLeave();
-			rally.ball.opponentLeave();
-			rally.player1.hide();			
+			rally.ball.opponentLeave();			
+			rally.player1.hide();
+			if(this.type=='view') rally.player0.hide();
 			this.stopped=true;
 		}
 	}		
@@ -123,7 +124,7 @@ Game.Game=function(type, whoMain, t, opponent=false, state=false)
 		res.setState=function(state)
 		{
 			console.log(state);
-			res.referee.scoreSet();
+			res.referee.scoreSet(state.score);
 			if(state.wait>0)
 			{
 				wait.start(state.wait);
@@ -186,7 +187,7 @@ Game.Game=function(type, whoMain, t, opponent=false, state=false)
 					rally.ball.messageReceive(message);
 					break;
 				case 'rw':
-					if(! message.side)
+					if(message.side)
 					{
 						message.w=! message.w;
 					}

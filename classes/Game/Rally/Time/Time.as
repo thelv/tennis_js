@@ -6,7 +6,7 @@ Game.Rally.Time.Time=function()
 	var echo=function()
 	{		
 		var xhr=new XMLHttpRequest();
-		xhr.open('GET', 'http://tennis.thelv.ru/service/sync.php', true);
+		xhr.open('GET', 'https://tennis.thelv.ru/service/sync.php', true);
 		xhr.send();	
 		xhr.onreadystatechange = function() 
 		{									

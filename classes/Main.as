@@ -7,11 +7,11 @@ Main=class
 {					
 	static init()
 	{
+		networkClient=Main.networkClient=NetworkClient.NetworkClient('tennis.thelv.ru', 8083);
 		time=Game.Rally.Time.Time();
 		Main.view=MainView();
 		if(! localStorage.auth) localStorage.auth=(Math.random())+(Math.random())+(Math.random())+(Math.random());		
-		//networkClient=Main.networkClient=NetworkClient.NetworkClient('tennis2d.org', 8084);
-		networkClient=Main.networkClient=NetworkClient.NetworkClient('tennis.thelv.ru', 8083);
+		//networkClient=Main.networkClient=NetworkClient.NetworkClient('tennis2d.org', 8084);		
 		Main.gameCreate('local', false, time.get());
 		if(localStorage.name) Main.nameSet(localStorage.name);
 	}
@@ -71,6 +71,15 @@ Main=class
 			
 			case 'chat':
 				chat.receive(message);
+				break;
+				
+			case 'game_view_leave':
+				Main.gameViewLeave();
+				break;
+				
+			case 'new_window_opened':
+				Main.newWindowOpened();
+				break;
 				
 		}
 	}
@@ -114,11 +123,15 @@ Main=class
 			Main.gameCreate('local', false, time.getAbs()); 
 			gameStopped=false;
 		}
-		else
+		else if(Main.game.type!=='view')
 		{			
 			networkClient.messageSend({tp: 'game_leave'});
 			gameStopWait=true;
 		}		
+		else
+		{
+			networkClient.messageSend({tp: 'game_view_leave'});
+		}
 	}
 	
 	static gameView(id)
@@ -141,6 +154,18 @@ Main=class
 			Main.game.opponentLeave();
 			lobby.show();
 		}
+	}
+	
+	static gameViewLeave()
+	{		
+		Main.gameCreate('local', false, time.getAbs()); 
+		lobby.show();
+	}
+	
+	static newWindowOpened()
+	{
+		networkClient.stop();
+		Main.view.newWindowOpened();
 	}
 }
 

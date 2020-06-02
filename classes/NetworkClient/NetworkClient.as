@@ -2,6 +2,7 @@ NetworkClient.NetworkClient=function(host, port)
 {	
 	var ws=false;
 	reconnectIs=false;
+	var stopped=false;
 
 	var res=
 	{				
@@ -20,6 +21,8 @@ NetworkClient.NetworkClient=function(host, port)
 		
 		reconnect: function()
 		{
+			if(stopped) return;
+		
 			reconnectIs=true;
 			if(ws)
 			{	
@@ -30,7 +33,7 @@ NetworkClient.NetworkClient=function(host, port)
 		
 		connect: function()
 		{
-			ws=new WebSocket('ws://'+host+':'+port);
+			ws=new WebSocket('wss://'+host+':'+port);
 			
 			ws.onclose=function()
 			{
@@ -59,6 +62,11 @@ NetworkClient.NetworkClient=function(host, port)
 			{
 				Main.connectionEstablished(reconnectIs);
 			};
+		},
+		
+		stop: function()
+		{
+			stopped=true;
 		}
 		
 	}

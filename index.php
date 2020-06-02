@@ -26,7 +26,7 @@
 		};
 		NetworkClient={};
 	</script>
-	<script src='classes/Main.as'></script>
+	<!-- <script src='classes/Main.as'></script>
 	<script src='classes/MainView.as'></script>
 	<script src='classes/MathLib.as'></script>
 	<script src='classes/View.as'></script>
@@ -59,11 +59,8 @@
 	<script src='classes/Game/Referee/Referee.as'></script>
 	<script src='classes/Game/Wait/Wait.as'></script>
 	<script src='classes/Game/Wait/NetworkWait.as'></script>
-	<script src='classes/Game/Wait/ViewWait.as'></script>
-	<script>
-		
-	</script>
-
+	<script src='classes/Game/Wait/ViewWait.as'></script> -->	
+	
 	<html>
 		<head>	
 			<title>Tennis 2D</title>
@@ -81,11 +78,14 @@
 				body.chat_closed #chat_open {display:block}
 				body.chat_closed #chat {display:none}
 				
-				.list ._game:first-child {margin-top:-2px;padding-top:2px}
-				.list ._game {padding-top:4px; border-bottom:1px solid #888; width:185px; cursor:pointer;padding-bottom:2px}
-				.list ._game:last-child {border:0;padding-top:4px;}
+				#new_window_opened {display:none; justify-content:center; align-items:center; background:rgba(0,0,0,0.5); color:red; width:100%; height:100%; left:0; right:0; position:absolute; z-index:99999}
+				
+				.list ._game:first-child {-margin-top:-2px;padding-top:0px}
+				/*.list ._game {padding-top:4px; border-bottom:1px solid #888; width:185px; cursor:pointer;padding-bottom:2px;padding-bottom:7px}*/
+				.list ._game {padding-bottom:4px;padding-top:1px;cursor:pointer}
+				.list ._game:last-child {border:0;-padding-top:2px;}
 				.list ._game:hover{background:rgba(0, 0, 0, 0.1)}
-				.list ._game .user{display:table}
+				.list ._game .user{display:inline;}
 				
 				
 				#wait.success #wait_success{display:block}
@@ -125,22 +125,30 @@
 				
 				h1 {margin:0px 0px 10px; font-size: 19px; color: #b63333;#a33}
 				#free_players, #invites {display: inline-block; width: 200px;230px; margin-right: 0 10px 0 10px; vertical-align: top}
+				#free_players {width:188px;margin-right:12px}
+				/* #free_players {width:187px; margin-right:12px; border-right:1px solid rgba(200,200,200,0.5)}
+				#free_players {margin-top:2px}
+				#free_players > div:first-child {margin-top:-2px}
+				#free_players > div:last-child {margin-bottom:2px !important}  */
 				
 				#help {position: absolute; top: /*281px;*/269px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333}
 				#help_open {position: absolute; top: /*281px;*/269px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333; font-weight: normal; font-size: 15px;text-decoration: underline;color: gray; display:none; cursor: pointer}
 				#help_close {cursor:pointer}
-				#game_local_head {position: absolute; top: /*-322px;*//*-329px;*/-301px;bottom:274px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
-				#game_network_head {position: absolute; top: -323px;/*-329px;*/-300px;-bottom:274px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
+				#game_local_head {position: absolute; -top: /*-322px;*//*-329px;*/-301px;bottom:277px;280px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
+				#game_network_head {position: absolute; top: -323px;-323px;/*-329px;*/-300px;bottom:277px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
+					#game_network_head ._caption{line-height:22px}
+					#score{line-height:20px}
+					
 				#score{margin-top: 6px; font-size: 16px}
 				
 				#help h3{margin: 0 0 4px 0}
 				#help h3 a {font-weight: normal; font-size: 15px;text-decoration: underline;display: none}
-				#help > a {font-weight: normal; font-size: 15px;text-decoration: underline;color: gray;margin-top: 3px;display: inline-block}
+				#help > a {font-weight: normal; font-size: 15px;text-decoration: underline;color: gray;margin-top: 3px;3px;display: inline-block}
 				
 				#wait {position: absolute; width: 250px; padding: 10px; -height: 50px; background: rgba(190, 240, 190, 0.8);#cec; top:/*-120px;*/ -165px;-150px; left: -126px; border: 1px solid #888; text-align: center}
 				#wait #wait_success {color: #595;  margin-bottom: 3px; display: -none}
 				#wait #wait_fail {color: #8f5959;#955;  margin-bottom: 3px; display: -none}
-				#wait #wait_advice{font-size: 13px; margin-top: 4px; display: block; color: #777}
+				#wait #wait_advice{font-size: 13px; margin-top: 4px; color: #777}
 				.list a, .list .user {-text-decoration: underline;margin-bottom:5px;-cursor:pointer}
 				.user u{cursor:pointer}
 				.list .user:hover{-background:rgba(0,0,0,0.1);-width:185px}
@@ -184,22 +192,27 @@
 				#game_leave {-display:none; color: gray; text-decoration: underline; position: absolute; top: 7px;7px;6px; right: 12px; -right:224px; cursor:pointer}
 				
 				#vk {position: absolute; bottom: 12px; color: #d4d4d4; font-size: 14px}
+				#vk a {color:#d4d4d4}
 					
 				#name_change {cursor: pointer; -display:none}
 			</style>
 		</head>	
 		<body>
+			<div id=new_window_opened>
+				<div>Вы открыли сайт в новой вкладке, идите теперь туда.</div>
+			</div>
 			<div id=lobby>	
-				<div id=vk>Группа ВКонтакте: <u>vk.com/tennis2d</u></div> 
+				<div id=vk>Группа ВКонтакте: <a target=_blank href='https://vk.com/tennis2d'>vk.com/tennis2d</a></div> 
 				<div id=lobby_close style=''></div>
-				<h1 style='margin-left-:19px'>Теннис 2D</h1><div style='position:absolute; left-:120px;4px;right:0px;top:14px;background: 0px 0 url(img/menu.png) no-repeat;width:20px;height:30px;background-size:14px;40px 25px; cursor:pointer'></div>
+				<h1 style='margin-left-:19px'>Теннис 2D</h1><div style='display:none;position:absolute; left-:120px;4px;right:0px;top:14px;background: 0px 0 url(img/menu.png) no-repeat;width:20px;height:30px;background-size:14px;40px 25px; cursor:pointer'></div>
+				<div style='display:none;position:absolute; left-:120px;4px;right:7px;top:14px;background: -2px 0 url(img/menu.png) no-repeat;width:10px;height:30px;background-size:14px;40px 25px; cursor:pointer'></div>			
 				<div style='display:none;position:absolute; bottom:12px; color:#d4d4d4;-background:rgba(0,0,0,0.3);-padding:4px 6px;-margin-left:-6px'>*<span style='padding-left:2px'></span>имя ([личные встречи,] рейтинг, кол-во игр, пинг до вас)</div>
 				<div id=auth>
 					<!-- <a>Авторизуйтесь</a>, чтобы не потерять накопленный рейтинг.<br>
 					Реальные данные аккаунта будут скрыты. -->
 					Привет, <span id=name>user</span> (<!-- - <div style='display:none;height:5px'></div>--><a id=name_change>изменить имя</a><!--, <a>выйти</a>-->).
 				</div>
-				<div id=free_players>Свободные игроки
+				<div id=free_players><div>Свободные игроки</div>
 				<div class=list id=users_free_list style=''>
 					...
 					</div>
@@ -256,6 +269,7 @@
 				
 			</div> -->
 			<div id=chat class=chat2>
+				<div style='display:none;position:absolute; left-:120px;4px;right:7px;top:9px;background: -2px 0 url(img/menu.png) no-repeat;width:10px;height:30px;background-size:14px;40px 25px; cursor:pointer'></div>			
 				<div id=chat_head style='color:#fff'>Чат</div>
 				<div id=chat_close style=''></div>
 				<div class=_list></div>
@@ -284,7 +298,7 @@
 						<div id=wait>
 							<div id=wait_success>Вы выиграли очко.</div>
 							<div id=wait_fail>Вы проиграли очко.</div>
-							<div id=wait_ready>Нажмите пробел, чтобы начать.</div>
+							<div id=wait_ready>Нажмите пробел, чтобы начать</div>
 							<div id=wait_advice></div>
 							<!-- <b>Вы выиграли очко.</b>  -->							
 							<!-- Нажмите пробел, если готовы.<br>							
@@ -296,7 +310,7 @@
 						<div id=help>
 							<!--<h3>Как играть <a>скрыть</a></h3>-->
 							<b>Управление</b>: WSAD - движение, стрелки влево и вправо - поворот.<br>
-							<div style='-margin-top:1px'></div><b>Задача</b>: отбить мяч в <span id=help_blue>синие</span> ограждения (навылет или в серые ограждения нельзя!).
+							<div style='margin-top:1px'></div><b>Задача</b>: отбить мяч в <span id=help_blue>синие</span> ограждения (навылет или в серые ограждения нельзя!).
 							<a id=help_close>скрыть подсказку</a>
 						</div>
 						<div id=help_open>
@@ -315,7 +329,7 @@
 						</div>					
 					</div>
 				</div>
-			</div>
+			</div>			
 			<templates>
 				<div class=chat_message>
 					<span class=_name>
@@ -326,7 +340,7 @@
 					</span>
 				</div>				
 			</templates>
-			<script src='js/main.js'></script>	
+			<script src='js/main.php?1<?php //echo rand(0, 1000000); ?>'></script>	
 		</body>
 	</html>
 	<!--

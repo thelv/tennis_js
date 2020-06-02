@@ -143,7 +143,7 @@ Game.Referee.Referee=function(game, whoMain)
 			}
 			else
 			{
-				waitView.ready(whoWin ? 'Левый игрок выиграл очко' : 'Правый игрок выиграл очко');
+				waitView.ready(whoWin ? 'Правый игрок выиграл очко' : 'Левый игрок выиграл очко');
 			}
 		},
 		
@@ -158,6 +158,7 @@ Game.Referee.Referee=function(game, whoMain)
 		scoreSet: function(score_)
 		{
 			score=score_;
+			this.viewShowScore();
 		},
 		
 		viewShowScore: function()
