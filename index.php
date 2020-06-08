@@ -100,7 +100,7 @@
 				#game_network_head{display:none}
 					
 					
-				body, input, table{font-family:tahoma;font-size:15px}
+				body, input, table{font-family:tahoma;font-size:15px;overflow:hidden}
 				body {background: rgb(136, 231, 136);}
 				#page_game {width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;}
 				#center {width: 0; height: 0; position: relative}
@@ -340,7 +340,30 @@
 					</span>
 				</div>				
 			</templates>
-			<script src='js/main.php?1<?php //echo rand(0, 1000000); ?>'></script>	
+			<script src='js/main.php?3<?php //echo rand(0, 1000000); ?>'></script>	
+			<!-- Yandex.Metrika counter -->
+			<script type="text/javascript" >
+			   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+			   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+			   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+			   ym(64682380, "init", {
+					clickmap:true,
+					trackLinks:true,
+					accurateTrackBounce:true
+			   });
+			</script>
+			<noscript><div><img src="https://mc.yandex.ru/watch/64682380" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+			<!-- /Yandex.Metrika counter -->
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168648886-1"></script>
+			<script>
+			  window.dataLayer = window.dataLayer || [];
+			  function gtag(){dataLayer.push(arguments);}
+			  gtag('js', new Date());
+
+			  gtag('config', 'UA-168648886-1');
+			</script>
 		</body>
 	</html>
 	<!--

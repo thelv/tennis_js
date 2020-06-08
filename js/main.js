@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function()
 		inputNode.addEventListener('focusout', function()
 		{
 			keySpaceOccupied=false;		
-		})
+		});
 		
 		inputNode.addEventListener('keydown', function(event)
 		{
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function()
 				networkClient.messageSend({tp: 'chat', text: inputNode.value});
 				inputNode.value='';
 			}
-		})
+		});
 
 		return {
 			receive: function(mes)
@@ -33,11 +33,13 @@ document.addEventListener('DOMContentLoaded', function()
 				var mesNode=mesTemplateNode.cloneNode(true);
 				mesNode.querySelector('._name').innerText=mes.name;
 				mesNode.querySelector('._text').innerText=mes.text;
-				listNode.append(mesNode);
-				listNode.scrollTo(0, listNode.scrollHeight);
+				listNode.prepend(mesNode);
+				//listNode.scrollTo(0, listNode.scrollHeight);
 				if(mesI==30) 
 				{
-					listNode.childNodes[0].remove();
+					//listNode.childNodes[0].remove();
+					var m=listNode.childNodes;
+					m[m.length-1].remove();
 				}
 				else
 				{
