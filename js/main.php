@@ -16,6 +16,7 @@
 	echo "\n\n"; readfile('../classes/Game/Rally/Player/Player.as');
 	echo "\n\n"; readfile('../classes/Game/Rally/Player/PlayerView.as');
 	echo "\n\n"; readfile('../classes/Game/Rally/Player/LocalPlayer.as');
+	echo "\n\n"; readfile('../classes/Game/Rally/Player/BotPlayer.as');	
 	echo "\n\n"; readfile('../classes/Game/Rally/Player/RemotePlayer.as');
 	echo "\n\n"; readfile('../classes/Game/Rally/Player/PlayerCollisions/PlayerCollisions.as');
 	echo "\n\n"; readfile('../classes/Game/Rally/Player/PlayerEvalA/PlayerEvalA.as');

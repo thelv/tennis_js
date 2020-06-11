@@ -51,9 +51,9 @@ MainView=function()
 				})(user.id);
 				usersFreeNode.append(e);
 			}
-			if(free.length==0)
+			if(free.length==0 || free.length==1)
 			{
-				usersFreeNode.innerText='Никого нет.';
+				usersFreeNode.innerText='Только вы.';
 			}
 			
 			/*var notFree=users.not_free;
@@ -139,7 +139,7 @@ MainView=function()
 			}
 			if(who.length==0)
 			{
-				usersInvitesWhoNode.innerText='Пригласите свободного игрока поиграть.';
+				usersInvitesWhoNode.innerText='Пригласите игрока онлайн поиграть.';
 			}
 			
 			var from=invites.invites_from;

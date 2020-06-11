@@ -9,6 +9,7 @@ Game.Rally.Rally=function(game)
 	var Timer=Game.Rally.Timer.Timer;
 	var Player=Game.Rally.Player.Player;
 	var LocalPlayer=Game.Rally.Player.LocalPlayer;
+	var BotPlayer=Game.Rally.Player.BotPlayer;
 	var RemotePlayer=Game.Rally.Player.RemotePlayer;
 	var Ball=Game.Rally.Ball.Ball;
 
@@ -42,7 +43,7 @@ Game.Rally.Rally=function(game)
 			referee = Referee(game);
 			ball = Ball(game);
 			player0 =  (game.type!=='view') ? LocalPlayer(game, true) : RemotePlayer(game, true);
-			player1 = (game.type == 'local') ? LocalPlayer(game, false) : RemotePlayer(game, false);
+			player1 = (game.type == 'local') ? BotPlayer(game, false) : RemotePlayer(game, false);
 			
 			//view
 			/*game.view.addChild(middleLines.view);

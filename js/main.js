@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function()
 			ready: function(text)
 			{
 				waitReadyNode.innerHTML=text;
-				waitNode.style.display='block';
+				waitNode.style.display='flex';
 			},
 			
 			hide: function()
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function()
 			
 			show: function()
 			{
-				waitNode.style.display='block';
+				waitNode.style.display='flex';
 			}
 		}
 	})();
@@ -132,8 +132,8 @@ document.addEventListener('DOMContentLoaded', function()
 	var lobbyOpen=document.querySelector('#lobby_open');
 	lobbyOpen.addEventListener('click', function(){document.body.classList.remove('lobby_closed');});
 	
-	document.getElementById('help_close').addEventListener('click', function(){document.body.classList.add('help_closed');});
-	document.getElementById('help_open').addEventListener('click', function(){document.body.classList.remove('help_closed');});
+	document.getElementById('help_close').addEventListener('click', function(){localStorage.helpClosed=1;document.body.classList.add('help_closed');});
+	document.getElementById('help_open').addEventListener('click', function(){localStorage.helpClosed='';document.body.classList.remove('help_closed');});
 	
 	document.querySelector('#chat #chat_close').addEventListener('click', function(){document.body.classList.add('chat_closed');});
 	document.getElementById('chat_open').addEventListener('click', function(){document.body.classList.remove('chat_closed');});

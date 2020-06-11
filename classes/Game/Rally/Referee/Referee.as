@@ -21,6 +21,8 @@ Game.Rally.Referee.Referee=function(game)
 			stage = 'on win';
 			this.whoServe = whoServe;	
 			
+			if(game.type=='local') game.rally.player1.rallyState('side'+(whoServe ? 0 : 1));
+			
 			game.rally.player0.hold(false, t);
 			game.rally.player1.hold(false, t);
 			game.rally.ball.serve(true, whoServe, t);
@@ -37,6 +39,7 @@ Game.Rally.Referee.Referee=function(game)
 				if (type == 'player')
 				{
 					wasOurHit = (number == 0);
+					if(game.type=='local') game.rally.player1.rallyState('side'+(wasOurHit ? 1 : 0));
 					stage = 'after hit';
 				}
 				else 
@@ -57,6 +60,7 @@ Game.Rally.Referee.Referee=function(game)
 						}
 						else
 						{
+							if(game.type=='local') game.rally.player1.rallyState('side'+(wasOurHit ? 1 : 0), true);
 							stage = 'on win';
 						}
 					}
@@ -65,7 +69,9 @@ Game.Rally.Referee.Referee=function(game)
 		},
 		
 		rallyEnd: function(whoWin, isMessageFromHe=false)
-		{									
+		{								
+			if(game.type=='local') game.rally.player1.rallyState('wait');
+		
 			if (! isMessageFromHe)
 			{
 				this.messageSendRallyEnd(whoWin);

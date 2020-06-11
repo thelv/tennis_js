@@ -53,6 +53,11 @@ Game.Rally.Ball.Ball=function(game)
 				this.vy = vy;
 				this.va = va;
 				eval.init(t);
+				
+				if(game.type=='local' && game.rally.player1)
+				{
+					game.rally.player1.ballHit(x, y, vx, vy, va, t);
+				}
 			},
 			
 			shiftTime: function(t)

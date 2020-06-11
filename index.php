@@ -97,7 +97,7 @@
 				body #game_leave {display:none;z-index:1000}
 				body.game_network #game_leave, body.game_view #game_leave{display:block}
 				
-				#game_network_head{display:none}
+				#game_network_head{display:block}
 					
 					
 				body, input, table{font-family:tahoma;font-size:15px;overflow:hidden}
@@ -108,9 +108,9 @@
 				#border_cort {position: absolute; width: 950px; height: 500px; border: 2px solid #555555; border-width: 2px 0; left: -475px; top: -252px}
 				#border_cort_blue {position: absolute; width: 475px; height: 500px; border: 2px solid #227;#843030;#227;/*#494;*/#119;#0000aa; border-width: 2px 0; left: -475px; top: -252px}
 					#help_blue {-color: #1a1aaa}
-				#border_net {position: absolute; width:2px; background: #77aa77; height: 500px; border-width: 2px 0; left: -1px; top: -250px}
+				#border_net {position: absolute; width:2px; background: #77aa77; height: 502px; border-width: 2px 0; left: -1px; top: -251px}
 				#border_point {position: absolute; width:0px; height: 0px; border: 5px solid #77aa77; left: -5px; top: -5px;  border-radius: 5px}
-				#border_serve {position: absolute; width: 717px; height: 500px; border: 1px solid #80bb80; left: -359.5px; top: -250px}
+				#border_serve {position: absolute; width: 717px; height: 500px; border: 1px solid #80bb80; left: -359.5px; top: -251px}
 				
 				.view {position: absolute}
 				.player {position: absolute}
@@ -132,10 +132,10 @@
 				#free_players > div:last-child {margin-bottom:2px !important}  */
 				
 				#help {position: absolute; top: /*281px;*/269px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333}
-				#help_open {position: absolute; top: /*281px;*/269px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333; font-weight: normal; font-size: 15px;text-decoration: underline;color: gray; display:none; cursor: pointer}
+				#help_open {position: absolute; top: 268px;/*281px;*/269px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333; font-weight: normal; font-size: 15px;text-decoration: underline;color: gray; display:none; cursor: pointer}
 				#help_close {cursor:pointer}
-				#game_local_head {position: absolute; -top: /*-322px;*//*-329px;*/-301px;bottom:277px;280px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
-				#game_network_head {position: absolute; top: -323px;-323px;/*-329px;*/-300px;bottom:277px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
+				#game_local_head {display:none;position: absolute; -top: /*-322px;*//*-329px;*/-301px;bottom:277px;280px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
+				#game_network_head {position: absolute; top: -321px;-323px;-323px;/*-329px;*/-300px;bottom:277px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
 					#game_network_head ._caption{line-height:22px}
 					#score{line-height:20px}
 					
@@ -145,7 +145,8 @@
 				#help h3 a {font-weight: normal; font-size: 15px;text-decoration: underline;display: none}
 				#help > a {font-weight: normal; font-size: 15px;text-decoration: underline;color: gray;margin-top: 3px;3px;display: inline-block}
 				
-				#wait {position: absolute; width: 250px; padding: 10px; -height: 50px; background: rgba(190, 240, 190, 0.8);#cec; top:/*-120px;*/ -165px;-150px; left: -126px; border: 1px solid #888; text-align: center}
+				#wait{display:flex;margin-left: -136px;position: absolute;align-items: center;justify-content:center;height:253px;bottom:0;}
+				#wait_ {position-: absolute; width: 250px; padding: 10px; -height: 50px; background: rgba(190, 240, 190, 0.8);#cec; top:/*-120px;*/ -165px;-150px; left: -137px; border: 1px solid #888; text-align: center}
 				#wait #wait_success {color: #595;  margin-bottom: 3px; display: -none}
 				#wait #wait_fail {color: #8f5959;#955;  margin-bottom: 3px; display: -none}
 				#wait #wait_advice{font-size: 13px; margin-top: 4px; color: #777}
@@ -195,9 +196,13 @@
 				#vk a {color:#d4d4d4}
 					
 				#name_change {cursor: pointer; -display:none}
-			</style>
+			</style>			
 		</head>	
-		<body>
+		<body>		
+			<script>
+				if(localStorage.helpClosed){document.body.classList.add('help_closed')};
+				//document.getElementById('help_cont').style.display='block';
+			</script>		
 			<div id=new_window_opened>
 				<div>Вы открыли сайт в новой вкладке, идите теперь туда.</div>
 			</div>
@@ -212,7 +217,7 @@
 					Реальные данные аккаунта будут скрыты. -->
 					Привет, <span id=name>user</span> (<!-- - <div style='display:none;height:5px'></div>--><a id=name_change>изменить имя</a><!--, <a>выйти</a>-->).
 				</div>
-				<div id=free_players><div>Свободные игроки</div>
+				<div id=free_players><div>Игроки онлайн</div>
 				<div class=list id=users_free_list style=''>
 					...
 					</div>
@@ -290,40 +295,42 @@
 						<div id=border_cort>
 						</div>
 						<div id=border_cort_blue>
-						</div>					
-						<div id=border_center>
-						</div>
+						</div>											
 						<div id=border_start>
 						</div>
 						<div id=wait>
-							<div id=wait_success>Вы выиграли очко.</div>
-							<div id=wait_fail>Вы проиграли очко.</div>
-							<div id=wait_ready>Нажмите пробел, чтобы начать</div>
-							<div id=wait_advice></div>
-							<!-- <b>Вы выиграли очко.</b>  -->							
-							<!-- Нажмите пробел, если готовы.<br>							
-							Соперник не готов.<br>
-							<!-- Нажмите ESC, чтобы выйти из игры.<br> -->
-							<!-- <span>Совет: набегайте на мяч под углом, чтобы придать ему вращение.</span> -->
-							<!-- <span>Совет: если мяч от соперника летит прямиком в аут, не отбивайте его.</span> -->
+							<div id=wait_>
+								<div id=wait_success>Вы выиграли очко.</div>
+								<div id=wait_fail>Вы проиграли очко.</div>
+								<div id=wait_ready>Нажмите пробел, чтобы начать</div>
+								<div id=wait_advice></div>
+								<!-- <b>Вы выиграли очко.</b>  -->							
+								<!-- Нажмите пробел, если готовы.<br>							
+								Соперник не готов.<br>
+								<!-- Нажмите ESC, чтобы выйти из игры.<br> -->
+								<!-- <span>Совет: набегайте на мяч под углом, чтобы придать ему вращение.</span> -->
+								<!-- <span>Совет: если мяч от соперника летит прямиком в аут, не отбивайте его.</span> -->
+							</div>
 						</div>
-						<div id=help>
-							<!--<h3>Как играть <a>скрыть</a></h3>-->
-							<b>Управление</b>: WSAD - движение, стрелки влево и вправо - поворот.<br>
-							<div style='margin-top:1px'></div><b>Задача</b>: отбить мяч в <span id=help_blue>синие</span> ограждения (навылет или в серые ограждения нельзя!).
-							<a id=help_close>скрыть подсказку</a>
-						</div>
-						<div id=help_open>
-							показать подсказку
-						</div>
+						<!-- <div id=help_cont style='display:none'> -->
+							<div id=help>
+								<!--<h3>Как играть <a>скрыть</a></h3>-->
+								<b>Управление</b>: WSAD - движение, стрелки влево и вправо - поворот.<br>
+								<div style='margin-top:1px'></div><b>Задача</b>: отбить мяч в <span id=help_blue>синие</span> ограждения (навылет или в серые ограждения нельзя!).
+								<a id=help_close>скрыть подсказку</a>
+							</div>
+							<div id=help_open>
+								показать подсказку
+							</div>
+						<!-- </div> -->
 						<div id=game_local_head>						
 							Обучение с неподвижным соперником
 							<!-- Матч с petronya --><!-- (41 игр)-->
 							<!-- <div id=score>Счет (сеты/геймы/подачи): 0:1 / 2:3 / 5:6*</div> -->
 						</div>					
 						<div id=game_network_head>						
-							<div class=_caption>Матч с </div>
-							<div id=score>Счет</div>
+							<div class=_caption>Матч против компьютера </div>
+							<div id=score>Счёт (сеты/геймы/подачи): 0:0 / 0:0 / 0:0*</div>
 							<!-- Матч с petronya --><!-- (41 игр)-->
 							<!-- <div id=score>Счет (сеты/геймы/подачи): 0:1 / 2:3 / 5:6*</div> -->
 						</div>					
@@ -340,7 +347,11 @@
 					</span>
 				</div>				
 			</templates>
-			<script src='js/main.php?3<?php //echo rand(0, 1000000); ?>'></script>	
+			<script>
+				//if(localStorage.helpClosed){document.body.classNames.add('help_closed')};
+				//document.getElementById('help_cont').style.display='block';
+			</script>
+			<script src='js/main.php?24<?php //echo rand(0, 1000000); ?>'></script>	
 			<!-- Yandex.Metrika counter -->
 			<script type="text/javascript" >
 			   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};

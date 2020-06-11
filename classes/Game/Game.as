@@ -8,7 +8,7 @@ Game.Game=function(type, whoMain, t, opponent=false, state=false)
 		referee=0;
 		
 	//view
-	var gameHeadNode=document.querySelector((type=='local') ? '#game_local_head' : '#game_network_head');
+	var gameHeadNode=document.querySelector(false && (type=='local') ? '#game_local_head' : '#game_network_head');
 	var gameCaptionNode=gameHeadNode.querySelector('._caption');
 	
 	
@@ -49,21 +49,30 @@ Game.Game=function(type, whoMain, t, opponent=false, state=false)
 			referee=Game.Referee.Referee(this, (this.type=='view') ? ! state.state.who_serve: whoMain);
 			
 			time.reset(t);
-			if(type!='local') time.sync();
+			if(type!='local') 
+			{				
+				time.sync();
+			}
 			referee.start();
 			//referee.start() executes from string time.synchronize()
 			
-			gameHeadNode.style.display='block';
-			if(type=='network') gameCaptionNode.innerText='Матч с '+opponent.name;
-						
-			rally.viewShowServeLines(true);						
+			rally.viewShowServeLines(true);
 			
-			if(type=='view')
+			gameHeadNode.style.display='block';
+			if(type=='network')
+			{
+				gameCaptionNode.innerText='Матч с '+opponent.name; 
+			}
+			else if(type=='local')
+			{
+				gameCaptionNode.innerText='Матч против компьютера';
+			}
+			else if(type=='view')
 			{
 				waitView.ready('Ожидание готовности игроков');
 				this.setState(state.state);
 				gameCaptionNode.innerText='Матч '+state.players[1].name+' с '+state.players[0].name;				
-			}
+			}														
 		},
 		
 		messageReceive: function(message)

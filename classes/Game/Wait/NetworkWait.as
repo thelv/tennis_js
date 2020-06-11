@@ -36,7 +36,7 @@ Game.Wait.NetworkWait=function(game)
 			isReadyWe = false;
 			isReadyHe = false;			
 			this.viewShowReady();
-			waitNode.style.display='block';
+			waitNode.style.display='flex';
 			//timer = new Timer(100, 1);
 			//timer.addEventListener(TimerEvent.TIMER, startImmediately);
 			
@@ -74,7 +74,7 @@ Game.Wait.NetworkWait=function(game)
 			document.body.addEventListener('keydown', readyWe);
 			//view
 			this.viewShowReady();
-			waitNode.style.display='block';
+			waitNode.style.display='flex';
 			//view.visible = true;
 		},
 		

@@ -1,5 +1,12 @@
 class MathLib
 {		
+	static vAngle(v)
+	{
+		var x=v[0]; 
+		var y=v[1];
+		return x==0 ? (y>0 ? Math.PI/2 : -Math.PI/2) : (x>0 ? Math.atan(y/x) : Math.atan(y/x)+Math.PI);
+	}
+	
 	static getAngleByCoords(x, y)
 	{
 		return x==0 ? (y>0 ? Math.PI/2 : -Math.PI/2) : (x>0 ? Math.atan(y/x) : Math.atan(y/x)+Math.PI);
@@ -180,7 +187,12 @@ class MathLib
 	static vLength(v)
 	{
 		return Math.sqrt(v[0] * v[0] + v[1] * v[1]);
-	}		
+	}
+
+	static vLengthSqr(v)
+	{
+		return v[0] * v[0] + v[1] * v[1];
+	}
 	
 	static vNormalize(v)
 	{
@@ -190,7 +202,7 @@ class MathLib
 		}
 		else
 		{
-			var l = vLength(v);
+			var l = MathLib.vLength(v);
 			return [v[0] / l, v[1] / l];			
 		}
 	}
