@@ -131,13 +131,13 @@
 				#free_players > div:first-child {margin-top:-2px}
 				#free_players > div:last-child {margin-bottom:2px !important}  */
 				
-				#help {position: absolute; top: /*281px;*/269px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333}
+				#help {position: absolute; top: 270px;/*281px;*/269px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333}
 				#help_open {position: absolute; top: 268px;/*281px;*/269px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333; font-weight: normal; font-size: 15px;text-decoration: underline;color: gray; display:none; cursor: pointer}
 				#help_close {cursor:pointer}
 				#game_local_head {display:none;position: absolute; -top: /*-322px;*//*-329px;*/-301px;bottom:277px;280px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
 				#game_network_head {position: absolute; top: -321px;-323px;-323px;/*-329px;*/-300px;bottom:277px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
-					#game_network_head ._caption{line-height:22px}
-					#score{line-height:20px}
+					#game_network_head ._caption{line-height:23px;22px}
+					#score{line-height:19px;20px}
 					
 				#score{margin-top: 6px; font-size: 16px}
 				
@@ -153,7 +153,7 @@
 				.list a, .list .user {-text-decoration: underline;margin-bottom:5px;-cursor:pointer}
 				.user u{cursor:pointer}
 				.list .user:hover{-background:rgba(0,0,0,0.1);-width:185px}
-				.list {color:#d5d5d5 !important;margin-bottom: 15px !important; line-height-:24px;margin-top:5px}
+				.list {color:#d5d5d5 !important;margin-bottom: 15px !important; line-height-:24px;margin-top:6px}
 				
 				#auth {margin: 10px 0; color: #d5d5d5}
 				#auth a {text-decoration: underline}
@@ -174,7 +174,7 @@
 					#chat.chat2 input {border: 0; background: transparent; font-size: 15px; border-bottom: 1px solid #fff; width:189px; line-height: 28px; color: #d5d5d5; display: block; margin-bottom: 6px; margin-top: 1px; padding-bottom: 3px}
 					#chat.chat2 input::placeholder {color: #bbb; font-style: italic-}
 					#chat.chat2 input.focus::placeholder {color: transparent; font-style: italic;border:0}
-					#chat .chat_message {margin:0 0 5px 0; display: -flex; flex-direction: row;}
+					#chat .chat_message {margin:0 0 8px 0; display: -flex; flex-direction: row;}
 					#chat .chat_message ._name {text-decoration:underline}
 					#chat ._list{height:220px; overflow:auto}
 						
