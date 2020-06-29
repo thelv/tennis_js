@@ -3,7 +3,7 @@ Game.Rally.Player.PlayerView=function()
 	var e=document.createElement('div');
 	e.innerHTML='<div></div>';
 	e.setAttribute('class', 'player');
-	document.querySelector('#center').append(e);
+	document.querySelector('#field').append(e);
 
 	return {
 		showPosition: function(x, y, a)

@@ -1,6 +1,7 @@
 <?php	
 	header("Cache-control: public");
 	header("Expires: " . gmdate("D, d M Y H:i:s", time() + 60*60*24) . " GMT");
+	echo "\n\n"; readfile('main.js');	
 	echo "\n\n"; readfile('../classes/Main.as');
 	echo "\n\n"; readfile('../classes/MainView.as');
 	echo "\n\n"; readfile('../classes/MathLib.as');
@@ -35,6 +36,5 @@
 	echo "\n\n"; readfile('../classes/Game/Referee/Referee.as');
 	echo "\n\n"; readfile('../classes/Game/Wait/Wait.as');
 	echo "\n\n"; readfile('../classes/Game/Wait/NetworkWait.as');
-	echo "\n\n"; readfile('../classes/Game/Wait/ViewWait.as');	
-	echo "\n\n"; readfile('main.js');	
+	echo "\n\n"; readfile('../classes/Game/Wait/ViewWait.as');		
 ?>

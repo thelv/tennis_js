@@ -1,5 +1,35 @@
+/* this is a partually port from as3 so this is a mess */
+Game=
+{
+	Rally: 
+	{
+		Ball: 
+		{
+			BallCollisions: {}, BallEval: {}
+		},
+		Player: 
+		{
+			PlayerCollisions: {}, PlayerEvalA: {}, PlayerEvalXY: {}, KeyHandler: {}
+		},
+		Referee: {},
+		Scale: {},
+		Time: {},
+		Timer: {},
+		BorderLines: {},
+		FieldLines: {},
+		ServeLines: {},
+		MiddleLines: {MiddleLine: {}}
+	},
+	Referee: {},
+	Wait: {},		
+};
+NetworkClient={};
+
 document.addEventListener('DOMContentLoaded', function()
 {			
+	window.addEventListener('resize', resize);
+	resize();
+	
 	keySpaceOccupied=false;
 	chat=(function()
 	{
