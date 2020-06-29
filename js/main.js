@@ -155,6 +155,48 @@ document.addEventListener('DOMContentLoaded', function()
 		};
 	})();
 	
+	teaching=(function()
+	{		
+		return {
+			start: function()
+			{
+				if(! localStorage.teachingEnd) setTimeout(this.step1, 1500)
+			},
+			
+			step1: function()
+			{
+				document.getElementById('teaching_block1').style.display='block';
+			},
+			
+			step2: function()
+			{			
+				document.getElementById('teaching_block1').style.display='none';
+				document.getElementById('teaching_block2').style.display='block';
+				var m=false;
+				document.body.addEventListener('keydown', m=function(e)
+				{
+					if(e.keyCode==32)
+					{
+						document.body.removeEventListener('keydown', m);
+						teaching.step3();
+					}
+				});
+			},
+			
+			step3: function()
+			{
+				document.getElementById('teaching_block2').style.display='none';
+				document.getElementById('teaching_block3').style.display='block';
+			},
+			
+			end: function()
+			{
+				document.getElementById('teaching_block3').style.display='none';	
+				localStorage.teachingEnd=1;
+			}			
+		};
+	})();
+	
 	Main.init();
 	
 	var lobbyClose=document.querySelector('#lobby_close');
@@ -167,4 +209,6 @@ document.addEventListener('DOMContentLoaded', function()
 	
 	document.querySelector('#chat #chat_close').addEventListener('click', function(){document.body.classList.add('chat_closed');});
 	document.getElementById('chat_open').addEventListener('click', function(){document.body.classList.remove('chat_closed');});
+	
+	teaching.start();
 });								

@@ -45,6 +45,10 @@ Main=class
 	{
 		switch(message.tp)
 		{
+			case 'user_id':
+				Main.userId=message.user_id;
+				break;
+		
 			case 'users':
 				Main.view.users(message);
 				break;

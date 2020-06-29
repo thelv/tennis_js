@@ -49,7 +49,7 @@ MainView=function()
 						Main.invite(id);
 					});
 				})(user.id);
-				usersFreeNode.append(e);
+				if(user.id!=Main.userId) usersFreeNode.append(e);
 			}
 			if(free.length==0 || free.length==1)
 			{

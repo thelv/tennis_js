@@ -133,6 +133,11 @@
 			#vk a {color:#d4d4d4}
 				
 			#name_change {cursor: pointer; -display:none}
+			
+			.teaching_block {position:absolute; background:#fff; border:1px solid #aaa; border-radius:7px; padding:10px; color:#000;line-height:20px; display:none}
+					.teaching_block > div{padding-top:6px}
+					.teaching_block > b{}
+			.teaching_block a {color:#888; display:inline-block; margin-top:6px; text-decoration:underline; padding-right:5px; cursor:pointer}
 		</style>			
 		<script>
 			var resize=function()
@@ -194,8 +199,20 @@
 					<div class=list id=users_free_list style=''>
 						...
 					</div>
+					<div class=teaching_block id=teaching_block1 style='left:12px;margin-top:2px'>
+						<svg height="11" width="20" style='margin-top:-21px;margin-right:25px;position:absolute'>
+							<polygon points="0,10 8,0 16,10" style="fill:#fff;stroke:#aaa;stroke-width:1" />
+							<polygon points="0,11 8,1 16,11" style="fill:#fff;stroke:#fff;stroke-width:1" />
+							Sorry, your browser does not support inline SVG.
+						</svg>
+						<b>Обучение <span>(шаг 1 из 3)</span></b>
+						<div>
+							Нажмите на НИКНЕЙМ игрока,<br> для игры ОНЛАЙН по сети.						
+						</div>						
+						<a style='float:right;' onclick='teaching.step2()'><b>далее</b></a>
+					</div>
 				</div>
-				<div>
+				<div>					
 					<div>Смотреть игры онлайн</div>
 					<div class=list id=users_not_free_list style=''>
 						...
@@ -230,15 +247,41 @@
 		<div id=page_game>
 			<div id=center>
 				<div id=wait>
-					<div id=wait_>
+					<div class=teaching_block id=teaching_block2 style='bottom:50%;margin-bottom:35px;width:300px'>
+						<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
+							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
+							<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
+							Sorry, your browser does not support inline SVG.
+						</svg>
+					
+						<b>Обучение <span>(шаг 2 из 3)</span></b>
+						<div>
+							Чтобы НАЧАТЬ игру против компьютера, нажмите клавишу ПРОБЕЛ.
+						</div>						
+					</div>
+					<div id=wait_>						
 						<div id=wait_success>Вы выиграли очко.</div>
 						<div id=wait_fail>Вы проиграли очко.</div>
 						<div id=wait_ready>Нажмите пробел, чтобы начать</div>
-						<div id=wait_advice></div>						
+						<div id=wait_advice></div>												
 					</div>
 				</div>
-				<div id=help>						
-					<b>Управление</b>: WSAD - движение, стрелки влево и вправо - поворот.<br>
+				<div id=help>		
+						<div style='position:relative; height:0; display:flex; align-items:center; justify-content: center; top:0'>						
+							<div class=teaching_block id=teaching_block3 style='bottom:0;margin-bottom:15px;z-index:999'>
+								<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
+									<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
+									<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
+									Sorry, your browser does not support inline SVG.
+								</svg>	
+								<b>Обучение <span>(шаг 3 из 3)</span></b>
+								<div>
+									КЛАВИШЫ управления и ПРАВИЛА читайте тут.
+								</div>	
+								<p style='text-align:center; margin:0;padding-bottom:3px'><a onclick='teaching.end()'><b>прочитал</b></a></p>
+							</div>													
+						</div>						 
+					<b>Управление</b>: клавишы W, S, A, D - движение, <span style='font-size:21px;line-height:10px'>&#x21e6;</span> и <span style='font-size:21px;line-height:10px'>&#x21e8;</span> - поворот.<br>
 					<div style='margin-top:1px'></div><b>Задача</b>: отбить мяч в <span id=help_blue>синие</span> ограждения (навылет или в серые ограждения нельзя!).
 					<a id=help_close>скрыть подсказку</a>
 				</div>
@@ -267,13 +310,13 @@
 					</div>										
 				</div>
 			</div>
-		</div>			
+		</div>				
 		<templates>
 			<div class=chat_message>
 				<span class=_name></span>: <span class=_text></span>
 			</div>				
 		</templates>
-		<script src='js/main.php?28<?php //echo rand(0, 1000000); ?>'></script>	
+		<script src='js/main.php?31<?php //echo rand(0, 1000000); ?>'></script>	
 		<!-- Yandex.Metrika counter -->
 		<script type="text/javascript" >
 		   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
