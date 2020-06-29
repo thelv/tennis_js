@@ -53,7 +53,7 @@ MainView=function()
 			}
 			if(free.length==0 || free.length==1)
 			{
-				usersFreeNode.innerText='Только вы.';
+				usersFreeNode.innerText='Никого нет.';
 			}
 			
 			/*var notFree=users.not_free;
