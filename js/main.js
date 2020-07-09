@@ -157,31 +157,38 @@ document.addEventListener('DOMContentLoaded', function()
 	
 	teaching=(function()
 	{		
+		var step2Was=false;
 		return {
 			start: function()
 			{
-				if(! localStorage.teachingEnd) setTimeout(this.step1, 1500)
-			},
-			
-			step1: function()
-			{
-				document.getElementById('teaching_block1').style.display='block';
-			},
-			
-			step2: function()
-			{			
-				document.getElementById('teaching_block1').style.display='none';
-				document.getElementById('teaching_block2').style.display='block';
-				var m=false;
+				if(localStorage.teachingEnd) return;
+
+				setTimeout(this.step1, 2000);
 				document.body.addEventListener('keydown', m=function(e)
 				{
 					if(e.keyCode==32)
 					{
 						document.body.removeEventListener('keydown', m);
-						teaching.step3();
+						teaching.step2();
 					}
 				});
 			},
+			
+			step1: function()
+			{			
+				if(step2Was) return;
+				
+				document.getElementById('teaching_block1').style.display='block';				
+				var m=false;				
+			},
+			
+			step2: function()
+			{				
+				step2Was=true;				
+				document.getElementById('teaching_block1').style.display='none';
+				document.getElementById('teaching_block2').style.display='block';				
+			},
+						
 			
 			step3: function()
 			{

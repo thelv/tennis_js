@@ -49,7 +49,7 @@ MainView=function()
 						Main.invite(id);
 					});
 				})(user.id);
-				if(user.id!=Main.userId) usersFreeNode.append(e);
+				if(user.id!=Main.userId) usersFreeNode.appendChild(e);
 			}
 			if(free.length==0 || free.length==1)
 			{
@@ -69,7 +69,7 @@ MainView=function()
 						Main.invite(id);
 					});
 				})(user.id);
-				usersNotFreeNode.append(e);
+				usersNotFreeNode.appendChild(e);
 			}
 			if(notFree.length==0)
 			{
@@ -100,12 +100,12 @@ MainView=function()
 						//Main.invite(id);
 					});
 				})(user1.id);
-				gameNode.append(e1);
+				gameNode.appendChild(e1);
 				var vs=document.createElement('span');
 				vs.innerHTML=' с ';
-				gameNode.append(vs);
-				gameNode.append(e2);			
-				usersNotFreeNode.append(gameNode);
+				gameNode.appendChild(vs);
+				gameNode.appendChild(e2);			
+				usersNotFreeNode.appendChild(gameNode);
 				(function(id)
 				{
 					gameNode.addEventListener('click', function()
@@ -135,7 +135,7 @@ MainView=function()
 						Main.uninvite(id);
 					});
 				})(user.id);
-				usersInvitesWhoNode.append(e);
+				usersInvitesWhoNode.appendChild(e);
 			}
 			if(who.length==0)
 			{
@@ -155,7 +155,7 @@ MainView=function()
 						Main.invite(id);
 					});
 				})(user.id);
-				usersInvitesFromNode.append(e);
+				usersInvitesFromNode.appendChild(e);
 			}
 			if(from.length==0)
 			{
