@@ -3,8 +3,9 @@
 		<title>Tennis 2D</title>
 		<link rel="shortcut icon" href="img/favicon.png">
 		<meta charset=utf8>
-		<link rel="stylesheet" type="text/css" href="css/main.css?1">
+		<link rel="stylesheet" type="text/css" href="css/main.css?7">
 		<script>
+			var fieldScale=1;
 			var resize=function()
 			{
 				var w=window.innerWidth;
@@ -18,6 +19,7 @@
 				}
 				
 				var scale=Math.min((h-200)/504, w/1300);
+				fieldScale=scale;
 				var scaleMargin=parseInt((scale-1)*504/2);
 				var style=document.createElement('style');
 				style.innerHTML='\
@@ -26,6 +28,7 @@
 					#border_out {width:'+(1234*scale)+'px; margin-left:-'+(1234/2*scale)+'px}\
 					#help, #help_open {margin-top:'+scaleMargin+'px}\
 					#wait {height:'+parseInt(253*scale)+'px}\
+					#teaching_block2 {left:'+Math.round(360*scale+22)+'px; bottom: '+Math.round(40*scale)+'px; width:400px; white-space:nowrap}\
 				';
 				if(bodyScale)
 				{
@@ -111,8 +114,24 @@
 		</div>
 		<div id=page_game>
 			<div id=center>
+				<div id=teaching_block2 style='margin-bottom:15px;z-index:1999;display:none;position:absolute'>
+					<div style='position:relative;left:-50%;display:table;z-index:1999' class=teaching_block>
+						<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
+							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
+							<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
+							Sorry, your browser does not support inline SVG.
+						</svg>	
+						<!-- <b>Обучение <span>(шаг 2 из 3)</span></b> -->
+						<div class=_all>
+							Клавиши W, S, A, D - движение, <span style='font-size:21px;line-height:10px'>&#x21e6;</span> и <span style='font-size:21px;line-height:10px'>&#x21e8;</span> - поворот.<br>
+						</div>	
+						<div class=_turn>
+							Клавиши <span style='font-size:21px;line-height:10px'>&#x21e6;</span> и <span style='font-size:21px;line-height:10px'>&#x21e8;</span> - поворот.<br>
+						</div>
+					</div>
+				</div>	
 				<div id=wait>
-					<div class=teaching_block id=teaching_block1 style='bottom:50%;margin-bottom:35px;width:300px'>
+					<div class=teaching_block id=teaching_block1 style='bottom:50%;margin-bottom:35px;width:200px;text-align:center'>
 						<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
 							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
 							<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
@@ -121,9 +140,38 @@
 					
 						<!-- <b>Обучение <span>(шаг 1 из 3)</span></b> -->
 						<div>
-							Чтобы НАЧАТЬ игру против компьютера, нажмите клавишу ПРОБЕЛ.
+							Нажмите клавишу ПРОБЕЛ.
 						</div>						
 					</div>
+					
+					<div class=teaching_block id=teaching_fail_border style='top:10px;;-width:200px;text-align:center;white-space:nowrap;color:#8f2929;margin-left:12px'>
+						<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
+							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
+							<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
+							Sorry, your browser does not support inline SVG.
+						</svg>
+					
+						<!-- <b>Обучение <span>(шаг 1 из 3)</span></b> -->
+						<div>
+							Отбивать мяч в свою половину ограждения нельзя!
+						</div>						
+						<a onclick='teaching.failBorderClose()'><b>я понял</b></a>
+					</div>
+					
+					<div class=teaching_block id=teaching_fail_out style='top:10px;;-width:200px;text-align:center;white-space:nowrap;color:#8f2929;margin-left:12px'>
+						<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
+							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
+							<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
+							Sorry, your browser does not support inline SVG.
+						</svg>
+					
+						<!-- <b>Обучение <span>(шаг 1 из 3)</span></b> -->
+						<div>
+							Отбивать мяч в аут без удара об ограждение нельзя!
+						</div>	
+						<a onclick='teaching.failOutClose()'><b>я понял</b></a>						
+					</div>
+					
 					<div id=wait_>						
 						<div id=wait_success>Вы выиграли очко.</div>
 						<div id=wait_fail>Вы проиграли очко.</div>
@@ -131,21 +179,7 @@
 						<div id=wait_advice></div>												
 					</div>
 				</div>
-				<div id=help>		
-						<div style='position:relative; height:0; display:flex; align-items:center; justify-content: center; top:0'>						
-							<div class=teaching_block id=teaching_block2 style='bottom:0;margin-bottom:15px;z-index:999'>
-								<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
-									<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
-									<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
-									Sorry, your browser does not support inline SVG.
-								</svg>	
-								<!-- <b>Обучение <span>(шаг 2 из 3)</span></b> -->
-								<div>
-									КЛАВИШИ управления и ПРАВИЛА читайте тут.
-								</div>	
-								<p style='text-align:center; margin:0;padding-bottom:3px'><a onclick='teaching.step3()'><b>закрыть</b></a></p>
-							</div>													
-						</div>						 
+				<div id=help>						 
 					<b>Управление</b>: клавиши W, S, A, D - движение, <span style='font-size:21px;line-height:10px'>&#x21e6;</span> и <span style='font-size:21px;line-height:10px'>&#x21e8;</span> - поворот.<br>
 					<div style='margin-top:1px'></div><b>Задача</b>: отбить мяч в <span id=help_blue>синие</span> ограждения (навылет или в серые ограждения нельзя!).
 					<a id=help_close>скрыть подсказку</a>
@@ -181,7 +215,7 @@
 				<span class=_name></span>: <span class=_text></span>
 			</div>				
 		</templates>
-		<script src='js/main.php?33<?php //echo rand(0, 1000000); ?>'></script>	
+		<script src='js/main.php?35<?php //echo rand(0, 1000000); ?>'></script>	
 		<!-- Yandex.Metrika counter -->
 		<script type="text/javascript" >
 		   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};

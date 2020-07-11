@@ -131,6 +131,9 @@ document.addEventListener('DOMContentLoaded', function()
 			hide: function()
 			{
 				waitNode.style.display='none';
+				
+				document.getElementById('teaching_fail_border').style.display='none';
+				document.getElementById('teaching_fail_out').style.display='none';
 			},
 			
 			show: function()
@@ -155,14 +158,18 @@ document.addEventListener('DOMContentLoaded', function()
 		};
 	})();
 	
+	teachingStage2=false;
 	teaching=(function()
 	{		
-		var step2Was=false;
+		var stage=false;
+		var nodeBlock2=document.getElementById('teaching_block2');
 		return {
 			start: function()
-			{
+			{				
 				if(localStorage.teachingEnd) return;
+				stage=0;
 
+				var m=false;
 				setTimeout(this.step1, 2000);
 				document.body.addEventListener('keydown', m=function(e)
 				{
@@ -176,17 +183,44 @@ document.addEventListener('DOMContentLoaded', function()
 			
 			step1: function()
 			{			
-				if(step2Was) return;
+				if(stage>1) return;
 				
 				document.getElementById('teaching_block1').style.display='block';				
-				var m=false;				
 			},
 			
 			step2: function()
-			{				
-				step2Was=true;				
+			{		
+				var keysMove=[65, 68, 83, 87];
+				var keysTurn=[39, 37];
+				var keysMoveWas=false;
+				var keysTurnWas=false;
+				var m=false; 
+				
+				stage=2;
+				teachingStage2=true;
 				document.getElementById('teaching_block1').style.display='none';
-				document.getElementById('teaching_block2').style.display='block';				
+				document.getElementById('teaching_block2').style.display='block';	
+
+				
+				document.body.addEventListener('keydown', m=function(e)
+				{
+					if(! keysMoveWas && keysMove.indexOf(e.keyCode)!==-1)
+					{
+						keysMoveWas=true;
+						nodeBlock2.classList.add('_turn_only');
+					}
+					
+					if(! keysTurnWas && keysTurn.indexOf(e.keyCode)!==-1)
+					{
+						keysTurnWas=true;
+					}
+						
+					if(keysMoveWas && keysTurnWas)
+					{
+						document.body.removeEventListener('keydown', m);
+						teaching.step3();					
+					}
+				});				
 			},
 						
 			
@@ -194,13 +228,50 @@ document.addEventListener('DOMContentLoaded', function()
 			{
 				document.getElementById('teaching_block2').style.display='none';
 				document.getElementById('teaching_block3').style.display='block';
+				teaching.end();
 			},
 			
 			end: function()
 			{
+				stage=3;
+				teachingStage2=false;
 				document.getElementById('teaching_block3').style.display='none';	
 				localStorage.teachingEnd=1;
-			}			
+			},
+
+			failBorder: function()
+			{
+				if(localStorage.failBorderNotShow) return;
+				
+				document.getElementById('teaching_fail_border').style.display='block';
+			},
+			
+			failOut: function()
+			{
+				if(localStorage.failOutNotShow) return;
+				
+				document.getElementById('teaching_fail_out').style.display='block';
+				
+			},
+			
+			failOutClose: function()
+			{
+				localStorage.failOutNotShow=1;
+				document.getElementById('teaching_fail_out').style.display='none';
+			},
+			
+			failBorderClose: function()
+			{
+				localStorage.failBorderNotShow=1;
+				document.getElementById('teaching_fail_border').style.display='none';
+			},
+			
+			playerSetPos: function(x, y)
+			{				
+				nodeBlock2.style.left=Math.round(x*fieldScale+12)+'px';
+				nodeBlock2.style.bottom=Math.round(43+y*fieldScale)+'px';			
+				nodeBlock2.style.width='auto';
+			}
 		};
 	})();
 	

@@ -105,6 +105,7 @@ Game.Rally.Player.Player=function(game, side)
 					evalXY.eval(t);
 					evalA.eval(t);
 					this.viewShowPos();
+					if(teachingStage2 && this.local) teaching.playerSetPos(x, y); 
 				},
 
 				hide: function()

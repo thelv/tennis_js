@@ -110,6 +110,7 @@ Game.Rally.Player.LocalPlayer=function(game, side)
 		res.view.remove();
 		keyHandler.unbind();
 	}
+	res.local=true;
 			
 	return res;
 

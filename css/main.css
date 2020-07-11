@@ -132,3 +132,9 @@ templates {display:none}
 					.teaching_block > div{-padding-top:6px}
 					.teaching_block > b{}
 			.teaching_block a {color:#888; display:inline-block; margin-top:6px; text-decoration:underline; padding-right:5px; cursor:pointer}
+			
+			#teaching_block2 ._turn{display:none}
+				#teaching_block2._turn_only ._turn{display:block}
+				#teaching_block2._turn_only ._all{display:none}
+			
+			#-field{position:relative;top:-0.03px}

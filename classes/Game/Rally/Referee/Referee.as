@@ -51,12 +51,16 @@ Game.Rally.Referee.Referee=function(game)
 					else if (type == 'border')
 					{										
 						this.rallyEnd(! wasOurHit);
+						
+						if(wasOurHit && (game.type=='local' || game.type=='remote')) teaching.failOut();
 					}
 					else
 					{
 						if ((number == 0 || number == 1) == wasOurHit)
 						{
 							this.rallyEnd(! wasOurHit);
+							
+							if(wasOurHit && (game.type=='local' || game.type=='remote')) teaching.failBorder();
 						}
 						else
 						{
