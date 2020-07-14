@@ -88,7 +88,9 @@ Game.Referee.Referee=function(game, whoMain)
 				winner = -1;
 				this.scoreInit();
 			}
-			game.rally.referee.start(whoServe, t);
+			
+			if(teaching.stage<10) var whoServe_=true; else whoServe=false;
+			game.rally.referee.start(whoServe_, t);
 			
 			//view
 			view.visible = false;

@@ -4,6 +4,14 @@
 		<link rel="shortcut icon" href="img/favicon.png">
 		<meta charset=utf8>
 		<link rel="stylesheet" type="text/css" href="css/main.css?7">
+		<style>
+			#lobby, #chat, #chat2, #help,  #game_network_head, #border_cort_blue, #wait_fail, #wait_success, #wait_advice {display:none !important}
+			#wait_ {display:none}
+			#game_local_head {display:block}
+			
+			#border_cort_blue_bottom {display:none;position: absolute; width: 475px; height: 504px; border: 2px solid #227;#843030;#227;/*#494;*/#119;#0000aa; border-width: 2px 0; left: -475px; top: -254px;border-top-color:transparent}
+			#border_cort_blue_top {display:none;position: absolute; width: 475px; height: 504px; border: 2px solid #227;#843030;#227;/*#494;*/#119;#0000aa; border-width: 2px 0; left: -475px; top: -254px;border-bottom-color:transparent}
+		</style>
 		<script>
 			var fieldScale=1;
 			var resize=function()
@@ -23,12 +31,14 @@
 				var scaleMargin=parseInt((scale-1)*508/2);
 				var style=document.createElement('style');
 				style.innerHTML='\
-					#game_network_head {margin-top:'+(-scaleMargin)+'px}\
+					#game_local_head {margin-bottom:'+(scaleMargin)+'px}\
 					#field {transform:scale('+scale+')}\
 					#border_out {width:'+(1234*scale)+'px; margin-left:-'+(1234/2*scale)+'px}\
 					#help, #help_open {margin-top:'+scaleMargin+'px}\
 					#wait {height:'+parseInt(255*scale)+'px}\
 					#teaching_block2 {left:'+Math.round(360*scale+22)+'px; bottom: '+Math.round(40*scale)+'px; width:400px; white-space:nowrap}\
+					#teaching_block4 {left:'+(-Math.round(250*scale))+'px; bottom: '+(-Math.round(250*scale))+'px; -width:400px; white-space:nowrap}\
+					#teaching_block5 {left:'+(-Math.round(250*scale))+'px; top: '+(-Math.round(250*scale)+13)+'px; -width:400px; white-space:nowrap}\
 				';
 				if(bodyScale)
 				{
@@ -114,7 +124,11 @@
 		</div>
 		<div id=page_game>
 			<div id=center>
-				<div id=teaching_block2 style='margin-bottom:15px;z-index:1999;display:none;position:absolute'>
+				<div id=toast style='display:none;position:absolute;top:0;width:auto'>
+					<div id=toast_cont style='position:relative;left:-50%;margin-top:-50px;background:#ddd;border:1px solid #bbb;border-radius:5px;z-index:1010123;white-space:nowrap;padding:10px'>
+					</div>
+				</div>
+				<div id=teaching_block2 style='margin-bottom:15px;z-index:1999;display:none;position:absolute;text-align:center'>
 					<div style='position:relative;left:-50%;display:table;z-index:1999' class=teaching_block>
 						<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
 							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
@@ -123,15 +137,41 @@
 						</svg>	
 						<!-- <b>Обучение <span>(шаг 2 из 3)</span></b> -->
 						<div class=_all>
-							Клавиши W, S, A, D - движение, <span style='font-size:21px;line-height:10px'>&#x21e6;</span> и <span style='font-size:21px;line-height:10px'>&#x21e8;</span> - поворот.<br>
+							Это ваш игрок.<br>Нажмите клавиши W, S, A, D, чтобы двигаться по полю.
 						</div>	
-						<div class=_turn>
-							Клавиши <span style='font-size:21px;line-height:10px'>&#x21e6;</span> и <span style='font-size:21px;line-height:10px'>&#x21e8;</span> - поворот.<br>
+						<div class=_turn id=teaching_block2_cont>
+							Нажмите клавиши <span style='font-size:21px;line-height:10px'>&#x21e6;</span> и <span style='font-size:21px;line-height:10px'>&#x21e8;</span>, чтобы поворачивать ракетку.<br>
 						</div>
 					</div>
 				</div>	
+				<div id=teaching_block4 style='margin-bottom:15px;z-index:1999;display:none;position:absolute;text-align:center'>
+					<div style='position:relative;left:-50%;display:table;z-index:1999' class=teaching_block>
+						<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
+							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
+							<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
+							Sorry, your browser does not support inline SVG.
+						</svg>	
+						<!-- <b>Обучение <span>(шаг 2 из 3)</span></b> -->
+						<div id=teaching_block4_cont class=_all>
+							Отлично! Теперь отбейте мяч в это ограждение.
+						</div>							
+					</div>
+				</div>	
+				<div id=teaching_block5 style='margin-bottom:15px;z-index:1999;display:none;position:absolute;text-align:center'>
+					<div style='position:relative;left:-50%;display:table;z-index:1999' class=teaching_block>
+						<svg height="11" width="20" style='margin-top:-11px;right:50%;position:absolute;top:0;'>
+							<polygon points="0,10 8,0 16,10" style="fill:#fff;stroke:#aaa;stroke-width:1" />
+							<polygon points="0,11 8,1 16,11" style="fill:#fff;stroke:#fff;stroke-width:1" />
+							Sorry, your browser does not support inline SVG.
+						</svg>	
+						<!-- <b>Обучение <span>(шаг 2 из 3)</span></b> -->
+						<div  id=teaching_block5_cont class=_all>
+							Получилось! Теперь отбейте мяч в это ограждение.
+						</div>							
+					</div>
+				</div>	
 				<div id=wait>
-					<div class=teaching_block id=teaching_block1 style='bottom:50%;margin-bottom:35px;width:200px;text-align:center'>
+					<div class=teaching_block id=teaching_block1 style='bottom:50%;margin-bottom:35px;-width:200px;text-align:center'>
 						<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
 							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
 							<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
@@ -139,8 +179,8 @@
 						</svg>
 					
 						<!-- <b>Обучение <span>(шаг 1 из 3)</span></b> -->
-						<div>
-							Нажмите клавишу ПРОБЕЛ.
+						<div style='white-space:nowrap'>
+							Нажмите клавишу ПРОБЕЛ, чтобы сделать подачу.
 						</div>						
 					</div>
 					
@@ -188,7 +228,7 @@
 					показать подсказку
 				</div>
 				<div id=game_local_head>						
-					Обучение с неподвижным соперником					
+					Теннис 2D. Обучение.		
 				</div>					
 				<div id=game_network_head>						
 					<div class=_caption>Матч против компьютера </div>
@@ -204,6 +244,10 @@
 					<div id=border_cort>
 					</div>
 					<div id=border_cort_blue>
+					</div>											
+					<div id=border_cort_blue_bottom>
+					</div>											
+					<div id=border_cort_blue_top>
 					</div>											
 					<div id=border_start>
 					</div>										
@@ -238,6 +282,6 @@
 		  function gtag(){dataLayer.push(arguments);}
 		  gtag('js', new Date());
 		  gtag('config', 'UA-168648886-1');
-		</script>
+		</script>		
 	</body>
 </html>

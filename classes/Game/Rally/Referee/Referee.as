@@ -33,6 +33,8 @@ Game.Rally.Referee.Referee=function(game)
 		
 		collision: function(type, number)
 		{			
+			teaching.collision(type, number);
+		
 			if(game.type=='view') return;
 			if ((game.type == 'local') || (! wasOurHit) || (type=='player'))
 			{									
@@ -73,7 +75,8 @@ Game.Rally.Referee.Referee=function(game)
 		},
 		
 		rallyEnd: function(whoWin, isMessageFromHe=false)
-		{								
+		{						
+			teaching.rallyEnd(whoWin);
 			if(game.type=='local') game.rally.player1.rallyState('wait');
 		
 			if (! isMessageFromHe)

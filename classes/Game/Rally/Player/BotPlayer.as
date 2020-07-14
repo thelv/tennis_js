@@ -43,6 +43,7 @@ Game.Rally.Player.BotPlayer=function(game, side)
 	res.shiftTime=function(t)
 	{		
 		res.shiftTime_(t);
+		if(teaching.stage<20) return;
 		if(this.state=='wait' || this.statePrev=='wait')
 		{
 			movingX=0;

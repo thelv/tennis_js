@@ -98,7 +98,7 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball)
 			}
 			
 			//столкновение с его игроком						
-			if ((game.type=='local') && (excludePlayer != 1))
+			if ((game.type=='local') && (excludePlayer != 1) && teaching.stage>10)
 			{
 				var player = game.rally.player1.collisions.getParams();
 				var collisionPoint = this.collisionWithPlayer(player, t);

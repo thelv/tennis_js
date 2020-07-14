@@ -158,18 +158,20 @@ document.addEventListener('DOMContentLoaded', function()
 		};
 	})();
 	
-	teachingStage2=false;
+		teachingStage2=true;
 	teaching=(function()
 	{		
-		var stage=false;
 		var nodeBlock2=document.getElementById('teaching_block2');
 		return {
+			stage: false,
 			start: function()
-			{				
-				if(localStorage.teachingEnd) return;
-				stage=0;
+			{			
+				teaching.stage=0;		
+				Main.game.rally.player0.holded=false;
+				//if(localStorage.teachingEnd) return;
+				//stage=0;
 
-				var m=false;
+				/*var m=false;
 				setTimeout(this.step1, 2000);
 				document.body.addEventListener('keydown', m=function(e)
 				{
@@ -178,11 +180,12 @@ document.addEventListener('DOMContentLoaded', function()
 						document.body.removeEventListener('keydown', m);
 						teaching.step2();
 					}
-				});
+				});*/
+				setTimeout(function(){teaching.step2();}, 1500);
 			},
 			
 			step1: function()
-			{			
+			{					
 				if(stage>1) return;
 				
 				document.getElementById('teaching_block1').style.display='block';				
@@ -196,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function()
 				var keysTurnWas=false;
 				var m=false; 
 				
-				stage=2;
+				teaching.stage=2;
 				teachingStage2=true;
 				document.getElementById('teaching_block1').style.display='none';
 				document.getElementById('teaching_block2').style.display='block';	
@@ -207,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function()
 					if(! keysMoveWas && keysMove.indexOf(e.keyCode)!==-1)
 					{
 						keysMoveWas=true;
-						nodeBlock2.classList.add('_turn_only');
+						setTimeout(function(){nodeBlock2.classList.add('_turn_only');}, 1000);
 					}
 					
 					if(! keysTurnWas && keysTurn.indexOf(e.keyCode)!==-1)
@@ -217,8 +220,8 @@ document.addEventListener('DOMContentLoaded', function()
 						
 					if(keysMoveWas && keysTurnWas)
 					{
-						document.body.removeEventListener('keydown', m);
-						teaching.step3();					
+						document.body.removeEventListener('keydown', m);						
+						setTimeout(function(){teaching.step3();}, 1000);						
 					}
 				});				
 			},
@@ -226,9 +229,71 @@ document.addEventListener('DOMContentLoaded', function()
 			
 			step3: function()
 			{
+				teaching.stage=3;
+				teachingStage2=false;
 				document.getElementById('teaching_block2').style.display='none';
-				document.getElementById('teaching_block3').style.display='block';
-				teaching.end();
+				document.getElementById('wait_').style.display='block';
+				document.getElementById('teaching_block1').style.display='block';
+				//document.getElementById('teaching_block4').style.display='block';
+				
+				var m=false;				
+				document.body.addEventListener('keydown', m=function(e)
+				{
+					if(e.keyCode==32)
+					{
+						Main.game.rally.player0.hold(true, Main.game.rally.time.get())
+						Main.game.rally.player0.holded=false;
+						document.body.removeEventListener('keydown', m);
+						//teaching.step4();
+					}
+				});
+				/*teaching.end();*/
+			},
+			
+			step4: function()
+			{
+				teaching.stage=4;
+				document.getElementById('teaching_block1').style.display='none';
+				document.getElementById('teaching_block4').style.display='block';
+				document.getElementById('border_cort_blue_bottom').style.display='block';
+			},
+			
+			step5: function()
+			{
+				teaching.stage=5;
+				document.getElementById('teaching_block4').style.display='none';
+				document.getElementById('teaching_block5').style.display='block';
+				document.getElementById('border_cort_blue_top').style.display='block';
+				document.getElementById('border_cort_blue_bottom').style.display='none';
+				
+			},
+			
+			step6: function()
+			{
+				teaching.stage=6;
+				document.getElementById('border_cort_blue_top').style.display='none';
+				document.getElementById('teaching_block5').style.display='none';
+				document.getElementById('teaching_block2').style.display='block';
+				document.getElementById('teaching_block2_cont').innerHTML='Продолжаем! Набегайте на мяч снизу вверх при ударе,<br> чтобы закрутить его.';
+				teachingStage2=true;
+			},
+			
+			step7: function()
+			{
+				teaching.stage=7;
+				document.getElementById('teaching_block4').style.display='block';
+				document.getElementById('teaching_block2').style.display='none';
+				document.getElementById('teaching_block4_cont').innerHTML='Супер! Теперь отбейте мяч сюда, <br> закрутив его посильнее.';
+				document.getElementById('border_cort_blue_bottom').style.display='block';
+			},
+			
+			step11: function()
+			{
+				teaching.stage=11;
+				document.getElementById('teaching_block4_cont').innerHTML='...или сюда.';
+				document.getElementById('teaching_block5_cont').innerHTML='Теперь подаёт соперник! Отбейте мяч сюда...';
+				document.getElementById('teaching_block5').style.display='block';
+				document.getElementById('border_cort_blue_top').style.display='block';
 			},
 			
 			end: function()
@@ -271,9 +336,119 @@ document.addEventListener('DOMContentLoaded', function()
 				nodeBlock2.style.left=Math.round(x*fieldScale+12)+'px';
 				nodeBlock2.style.bottom=Math.round((40+y)*fieldScale)+'px';			
 				nodeBlock2.style.width='auto';
+			},
+			
+			collision: function(type, number)
+			{
+				//console.log(Main.game.rally.ball.va);
+				console.log(type, number);
+				
+				if(teaching.stage==4)
+				{
+					if(type=='field' && number==3) 
+					{
+						toastSuccess();
+						teaching.stage4success=true;
+					}
+				}				
+				else if(teaching.stage==5)
+				{
+					if(type=='field' && number==2)
+					{
+						teaching.stage5success=true;				
+						toastSuccess();
+					}
+				}				
+				else if(teaching.stage==6 && type=='player')
+				{
+					if(Main.game.rally.ball.va>=0.02)
+					{
+						toastSuccess();
+						teaching.stage6success=true
+					}
+				}
+				else if(teaching.stage==7)
+				{
+					if(type=='player')
+					{
+						teaching.stage7success1=false;
+						if(Main.game.rally.ball.va>=0.02)
+						{
+							toastSuccess();
+							teaching.stage7success2=true
+						}
+						else teaching.stage7success2=false;
+					}
+					else if(type=='field' && number==3)
+					{
+						teaching.stage7success1=true;
+						if(teaching.stage7success2) toastSuccess();
+					}
+				}
+			},
+			
+			rallyEnd(whoWin)			
+			{
+				if(teaching.stage==3) teaching.step4(); 
+				else if(teaching.stage==4)
+				{
+					if(teaching.stage4success) teaching.step5();
+					else
+					{
+						toast('Мимо! Попробуйте еще раз.');
+					}
+				}
+				else if(teaching.stage==5)
+				{
+					if(teaching.stage5success) teaching.step6();
+					else
+					{
+						toast('Мимо! Попробуйте еще раз.');
+					}
+				}
+				else if(teaching.stage==6)
+				{
+					if(teaching.stage6success) teaching.step7();
+					else
+					{
+						toast('Слабовато! Закрутите посильнее.');
+					}
+				}
+				else if(teaching.stage==7)
+				{
+					if(! teaching.stage7success1)
+					{
+						toast('Мимо! Попробуйте еще раз.');
+					}
+					else if(! teaching.stage7success2)
+					{
+						toast('Слабое вращение! Попробуйте еще раз.');
+					}
+					else
+					{
+						teaching.step11();
+					}						
+				}
 			}
 		};
 	})();
+	
+	toastNode=document.getElementById('toast');
+	toastContNode=document.getElementById('toast_cont');
+	toastTimer=false;
+	toast=function(mes, t=3500)
+	{
+		if(toastTimer) clearTimeout(toastTimer);
+		toastContNode.innerText=mes;
+		toastNode.style.display='block';
+		toastNode.style.width='auto';
+		toastTimer=setTimeout(function(){toastNode.style.display='none';}, t);
+	}
+	toastSuccessMess=['Супер!', 'Отлично!', 'Получилось!'];
+	toastSuccess=function()
+	{
+		toast(toastSuccessMess[parseInt((Math.random()-0.0000001)*toastSuccessMess.length)], 1500)
+	}
 	
 	Main.init();
 	
