@@ -36,12 +36,12 @@ templates {display:none}
 			#page_game {width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;}
 			#center {width: 0; height: 0; position: relative}
 			#border_out {position: absolute; width: 1234px; height: 100%;699px; border: 1px solid /*#77aa77;*/#80bb80;#aa4444; left: 50%;margin-left: -618px; -top: -350.5px; border-width: 0 1px 0 1px}
-			#border_cort {position: absolute; width: 950px; height: 500px; border: 2px solid #555555; border-width: 2px 0; left: -475px; top: -252px}
-			#border_cort_blue {position: absolute; width: 475px; height: 500px; border: 2px solid #227;#843030;#227;/*#494;*/#119;#0000aa; border-width: 2px 0; left: -475px; top: -252px}
+			#border_cort {position: absolute; width: 950px; height: 504px; border: 2px solid #555555; border-width: 2px 0; left: -475px; top: -254px}
+			#border_cort_blue {position: absolute; width: 475px; height: 504px; border: 2px solid #227;#843030;#227;/*#494;*/#119;#0000aa; border-width: 2px 0; left: -475px; top: -254px}
 				#help_blue {-color: #1a1aaa}
-			#border_net {position: absolute; width:2px; background: #77aa77; height: 502px; border-width: 2px 0; left: -1px; top: -251px}
+			#border_net {position: absolute; width:2px; background: #77aa77; height: 506px; border-width: 2px 0; left: -1px; top: -253px}
 			#border_point {position: absolute; width:0px; height: 0px; border: 5px solid #77aa77; left: -5px; top: -5px;  border-radius: 5px}
-			#border_serve {position: absolute; width: 717px; height: 500px; border: 1px solid #80bb80; left: -359.5px; top: -251px}
+			#border_serve {position: absolute; width: 717px; height: 504px; border: 1px solid #80bb80; left: -359.5px; top: -253px}
 			
 			.view {position: absolute}
 			.player {position: absolute}
@@ -62,11 +62,11 @@ templates {display:none}
 			#left_lists > div:first-child {margin-top:-2px}
 			#left_lists > div:last-child {margin-bottom:2px !important}  */
 			
-			#help {position: absolute; top: 270px;/*281px;*/269px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333}
-			#help_open {position: absolute; top: 268px;/*281px;*/269px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333; font-weight: normal; font-size: 15px;text-decoration: underline;color: gray; display:none; cursor: pointer}
+			#help {position: absolute; top: 272px;270px;/*281px;*/269px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333}
+			#help_open {position: absolute; top: 270px;268px;/*281px;*/269px;267px;262px;260px;270px;259px;267px; left: -310px; width: 620px; text-align: center;color:#333; font-weight: normal; font-size: 15px;text-decoration: underline;color: gray; display:none; cursor: pointer}
 			#help_close {cursor:pointer}
 			#game_local_head {display:none;position: absolute; -top: /*-322px;*//*-329px;*/-301px;bottom:277px;280px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
-			#game_network_head {position: absolute; top: -321px;-323px;-323px;/*-329px;*/-300px;bottom:277px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
+			#game_network_head {position: absolute; top: -323px;-321px;-323px;-323px;/*-329px;*/-300px;bottom:277px;-300px;-312px; left: -300px; width: 600px; text-align: center;font-size: 17.5px;color: #333}
 				#game_network_head ._caption{line-height:23px;22px}
 				#score{line-height:19px;20px}
 				

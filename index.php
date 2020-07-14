@@ -18,16 +18,16 @@
 					h=h/bodyScale;
 				}
 				
-				var scale=Math.min((h-200)/504, w/1300);
+				var scale=Math.min((h-200)/508, w/1300);
 				fieldScale=scale;
-				var scaleMargin=parseInt((scale-1)*504/2);
+				var scaleMargin=parseInt((scale-1)*508/2);
 				var style=document.createElement('style');
 				style.innerHTML='\
 					#game_network_head {margin-top:'+(-scaleMargin)+'px}\
 					#field {transform:scale('+scale+')}\
 					#border_out {width:'+(1234*scale)+'px; margin-left:-'+(1234/2*scale)+'px}\
 					#help, #help_open {margin-top:'+scaleMargin+'px}\
-					#wait {height:'+parseInt(253*scale)+'px}\
+					#wait {height:'+parseInt(255*scale)+'px}\
 					#teaching_block2 {left:'+Math.round(360*scale+22)+'px; bottom: '+Math.round(40*scale)+'px; width:400px; white-space:nowrap}\
 				';
 				if(bodyScale)

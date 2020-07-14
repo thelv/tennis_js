@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function()
 			playerSetPos: function(x, y)
 			{				
 				nodeBlock2.style.left=Math.round(x*fieldScale+12)+'px';
-				nodeBlock2.style.bottom=Math.round(43+y*fieldScale)+'px';			
+				nodeBlock2.style.bottom=Math.round((40+y)*fieldScale)+'px';			
 				nodeBlock2.style.width='auto';
 			}
 		};
