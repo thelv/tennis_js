@@ -166,6 +166,12 @@ document.addEventListener('DOMContentLoaded', function()
 			stage: false,
 			start: function()
 			{			
+				if(localStorage.teachingStage)
+				{
+					teaching['step'+localStorage.teachingStage]();
+					return;
+				}
+				
 				teaching.stage=0;		
 				Main.game.rally.player0.holded=false;
 				//if(localStorage.teachingEnd) return;
@@ -192,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function()
 			},
 			
 			step2: function()
-			{		
+			{						
 				var keysMove=[65, 68, 83, 87];
 				var keysTurn=[39, 37];
 				var keysMoveWas=false;
@@ -228,8 +234,9 @@ document.addEventListener('DOMContentLoaded', function()
 						
 			
 			step3: function()
-			{
+			{				
 				teaching.stage=3;
+				localStorage.teachingStage=teaching.stage;
 				teachingStage2=false;
 				document.getElementById('teaching_block2').style.display='none';
 				document.getElementById('wait_').style.display='block';
@@ -253,6 +260,7 @@ document.addEventListener('DOMContentLoaded', function()
 			step4: function()
 			{
 				teaching.stage=4;
+				localStorage.teachingStage=teaching.stage;
 				document.getElementById('teaching_block1').style.display='none';
 				document.getElementById('teaching_block4').style.display='block';
 				document.getElementById('border_cort_blue_bottom').style.display='block';
@@ -261,6 +269,7 @@ document.addEventListener('DOMContentLoaded', function()
 			step5: function()
 			{
 				teaching.stage=5;
+				localStorage.teachingStage=teaching.stage;
 				document.getElementById('teaching_block4').style.display='none';
 				document.getElementById('teaching_block5').style.display='block';
 				document.getElementById('border_cort_blue_top').style.display='block';
@@ -271,6 +280,7 @@ document.addEventListener('DOMContentLoaded', function()
 			step6: function()
 			{
 				teaching.stage=6;
+				localStorage.teachingStage=teaching.stage;
 				document.getElementById('border_cort_blue_top').style.display='none';
 				document.getElementById('teaching_block5').style.display='none';
 				document.getElementById('teaching_block2').style.display='block';
@@ -281,6 +291,7 @@ document.addEventListener('DOMContentLoaded', function()
 			step7: function()
 			{
 				teaching.stage=7;
+				localStorage.teachingStage=teaching.stage;
 				document.getElementById('teaching_block4').style.display='block';
 				document.getElementById('teaching_block2').style.display='none';
 				document.getElementById('teaching_block4_cont').innerHTML='Супер! Теперь отбейте мяч сюда, <br> закрутив его посильнее.';
@@ -290,10 +301,25 @@ document.addEventListener('DOMContentLoaded', function()
 			step11: function()
 			{
 				teaching.stage=11;
+				localStorage.teachingStage=teaching.stage;
+				teaching.stage11successCount=0;
 				document.getElementById('teaching_block4_cont').innerHTML='...или сюда.';
 				document.getElementById('teaching_block5_cont').innerHTML='Теперь подаёт соперник! Отбейте мяч сюда...';
+				document.getElementById('border_cort_blue_bottom').style.display='block';
 				document.getElementById('teaching_block5').style.display='block';
+				document.getElementById('teaching_block4').style.display='block';
 				document.getElementById('border_cort_blue_top').style.display='block';
+			},
+			
+			step12: function()
+			{
+				teaching.stage=12;
+				localStorage.teachingEnd=1;
+				document.getElementById('wait_').style.display='none';
+				document.getElementById('teaching_block4').style.display='none';
+				document.getElementById('teaching_block5').style.display='none';
+				toast('Поздравляем! Вы прошли обучение.<br>Пора в бой.');
+				setTimeout(function(){localStorage.teachingStage='';window.location.href='/?teaching_end';}, 2500);
 			},
 			
 			end: function()
@@ -306,6 +332,7 @@ document.addEventListener('DOMContentLoaded', function()
 
 			failBorder: function()
 			{
+				return;
 				if(localStorage.failBorderNotShow) return;
 				
 				document.getElementById('teaching_fail_border').style.display='block';
@@ -313,6 +340,7 @@ document.addEventListener('DOMContentLoaded', function()
 			
 			failOut: function()
 			{
+				return;
 				if(localStorage.failOutNotShow) return;
 				
 				document.getElementById('teaching_fail_out').style.display='block';
@@ -385,6 +413,19 @@ document.addEventListener('DOMContentLoaded', function()
 						if(teaching.stage7success2) toastSuccess();
 					}
 				}
+				else if(teaching.stage==11)
+				{
+					if(type=='player')
+					{
+						teaching.stage11success=false;											
+					}
+					else if(type=='field' && (number==2 || number==3))
+					{
+						teaching.stage11success=true;
+						toastSuccess();
+						teaching.stage11successCount++;
+					}
+				}
 			},
 			
 			rallyEnd(whoWin)			
@@ -429,6 +470,31 @@ document.addEventListener('DOMContentLoaded', function()
 						teaching.step11();
 					}						
 				}
+				else if(teaching.stage==11)
+				{
+					if(! teaching.stage11success)
+					{
+						toast('Мимо! Попробуйте еще раз.');
+					}
+					else
+					{
+						if(teaching.stage11successCount==2)
+						{
+							toastSuccess();
+							teaching.step12();
+						}
+						else
+						{
+							toast('Здорово! И еще разок для закрепления.');
+						}
+					}
+				}
+			},
+			
+			skip: function()
+			{
+				localStorage.teachingEnd=1;
+				window.location.href='/?teaching_end';
 			}
 		};
 	})();
@@ -439,7 +505,7 @@ document.addEventListener('DOMContentLoaded', function()
 	toast=function(mes, t=3500)
 	{
 		if(toastTimer) clearTimeout(toastTimer);
-		toastContNode.innerText=mes;
+		toastContNode.innerHTML=mes;
 		toastNode.style.display='block';
 		toastNode.style.width='auto';
 		toastTimer=setTimeout(function(){toastNode.style.display='none';}, t);

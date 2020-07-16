@@ -111,7 +111,7 @@
 		<div id=lobby_open>
 			<div></div>
 		</div>
-		<div id=game_leave>выйти из игры</div>		
+		<div id=game_leave onclick='teaching.skip()'>пропустить обучение</div>		
 		<div id=chat class=chat2>
 			<div style='display:none;position:absolute; left-:120px;4px;right:7px;top:9px;background: -2px 0 url(img/menu.png) no-repeat;width:10px;height:30px;background-size:14px;40px 25px; cursor:pointer'></div>			
 			<div id=chat_head style='color:#fff'>Чат</div>
@@ -130,23 +130,25 @@
 				</div>
 				<div id=teaching_block2 style='margin-bottom:15px;z-index:1999;display:none;position:absolute;text-align:center'>
 					<div style='position:relative;left:-50%;display:table;z-index:1999' class=teaching_block>
-						<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
+						<svg height="11" width="20" style='margin-bottom:-10px;right:50%;position:absolute;bottom:0;'>
 							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
 							<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
 							Sorry, your browser does not support inline SVG.
 						</svg>	
 						<!-- <b>Обучение <span>(шаг 2 из 3)</span></b> -->
-						<div class=_all>
-							Это ваш игрок.<br>Нажмите клавиши W, S, A, D, чтобы двигаться по полю.
-						</div>	
-						<div class=_turn id=teaching_block2_cont>
-							Нажмите клавиши <span style='font-size:21px;line-height:10px'>&#x21e6;</span> и <span style='font-size:21px;line-height:10px'>&#x21e8;</span>, чтобы поворачивать ракетку.<br>
+						<div id=teaching_block2_cont>
+							<div class=_all>
+								Это ваш игрок.<br>Нажмите клавиши W, S, A, D, чтобы двигаться по полю.
+							</div>	
+							<div class=_turn id=teaching_block2_cont>
+								Нажмите клавиши <span style='font-size:21px;line-height:10px'>&#x21e6;</span> и <span style='font-size:21px;line-height:10px'>&#x21e8;</span>, чтобы поворачивать ракетку.<br>
+							</div>
 						</div>
 					</div>
 				</div>	
 				<div id=teaching_block4 style='margin-bottom:15px;z-index:1999;display:none;position:absolute;text-align:center'>
 					<div style='position:relative;left:-50%;display:table;z-index:1999' class=teaching_block>
-						<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
+						<svg height="11" width="20" style='margin-bottom:-10px;right:50%;position:absolute;bottom:0;'>
 							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
 							<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
 							Sorry, your browser does not support inline SVG.
@@ -159,7 +161,7 @@
 				</div>	
 				<div id=teaching_block5 style='margin-bottom:15px;z-index:1999;display:none;position:absolute;text-align:center'>
 					<div style='position:relative;left:-50%;display:table;z-index:1999' class=teaching_block>
-						<svg height="11" width="20" style='margin-top:-11px;right:50%;position:absolute;top:0;'>
+						<svg height="11" width="20" style='margin-top:-10px;right:50%;position:absolute;top:0;'>
 							<polygon points="0,10 8,0 16,10" style="fill:#fff;stroke:#aaa;stroke-width:1" />
 							<polygon points="0,11 8,1 16,11" style="fill:#fff;stroke:#fff;stroke-width:1" />
 							Sorry, your browser does not support inline SVG.

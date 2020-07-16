@@ -25,7 +25,7 @@ templates {display:none}
 			#wait.fail #wait_fail{display:block}
 			#wait_advice {display:none}
 			
-			body #game_leave {display:none;z-index:1000}
+			body #game_leave {-display:none;z-index:1000}
 			body.game_network #game_leave, body.game_view #game_leave{display:block}
 			
 			#game_network_head{display:block}
