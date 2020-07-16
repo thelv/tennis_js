@@ -1,3 +1,16 @@
+<?php
+       if(! isset($_GET['teaching_end']))
+       {
+               if(! $_COOKIE['teaching_end'])
+               {
+                       header('Location: /teaching/');
+                       die;
+               }
+
+       }
+
+       setcookie('teaching_end', '1', time()+24*3600*365*2);
+?>
 <html>
 	<head>
 		<title>Tennis 2D</title>
