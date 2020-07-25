@@ -90,6 +90,7 @@ Game.Referee.Referee=function(game, whoMain)
 			}
 			
 			if(teaching.stage<10) var whoServe_=true; else whoServe=false;
+			teaching.rallyStart();
 			game.rally.referee.start(whoServe_, t);
 			
 			//view

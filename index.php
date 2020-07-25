@@ -3,14 +3,14 @@
 		<title>Tennis 2D</title>
 		<link rel="shortcut icon" href="img/favicon.png">
 		<meta charset=utf8>
-		<link rel="stylesheet" type="text/css" href="css/main.css?7">
+		<link rel="stylesheet" type="text/css" href="css/main.css?8">
 		<style>
-			#lobby, #chat, #chat2, #help,  #game_network_head, #border_cort_blue, #wait_fail, #wait_success, #wait_advice {display:none !important}
+			#chat, #chat2, #help,  #game_network_head, #border_cort_blue, #wait_fail, #wait_success, #wait_advice {display:none !important}
 			#wait_ {display:none}
 			#game_local_head {display:block}
 			
-			#border_cort_blue_bottom {display:none;position: absolute; width: 475px; height: 504px; border: 2px solid #227;#843030;#227;/*#494;*/#119;#0000aa; border-width: 2px 0; left: -475px; top: -254px;border-top-color:transparent}
-			#border_cort_blue_top {display:none;position: absolute; width: 475px; height: 504px; border: 2px solid #227;#843030;#227;/*#494;*/#119;#0000aa; border-width: 2px 0; left: -475px; top: -254px;border-bottom-color:transparent}
+			#border_cort_blue_bottom {display:none;position: absolute; width: 475px; height: 504px; border: 2px solid #a11;#843030;#227;/*#494;*/#119;#0000aa; border-width: 2px 0; left: -475px; top: -254px;border-top-color:transparent}
+			#border_cort_blue_top {display:none;position: absolute; width: 475px; height: 504px; border: 2px solid #a11;#843030;#227;/*#494;*/#119;#0000aa; border-width: 2px 0; left: -475px; top: -254px;border-bottom-color:transparent}
 		</style>
 		<script>
 			var fieldScale=1;
@@ -61,10 +61,10 @@
 			<div>Вы открыли сайт в новой вкладке, идите теперь туда.</div>
 		</div>
 		<div id=lobby>	
-			<div id=vk>Группа ВКонтакте: <a target=_blank href='https://vk.com/tennis2d'>vk.com/tennis2d</a></div> 
-			<div id=lobby_close style=''></div>
+			<div style='display:none;'><div id=vk>Группа ВКонтакте: <a target=_blank href='https://vk.com/tennis2d'>vk.com/tennis2d</a></div> 
+			<div id=lobby_close style=''></div></div>
 			<h1 style='margin-left-:19px'>Теннис 2D</h1><div style='display:none;position:absolute; left-:120px;4px;right:0px;top:14px;background: 0px 0 url(img/menu.png) no-repeat;width:20px;height:30px;background-size:14px;40px 25px; cursor:pointer'></div>
-			<div style='display:none;position:absolute; left-:120px;4px;right:7px;top:14px;background: -2px 0 url(img/menu.png) no-repeat;width:10px;height:30px;background-size:14px;40px 25px; cursor:pointer'></div>			
+			<div style='display:none;'><div style='display:none;position:absolute; left-:120px;4px;right:7px;top:14px;background: -2px 0 url(img/menu.png) no-repeat;width:10px;height:30px;background-size:14px;40px 25px; cursor:pointer'></div>			
 			<div style='display:none;position:absolute; bottom:12px; color:#d4d4d4;-background:rgba(0,0,0,0.3);-padding:4px 6px;-margin-left:-6px'>*<span style='padding-left:2px'></span>имя ([личные встречи,] рейтинг, кол-во игр, пинг до вас)</div>
 			<div id=auth>
 				<!-- <a>Авторизуйтесь</a>, чтобы не потерять накопленный рейтинг.<br>
@@ -106,7 +106,7 @@
 				<div class=list id=users_invites_who_list style=''>
 					...
 				</div>
-			</div>
+			</div></div>
 		</div>	
 		<div id=lobby_open>
 			<div></div>
@@ -124,11 +124,11 @@
 		</div>
 		<div id=page_game>
 			<div id=center>
-				<div id=toast style='display:none;position:absolute;top:0;width:auto'>
+				<div id=toast style='display:none;position:absolute;top:0;width:auto;text-align:center'>
 					<div id=toast_cont style='position:relative;left:-50%;margin-top:-50px;background:#ddd;border:1px solid #bbb;border-radius:5px;z-index:1010123;white-space:nowrap;padding:10px'>
 					</div>
 				</div>
-				<div id=teaching_block2 style='margin-bottom:15px;z-index:1999;display:none;position:absolute;text-align:center'>
+				<div id=teaching_block2 style='margin-bottom:15px;z-index:1999;display:none;position:absolute;text-align:center;'>
 					<div style='position:relative;left:-50%;display:table;z-index:1999' class=teaching_block>
 						<svg height="11" width="20" style='margin-bottom:-10px;right:50%;position:absolute;bottom:0;'>
 							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
@@ -140,18 +140,27 @@
 							<div class=_all>
 								Это ваш игрок.<br>Нажмите клавиши W, S, A, D, чтобы двигаться по полю.
 							</div>	
-							<div class=_turn id=teaching_block2_cont>
+							<div class=_turn id=teaching_block2_cont_>
 								Нажмите клавиши <span style='font-size:21px;line-height:10px'>&#x21e6;</span> и <span style='font-size:21px;line-height:10px'>&#x21e8;</span>, чтобы поворачивать ракетку.<br>
 							</div>
 						</div>
 					</div>
 				</div>	
+				<div id=teaching_block2_2 style='margin-bottom:15px;z-index:1999;display:none;position:absolute;text-align:center;white-space:nowrap'>
+					<div style='position:relative;left:-50%;display:table;z-index:1999' class=teaching_block>
+						<svg height="11" width="20" style='margin-top:-10px;right:50%;position:absolute;top:0;'>
+							<polygon points="0,10 8,0 16,10" style="fill:#fff;stroke:#aaa;stroke-width:1" />
+							<polygon points="0,11 8,1 16,11" style="fill:#fff;stroke:#fff;stroke-width:1" />							
+						</svg>	
+						<!-- <b>Обучение <span>(шаг 2 из 3)</span></b> -->
+						Нажмите клавиши <span style='font-size:21px;line-height:10px'>&#x21e6;</span> и <span style='font-size:21px;line-height:10px'>&#x21e8;</span>, чтобы поворачивать ракетку.<br>						
+					</div>
+				</div>					
 				<div id=teaching_block4 style='margin-bottom:15px;z-index:1999;display:none;position:absolute;text-align:center'>
 					<div style='position:relative;left:-50%;display:table;z-index:1999' class=teaching_block>
 						<svg height="11" width="20" style='margin-bottom:-10px;right:50%;position:absolute;bottom:0;'>
 							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
 							<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
-							Sorry, your browser does not support inline SVG.
 						</svg>	
 						<!-- <b>Обучение <span>(шаг 2 из 3)</span></b> -->
 						<div id=teaching_block4_cont class=_all>
@@ -164,7 +173,6 @@
 						<svg height="11" width="20" style='margin-top:-10px;right:50%;position:absolute;top:0;'>
 							<polygon points="0,10 8,0 16,10" style="fill:#fff;stroke:#aaa;stroke-width:1" />
 							<polygon points="0,11 8,1 16,11" style="fill:#fff;stroke:#fff;stroke-width:1" />
-							Sorry, your browser does not support inline SVG.
 						</svg>	
 						<!-- <b>Обучение <span>(шаг 2 из 3)</span></b> -->
 						<div  id=teaching_block5_cont class=_all>
@@ -177,7 +185,6 @@
 						<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
 							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
 							<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
-							Sorry, your browser does not support inline SVG.
 						</svg>
 					
 						<!-- <b>Обучение <span>(шаг 1 из 3)</span></b> -->
@@ -190,7 +197,6 @@
 						<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
 							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
 							<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
-							Sorry, your browser does not support inline SVG.
 						</svg>
 					
 						<!-- <b>Обучение <span>(шаг 1 из 3)</span></b> -->
@@ -204,7 +210,6 @@
 						<svg height="11" width="20" style='margin-bottom:-11px;right:50%;position:absolute;bottom:0;'>
 							<polygon points="0,1 8,11 16,1" style="fill:#fff;stroke:#aaa;stroke-width:1" />
 							<polygon points="0,0 8,10 16,0" style="fill:#fff;stroke:#fff;stroke-width:1" />
-							Sorry, your browser does not support inline SVG.
 						</svg>
 					
 						<!-- <b>Обучение <span>(шаг 1 из 3)</span></b> -->
@@ -230,7 +235,7 @@
 					показать подсказку
 				</div>
 				<div id=game_local_head>						
-					Теннис 2D. Обучение.		
+					Обучение
 				</div>					
 				<div id=game_network_head>						
 					<div class=_caption>Матч против компьютера </div>
@@ -252,7 +257,15 @@
 					<div id=border_cort_blue_top>
 					</div>											
 					<div id=border_start>
-					</div>										
+					</div>
+
+					<div class="player" style="display:none;left: 330px; z-index: 2147483647; top: 0px; transform: rotate(1.5708rad); margin-top: -40px;" id="player_shadow">
+						<div style="background: #7777ff;">
+						</div>
+					</div>
+					<div id=ball_shadow style='position:absolute;display:none;left:321px;top:0px;border-radius:5px;width:8px;height:8px;border:1px solid rgba(220,40,40,0.3); background: rgba(220,40,40,0.2)'>
+					</div>
+					
 				</div>
 			</div>
 		</div>				
@@ -261,7 +274,7 @@
 				<span class=_name></span>: <span class=_text></span>
 			</div>				
 		</templates>
-		<script src='js/main.php?35<?php //echo rand(0, 1000000); ?>'></script>	
+		<script src='js/main.php?37<?php //echo rand(0, 1000000); ?>'></script>	
 		<!-- Yandex.Metrika counter -->
 		<script type="text/javascript" >
 		   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};

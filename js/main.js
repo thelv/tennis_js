@@ -158,10 +158,61 @@ document.addEventListener('DOMContentLoaded', function()
 		};
 	})();
 	
-		teachingStage2=true;
+	teachingStage2=true;
 	teaching=(function()
 	{		
+		var playerShadow=document.getElementById('player_shadow');
+		var ballShadow=document.getElementById('ball_shadow');
+		var animateInterval=false;
+		var animateTimeout=false;
+		var animateStopped=false;
+		var playerShadowAnimateStop=function()
+		{
+			animateStopped=true;
+			if(animateInterval)
+			{
+				clearInterval(animateInterval);				
+			}
+			if(animateTimeout)
+			{
+				clearTimeout(animateTimeout);
+			}
+			animateInterval=false;
+			animateTimeout=false;
+			playerShadow.style.display='none';
+			ballShadow.style.display='none';
+		}
+		var playerShadowAnimate=function(n)
+		{
+		    if(n==0)
+			{				
+				return;
+			}
+			animateStopped=false;
+			playerShadow.style.marginTop='-50px';
+			ballShadow.style.marginLeft='-150px';
+			playerShadow.style.display='block';
+			ballShadow.style.display='block';
+			var i=-50;
+			var m=animateInterval=setInterval(function()
+			{				
+				playerShadow.style.marginTop=-parseInt(i)+'px';
+				playerShadow.style.marginLeft=-parseInt((0+i)/2)+'px';
+				ballShadow.style.marginLeft=-parseInt(Math.abs(i)*3)+'px';
+				i+=0.35;
+				if(i>50)
+				{
+					clearInterval(m); 
+					playerShadow.style.display='none';
+					ballShadow.style.display='none';
+					//if(! animateStopped) 
+					animateTimeout=setTimeout(function(){playerShadowAnimate(n-1);}, 1500/*2000*/);
+				}
+			}, 0);
+		}
+		
 		var nodeBlock2=document.getElementById('teaching_block2');
+		var nodeBlock2_2=document.getElementById('teaching_block2_2');
 		return {
 			stage: false,
 			start: function()
@@ -187,20 +238,21 @@ document.addEventListener('DOMContentLoaded', function()
 						teaching.step2();
 					}
 				});*/
-				setTimeout(function(){teaching.step2();}, 1500);
+				setTimeout(function(){teaching.step1();}, 1000);
 			},
 			
-			step1: function()
+			/*step1: function()
 			{					
 				if(stage>1) return;
 				
 				document.getElementById('teaching_block1').style.display='block';				
-			},
+			},*/
 			
-			step2: function()
-			{						
+			step1: function()
+			{			
+				//if(ym) ym(64682380,'reachGoal','ts1');
 				var keysMove=[65, 68, 83, 87];
-				var keysTurn=[39, 37];
+				//var keysTurn=[39, 37];
 				var keysMoveWas=false;
 				var keysTurnWas=false;
 				var m=false; 
@@ -213,32 +265,47 @@ document.addEventListener('DOMContentLoaded', function()
 				
 				document.body.addEventListener('keydown', m=function(e)
 				{
-					if(! keysMoveWas && keysMove.indexOf(e.keyCode)!==-1)
-					{
-						keysMoveWas=true;
-						setTimeout(function(){nodeBlock2.classList.add('_turn_only');}, 1000);
+					if(keysMove.indexOf(e.keyCode)!==-1)
+					{						
+						document.body.removeEventListener('keydown', m);						
+						setTimeout(function(){teaching.step2();}, 1000);						
 					}
 					
-					if(! keysTurnWas && keysTurn.indexOf(e.keyCode)!==-1)
-					{
-						keysTurnWas=true;
-					}
-						
-					if(keysMoveWas && keysTurnWas)
-					{
-						document.body.removeEventListener('keydown', m);						
-						setTimeout(function(){teaching.step3();}, 1000);						
-					}
+					
 				});				
 			},
 						
+			step2: function()
+			{
+				if(ym) ym(64682380,'reachGoal','ts1');
+				teaching.stage=2;
+				localStorage.teachingStage=teaching.stage;
+				teachingStage2=true;
+				document.getElementById('teaching_block2').style.display='none';
+				document.getElementById('teaching_block2_2').style.display='block';
+				
+				var keysTurn=[39, 37];
+				var m=false;
+				
+				document.body.addEventListener('keydown', m=function(e)
+				{
+					if(keysTurn.indexOf(e.keyCode)!==-1)
+					{						
+						document.body.removeEventListener('keydown', m);						
+						setTimeout(function(){teaching.step3();}, 1000);
+					}										
+				});	
+				
+			},					
 			
 			step3: function()
 			{				
+				if(ym) ym(64682380,'reachGoal','ts2');
 				teaching.stage=3;
 				localStorage.teachingStage=teaching.stage;
 				teachingStage2=false;
-				document.getElementById('teaching_block2').style.display='none';
+				//document.getElementById('teaching_block2').style.display='none';
+				document.getElementById('teaching_block2_2').style.display='none';
 				document.getElementById('wait_').style.display='block';
 				document.getElementById('teaching_block1').style.display='block';
 				//document.getElementById('teaching_block4').style.display='block';
@@ -259,6 +326,7 @@ document.addEventListener('DOMContentLoaded', function()
 			
 			step4: function()
 			{
+				if(ym) ym(64682380,'reachGoal','ts3');
 				teaching.stage=4;
 				localStorage.teachingStage=teaching.stage;
 				document.getElementById('teaching_block1').style.display='none';
@@ -268,6 +336,7 @@ document.addEventListener('DOMContentLoaded', function()
 			
 			step5: function()
 			{
+				if(ym) ym(64682380,'reachGoal','ts4');
 				teaching.stage=5;
 				localStorage.teachingStage=teaching.stage;
 				document.getElementById('teaching_block4').style.display='none';
@@ -279,7 +348,9 @@ document.addEventListener('DOMContentLoaded', function()
 			
 			step6: function()
 			{
+				if(ym) ym(64682380,'reachGoal','ts5');
 				teaching.stage=6;
+				setTimeout(function(){playerShadowAnimate(3);}, 500 /*1000*/);
 				localStorage.teachingStage=teaching.stage;
 				document.getElementById('border_cort_blue_top').style.display='none';
 				document.getElementById('teaching_block5').style.display='none';
@@ -290,6 +361,7 @@ document.addEventListener('DOMContentLoaded', function()
 			
 			step7: function()
 			{
+				if(ym) ym(64682380,'reachGoal','ts6');
 				teaching.stage=7;
 				localStorage.teachingStage=teaching.stage;
 				document.getElementById('teaching_block4').style.display='block';
@@ -300,6 +372,7 @@ document.addEventListener('DOMContentLoaded', function()
 			
 			step11: function()
 			{
+				if(ym) ym(64682380,'reachGoal','ts7');
 				teaching.stage=11;
 				localStorage.teachingStage=teaching.stage;
 				teaching.stage11successCount=0;
@@ -313,13 +386,16 @@ document.addEventListener('DOMContentLoaded', function()
 			
 			step12: function()
 			{
+				if(ym) ym(64682380,'reachGoal','ts11');
 				teaching.stage=12;
 				localStorage.teachingEnd=1;
 				document.getElementById('wait_').style.display='none';
 				document.getElementById('teaching_block4').style.display='none';
 				document.getElementById('teaching_block5').style.display='none';
+				document.getElementById('border_cort_blue_top').style.display='none';
+				document.getElementById('border_cort_blue_bottom').style.display='none';
 				toast('Поздравляем! Вы прошли обучение.<br>Пора в бой.');
-				setTimeout(function(){localStorage.teachingStage='';window.location.href='/?teaching_end';}, 2500);
+				setTimeout(function(){localStorage.teachingStage='';window.location.href='/?teaching_end';}, 1900);
 			},
 			
 			end: function()
@@ -364,6 +440,9 @@ document.addEventListener('DOMContentLoaded', function()
 				nodeBlock2.style.left=Math.round(x*fieldScale+12)+'px';
 				nodeBlock2.style.bottom=Math.round((40+y)*fieldScale)+'px';			
 				nodeBlock2.style.width='auto';
+				
+				nodeBlock2_2.style.left=Math.round(x*fieldScale+12)+'px';
+				nodeBlock2_2.style.top=Math.round((53-y)*fieldScale)+'px';
 			},
 			
 			collision: function(type, number)
@@ -389,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function()
 				}				
 				else if(teaching.stage==6 && type=='player')
 				{
-					if(Main.game.rally.ball.va>=0.02)
+					if(Math.abs(Main.game.rally.ball.va)>=0.015)
 					{
 						toastSuccess();
 						teaching.stage6success=true
@@ -428,6 +507,14 @@ document.addEventListener('DOMContentLoaded', function()
 				}
 			},
 			
+			rallyStart: function()
+			{
+				if(teaching.stage>=3 && teaching.stage<=7)
+				{
+					playerShadowAnimateStop();
+				}
+			},
+			
 			rallyEnd(whoWin)			
 			{
 				if(teaching.stage==3) teaching.step4(); 
@@ -453,6 +540,7 @@ document.addEventListener('DOMContentLoaded', function()
 					else
 					{
 						toast('Слабовато! Закрутите посильнее.');
+						setTimeout(function(){playerShadowAnimate(3);}, 500/*1000*/);
 					}
 				}
 				else if(teaching.stage==7)
@@ -519,9 +607,9 @@ document.addEventListener('DOMContentLoaded', function()
 	Main.init();
 	
 	var lobbyClose=document.querySelector('#lobby_close');
-	lobbyClose.addEventListener('click', function(){document.body.classList.add('lobby_closed');});
+	//lobbyClose.addEventListener('click', function(){document.body.classList.add('lobby_closed');});
 	var lobbyOpen=document.querySelector('#lobby_open');
-	lobbyOpen.addEventListener('click', function(){document.body.classList.remove('lobby_closed');});
+	//lobbyOpen.addEventListener('click', function(){document.body.classList.remove('lobby_closed');});
 	
 	document.getElementById('help_close').addEventListener('click', function(){localStorage.helpClosed=1;document.body.classList.add('help_closed');});
 	document.getElementById('help_open').addEventListener('click', function(){localStorage.helpClosed='';document.body.classList.remove('help_closed');});

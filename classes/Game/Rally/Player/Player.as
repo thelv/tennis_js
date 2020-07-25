@@ -71,7 +71,7 @@ Game.Rally.Player.Player=function(game, side)
 					}
 					else
 					{
-						if(this.game.type=='local' && this.side==false)
+						if(this.game.type=='local' && this.side==false && teaching.stage>10)
 						{						
 							this.setControlPointA(startA+Math.sign(Math.random()-0.5)*(trainingAMin+Math.random()*(trainingAMax-trainingAMin)), 0, movingA, t);
 						}
