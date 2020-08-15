@@ -17,7 +17,7 @@
 		<link rel="shortcut icon" href="img/favicon.png">
 		<meta charset=utf8>
 		<link rel="stylesheet" type="text/css" href="css/main.css?7">
-		<script>
+		<script>		
 			var fieldScale=1;
 			var resize=function()
 			{
@@ -54,6 +54,9 @@
 				document.head.append(style);
 			}			
 			resize();
+			<?php			
+				if(isset($_GET['teaching_end'])) echo 'history.pushState(null, null, "/");';
+			?>
 		</script>
 	</head>	
 	<body>		
