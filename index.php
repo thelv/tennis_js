@@ -246,7 +246,7 @@
 					</div>
 					<div id=border_point>
 					</div>
-					<div id=border_serve>
+					<div id=border_serve style='display:none'>
 					</div>					
 					<div id=border_cort>
 					</div>
@@ -259,11 +259,11 @@
 					<div id=border_start>
 					</div>
 
-					<div class="player" style="display:none;left: 330px; z-index: 2147483647; top: 0px; transform: rotate(1.5708rad); margin-top: -40px;" id="player_shadow">
+					<div class="player" style="display:none;left: 0px; z-index: 2147483647; top: 0px; transform: rotate(1.5708rad); margin-top: -40px;" id="player_shadow">
 						<div style="background: #7777ff;">
 						</div>
 					</div>
-					<div id=ball_shadow style='position:absolute;display:none;left:321px;top:0px;border-radius:5px;width:8px;height:8px;border:1px solid rgba(220,40,40,0.3); background: rgba(220,40,40,0.2)'>
+					<div id=ball_shadow style='position:absolute;display:none;left:0px;top:0px;border-radius:5px;width:8px;height:8px;border:1px solid rgba(220,40,40,0.3); background: rgba(220,40,40,0.2)'>
 					</div>
 					
 				</div>
@@ -274,7 +274,7 @@
 				<span class=_name></span>: <span class=_text></span>
 			</div>				
 		</templates>
-		<script src='js/main.php?37<?php //echo rand(0, 1000000); ?>'></script>	
+		<script src='js/main.php?38<?php //echo rand(0, 1000000); ?>'></script>	
 		<!-- Yandex.Metrika counter -->
 		<script type="text/javascript" >
 		   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};

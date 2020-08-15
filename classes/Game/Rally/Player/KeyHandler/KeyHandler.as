@@ -77,8 +77,8 @@ Game.Rally.Player.KeyHandler.KeyHandler=function(localPlayer, keyLeft, keyRight,
 				if(keyCode==keyRight){keyRightPressed=true;}
 				if(keyCode==keyDown){keyDownPressed=true;}
 				if(keyCode==keyUp){keyUpPressed=true;}
-				if(keyCode==keyTurnCounterClockWise){keyTurnCounterClockWisePressed=true;}
-				if(keyCode==keyTurnClockWise){keyTurnClockWisePressed=true;}
+				if(keyCode==keyTurnCounterClockWise){if(teaching.stage!=6) keyTurnCounterClockWisePressed=true; else toast('Вращать игрока не нужно!', 1000);}
+				if(keyCode==keyTurnClockWise){if(teaching.stage!=6) keyTurnClockWisePressed=true; else toast('Вращать игрока не нужно!', 1000);}
 				localPlayer.afterKeyPressedChange();
 			},
 			

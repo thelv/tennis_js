@@ -45,8 +45,8 @@ Game.Rally.Player.LocalPlayer=function(game, side)
 				if(keyHandler.keyRightPressed){movingX+=1;}
 				if(keyHandler.keyDownPressed){movingY-=1;}
 				if(keyHandler.keyUpPressed){movingY+=1;}
-				if(keyHandler.keyTurnCounterClockWisePressed){movingA+=1;}
-				if (keyHandler.keyTurnClockWisePressed) { movingA -= 1; }				
+				if(keyHandler.keyTurnCounterClockWisePressed && teaching.stage!=6){movingA+=1;}
+				if (keyHandler.keyTurnClockWisePressed && teaching.stage!=6) { movingA -= 1; }				
 				if(Math.abs(this.movingX*this.movingY)==1)
 				{									
 					movingX = movingX / 1.414213;
