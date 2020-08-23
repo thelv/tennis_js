@@ -3,7 +3,7 @@ Game.Rally.Ball.Ball=function(game)
 	var BallEval=Game.Rally.Ball.BallEval.BallEval;
 	var BallCollisions=Game.Rally.Ball.BallCollisions.BallCollisions;
 	
-	var eval=0,	collisions=0, x=0, y=0, vx=0, vy=0, va=0, a=0, r=4, view=0;
+	var a=[0, 0, 0], eval=0,	collisions=0, r=[0, 0, 0], v=[0, 0, 0], w=[0, 0, 0], view=0, R=0.0667;
 	
 	var res= 
 	{			
@@ -27,8 +27,8 @@ Game.Rally.Ball.Ball=function(game)
 				this.game = game;
 				
 				this.eval = BallEval(this);
-				this.a = 0;
-				this.setControlPoint(0, 0, 0, 0, 0, 0);				
+				this.a = [0, 0, 0];
+				this.setControlPoint([0, 0, 2], [0, 0, 0], [0, 0, 0], 0);				
 				this.collisions = BallCollisions(game, this);
 				
 				//view
@@ -40,23 +40,21 @@ Game.Rally.Ball.Ball=function(game)
 		
 			viewShowPos: function()
 			{					
-				view.showPosition(this.x, this.y, this.a);
+			//	view.showPosition(this.x, this.y, this.a);
 			},
 			
 		//logic methods
 			
-			setControlPoint(x, y, vx, vy, va, t)
+			setControlPoint(r, v, w, t)
 			{
-				this.x = x;
-				this.y = y;
-				this.vx = vx;
-				this.vy = vy;
-				this.va = va;
+				this.r=r;
+				this.v=v;
+				this.w=w;
 				eval.init(t);
 				
 				if(game.type=='local' && game.rally.player1)
 				{
-					game.rally.player1.ballHit(x, y, vx, vy, va, t);
+					game.rally.player1.ballHit(r[0], r[1], v[0], v[1], w[2], t);
 				}
 			},
 			
@@ -70,15 +68,16 @@ Game.Rally.Ball.Ball=function(game)
 			},
 			
 			serve: function(start, who, t)
-			{								
+			{	
+				who=true;
 				if (start)
 				{
-					this.setControlPoint(0, 0, 0.25 * (who ? 1: -1), 0, 0, t);
+					this.setControlPoint([0, 0, 3], [0, 4, 0], [0, 100, 0], t);
 					collisions.init(t);
 				}
 				else
 				{
-					this.setControlPoint(0, 0, 0, 0, 0, game.rally.time.get());
+					this.setControlPoint([0, 0, 2], [0, 0, 0], [0, 0, 0], game.rally.time.get());
 					collisions.init(t);
 				}
 			},

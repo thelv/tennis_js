@@ -1,97 +1,78 @@
+aaaaa=0;
 Game.Rally.Ball.BallEval.BallEval=function(ball)
 {
 	var Ball=Game.Rally.Ball.Ball;
 	
-	var evalT=0, evalX=0, evalY=0, evalVx=0, evalVy=0, evalVa=0, evalA=0, rVaCoeff=0.00133333333333, evalDt=3, stopAcceleration=0.00005;
+	var r=0, v=0, w=0, a=0, t=0;
+	var DT=3, K_DRUG=0.01, K_COR=0, K_DRUG_A=0, m=0.0585, R=0.0667, I=m*R*R*0.92;
 	
 	var res=
-	{			
-		get ball(){return ball;}, set ball(a){ball=a;},
-		get evalT(){return evalT;}, set evalT(a){evalT=a;},
-		get evalX(){return evalX;}, set evalX(a){evalX=a;},
-		get evalY(){return evalY;}, set evalY(a){evalY=a;},
-		get evalVx(){return evalVx;}, set evalVx(a){evalVx=a;},
-		get evalVy(){return evalVy;}, set evalVy(a){evalVy=a;},
-		get evalVa(){return evalVa;}, set evalVa(a){evalVa=a;},
-		get evalA(){return evalA;}, set evalA(a){evalA=a;},
-		get rVaCoeff(){return rVaCoeff;}, set rVaCoeff(a){rVaCoeff=a;},
-		get evalDt(){return evalDt;}, set evalDt(a){evalDt=a;},
-		get stopAcceleration(){return stopAcceleration;}, set stopAcceleration(a){stopAcceleration=a;},
-		
+	{							
 		BallEval: function(ball)
 		{
 			this.ball = ball;
 		},
 		
-		init: function(t)
+		init: function(t0)
 		{
-			evalT = t;
-			evalX = ball.x;
-			evalY = ball.y;
-			evalVx = ball.vx;
-			evalVy = ball.vy;
-			evalA = ball.a;
-			evalVa = ball.va;
+			t=t0;
+			r=ball.r;
+			v=ball.v;
+			a=ball.a;
+			w=ball.w;
 		},
 		
-		eval: function(t)
-		{
+		eval: function(tGoal)
+		{			
+			if(tGoal<=t) return;			
 			
 			do
-			{
-				var actualT=Math.min(Math.max(t, this.evalT), this.evalT+this.evalDt);								
-			
-				if(actualT>this.evalT)
-				{											
-					var dt=actualT-this.evalT;																			
-					
-					var x = this.evalX + evalVx * dt;
-					var y = this.evalY + evalVy * dt;
-					
-					var vL = MathLib.getLengthByCoords(evalVx, evalVy);
-					var vA = MathLib.getAngleByCoords(evalVx, evalVy);
-										
-					if (vL != 0)
-					{
-						vA += evalVa * rVaCoeff * dt / vL;
-						
-						var vx = vL * Math.cos(vA);
-						var vy = vL * Math.sin(vA);
-					}
-					else
-					{
-						var vx = evalVx;
-						var vy = evalVy;
-					}
-										
-					var a = evalA + evalVa * dt*0.2;
-					
-					var va = evalVa;
-			
-					if(actualT>=t)
-					{
-						ball.vx=vx;
-						ball.vy=vy;
-						ball.x=x;
-						ball.y = y;
-						ball.va = va;
-						ball.a = a;						
-						return;
-					}
-					else
-					{
-						evalVx=vx;
-						evalVy=vy;
-						evalX=x;
-						evalY = y;
-						evalA = a;
-						evalVa = va;
-						evalT += evalDt;						
-					}
+			{				
+				var t_=Math.min(tGoal, t+DT);
+				var dt=t_-t;
+				var dts=dt/1000;
+							
+
+				var vAbs=V.abs(v);
+				var F=V.s
+				(
+					V.ps
+					(
+						-K_DRUG*vAbs,
+						v
+					),
+					V.ps(
+						K_COR,
+						V.pv(w, v)
+					)
+				);	
+				F[2]-=9.81*m;
+
+				var	M=V.ps(-K_DRUG_A*V.abs(w), w);
+				
+				
+				var v_=V.s(v, V.ps(dts/m, F));
+				var dirChange=V.p(v_, v);
+				if(dirChange<0) v_=V.s(v_, V.ps(-dirChange/vAbs/vAbs, v));
+				var r_=V.s(r, V.ps(dts/2, V.s(v, v_)));
+				var w_=V.s(w, V.ps(dts/I, M));
+				var a_=V.s(a, V.ps(dts/2, V.s(w, w_)));
+								
+				if(t_==tGoal)
+				{
+					ball.r=r_;
+					ball.v=v_;
+					ball.a=a_;
+					ball.w=w_;									
+					return;
 				}
 				else
 				{
-					return;
+					r=r_;
+					v=v_;						
+					a=a_;
+					w=w_;						
+					t=t_;
 				}
 			}
 			while(true);

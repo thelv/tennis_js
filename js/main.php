@@ -2,6 +2,8 @@
 	header("Cache-control: public");
 	header("Expires: " . gmdate("D, d M Y H:i:s", time() + 60*60*24) . " GMT");
 	echo "\n\n"; readfile('main.js');	
+	echo "\n\n"; readfile('V.js');
+	echo "\n\n"; readfile('phys.js');
 	echo "\n\n"; readfile('../classes/Main.as');
 	echo "\n\n"; readfile('../classes/MainView.as');
 	echo "\n\n"; readfile('../classes/MathLib.as');

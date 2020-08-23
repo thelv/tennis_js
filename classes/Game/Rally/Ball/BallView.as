@@ -8,9 +8,9 @@ Game.Rally.Ball.BallView=function()
 	return {
 		showPosition: function(x, y, a)
 		{
-			e.style.left=x+'px';
-			e.style.top=-y+'px';
-			e.style.transform='rotate('+(-a)+'rad)';
+			//e.style.left=x+'px';
+			//e.style.top=-y+'px';
+			//e.style.transform='rotate('+(-a)+'rad)';
 		},
 		addChild: function()
 		{

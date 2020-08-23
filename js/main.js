@@ -26,9 +26,171 @@ Game=
 NetworkClient={};
 
 document.addEventListener('DOMContentLoaded', function()
-{			
+{				
 	window.addEventListener('resize', resize);
 	resize();
+	
+
+	scene=new THREE.Scene();
+	camera=new THREE.PerspectiveCamera(75, window.innerWidth / (window.innerHeight*1.6), 0.1, 200);
+	camera.position.y=2.1;//1.92;//2.05;
+	cameraOffset=3.0;//2.7;
+	
+	//camera.position.y=2.5;//1.92;//2.05;
+	//cameraOffset=3.5;//2.7;
+	
+	//camera.position.y=3.5;//1.92;//2.05;
+	//cameraOffset=5;//2.7;	
+	//camera.position.z=117;
+	
+	//camera.position.y=5;//1.92;//2.05;
+	//cameraOffset=5;//2.7;	
+	//camera.position.z=119;
+	
+	//camera.position.z=12;
+	//camera.lookAt(0, 2, 0);
+	renderer=new THREE.WebGLRenderer({alpha: true});
+	renderer.setSize(window.innerWidth, window.innerHeight*1.6);
+	renderer.setClearColor( new THREE.Color("rgb(136, 231, 136)"), 1);
+	document.getElementById('canvas_cont').appendChild(renderer.domElement);	
+		
+	new THREE.TextureLoader().load( "img/field.png" , function(texture)
+	{
+		geometry=new THREE.PlaneGeometry(10.97, 23.77, 1);
+		texture.wrapS = THREE.RepeatWrapping;
+		texture.wrapT = THREE.RepeatWrapping;
+		texture.repeat.set(1, 1);
+		material=new THREE.MeshBasicMaterial({transparent: true, opacity: 1, map: texture, shading: THREE.FlatShading, side: THREE.BackSide});
+		field=new THREE.Mesh(geometry, material);
+		field.position.y=0;
+		field.position.x=0;//10.97/2;
+		field.position.z=100;//23.77/2;
+		field.rotation.x=Math.PI/2;
+		
+		new THREE.TextureLoader().load( "img/net5.png" , function(texture)
+		{
+			
+			geometry=new THREE.PlaneGeometry(11.97, 1.07, 1);
+			texture.wrapS = THREE.RepeatWrapping;
+			texture.wrapT = THREE.RepeatWrapping;
+			texture.repeat.set(1, 1);
+			material=new THREE.MeshBasicMaterial({transparent: true, opacity: 1, map: texture, shading: THREE.FlatShading, side: THREE.FrontSide});
+			//material.depthWrite=false;
+				
+			net=new THREE.Mesh(geometry, material)
+			net.position.y=1.07/2;
+			net.position.x=0;//10.97/2;
+			net.position.z=100;//23.77/2;
+			net.rotation.x=0;//Math.PI/2;
+			
+			new THREE.TextureLoader().load("img/favicon.png", function(texture)
+			{			
+				geometry=new THREE.SphereGeometry(0.0667, 10, 10);
+				texture.wrapS = THREE.RepeatWrapping;
+				texture.wrapT = THREE.RepeatWrapping;
+				texture.repeat.set(1, 1);
+				material=new THREE.MeshBasicMaterial({map: texture, shading: THREE.FlatShading, side: THREE.BothSide});
+				//material.depthWrite=false;
+					
+				ball=new THREE.Mesh(geometry, material)
+				ball.position.y=2.07;
+				ball.position.x=0;//10.97/2;
+				ball.position.z=105;//23.77/2;
+			
+			
+				viewBall=ball;
+			
+				new THREE.TextureLoader().load("img/player.png", function(texture)
+				{			
+					geometry=new THREE.PlaneGeometry(1, 2, 1);
+					texture.wrapS = THREE.RepeatWrapping;
+					texture.wrapT = THREE.RepeatWrapping;
+					texture.repeat.set(1, 1);
+					material=new THREE.MeshBasicMaterial({transparent: true, opacity: 0.5, map: texture, shading: THREE.FlatShading, side: THREE.DoubleSide});
+					//material.depthWrite=false;
+					//var material = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.DoubleSide});
+						
+					
+				
+				
+					//material=new THREE.MeshBasicMaterial({transparent: true, opacity: 1, map: texture, shading: THREE.FlatShading, side: THREE.DoubleSide});
+					//material.depthWrite=false;
+					//material.depthTest=false;
+					player0=new THREE.Mesh(geometry, material)
+					player0.position.y=1;
+					player0.position.x=0;//10.97/2;
+					player0.position.z=105;//23.77/2;
+					
+					var material = new THREE.MeshBasicMaterial({color: 0xaaaaaa, side: THREE.DoubleSide});
+					
+					player1=new THREE.Mesh(geometry, material)
+					player1.position.y=1;
+					player1.position.x=0;//10.97/2;
+					player1.position.z=105;//23.77/2;
+					
+					
+					viewPlayer0=player0;
+					
+					//new THREE.TextureLoader().load("img/player.png", function(texture)
+				//{			
+						
+						
+						
+						viewPlayer1=player1;
+			
+						var geometry = new THREE.CircleGeometry( 0.0667, 10 );
+						var material = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.DoubleSide});
+						ballShadow = new THREE.Mesh(geometry, material);
+						ballShadow.rotation.x=Math.PI/2;
+						//ballShadow.position.y=1;
+						
+
+						var loader = new THREE.GLTFLoader();
+						loader.load(
+						   "img/cube1.glb",
+						   function ( gltf ) {
+							   console.log('RRRRRRRRRR', gltf);
+							  var scale = 1;
+							  cube1 = gltf.scene;//.children[0];
+							  cube1.name = "cube1";
+							  //cube1.rotation.set ( 0, -1.5708, 0 );
+							  cube1.scale.set (scale,scale,scale);
+							  cube1.position.set ( 0, 15,  5);
+							  cube1.castShadow = true;
+							  
+							  
+							  camera.position.x=0;
+							 // camera.position.y=3;
+							  camera.position.z=10;
+							  scene.add(cube1);		
+							  //bus.frame.add(bus.body);*/
+							  
+							  //bus.frame.z=105;
+							  //bus.frame.y=3
+							  
+							  scene.add(field);
+								scene.add(net);
+								scene.add(ball);
+								scene.add(ballShadow);
+								scene.add(player1);
+								scene.add(player0);						
+								/*field.y=-10;
+								field.rotation.x=Math.PI/1.6;
+								scene.add(field);
+								field.position.z=-14;
+								field.position.y=-1;		*/
+									
+							
+									
+								renderer.render(scene, camera);
+						   },
+						);
+										
+					//});
+				});
+			});
+		});
+	});
 	
 	keySpaceOccupied=false;
 	chat=(function()

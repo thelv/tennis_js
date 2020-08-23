@@ -64,7 +64,34 @@ Game.Rally.Rally=function(game)
 			middleLines.lines[1].shiftTime(t);
 			player0.shiftTime(t);
 			player1.shiftTime(t);
-			ball.shiftTime(t);			
+			ball.shiftTime(t);	
+
+
+			//viewBall.rotation.y=t*0.001;
+			camera.position.z=100+player0.x/360*10-cameraOffset*Math.cos(player0.a-Math.PI/2);
+			camera.position.x=player0.y/360*10-cameraOffset*Math.sin(player0.a-Math.PI/2);
+			camera.lookAt(player0.y/36, camera.position.y, 100+player0.x/36);
+			//camera.lookAt(0, camera.position.y-1, 0);
+			viewBall.position.x=ball.r[1];
+			viewBall.position.z=100+ball.r[0];
+			viewBall.position.y=ball.r[2];
+			//viewBall.rotation.y=ball.a;
+			
+			ballShadow.position.x=ball.r[1];
+			ballShadow.position.z=100+ball.r[0];	
+			
+			viewPlayer0.position.z=100+player0.x/36;
+			viewPlayer0.position.x=player0.y/36;
+			viewPlayer0.rotation.y=player0.a-Math.PI/2;
+			
+			viewPlayer1.position.z=100+player1.x/36;
+			viewPlayer1.position.x=player1.y/36;
+			viewPlayer1.rotation.y=player1.a-Math.PI/2;
+			
+			//viewPlayer0.position.z=-2;//player1.x/36;
+			
+			
+			renderer.render(scene, camera);
 		},
 		
 		viewShowServeLines: function(show)

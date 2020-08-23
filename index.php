@@ -21,6 +21,7 @@
 			var fieldScale=1;
 			var resize=function()
 			{
+				return;
 				var w=window.innerWidth;
 				var h=window.innerHeight;
 				var bodyScale=false;
@@ -58,11 +59,19 @@
 				if(isset($_GET['teaching_end'])) echo 'history.pushState(null, null, "/");';
 			?>
 		</script>
+		<style>
+			#canvas_cont{top:-60%;height:160%}
+			body{-background:transparent}
+			#border_out{display:none}
+			#wait_{display:none !important}
+		</style>
 	</head>	
 	<body>		
 		<script>
 			if(localStorage.helpClosed){document.body.classList.add('help_closed')};				
 		</script>		
+		<div id=canvas_cont>
+		</div>
 		<div id=new_window_opened>
 			<div>Вы открыли сайт в новой вкладке, идите теперь туда.</div>
 		</div>
@@ -127,7 +136,7 @@
 		</div>
 		<div id=chat_open><div id=chat_close><div></div></div></div>
 		<div id=border_out>
-		</div>
+		</div>		
 		<div id=page_game>
 			<div id=center>
 				<div id=teaching_block2 style='margin-bottom:15px;z-index:1999;display:none;position:absolute'>
@@ -231,6 +240,9 @@
 				<span class=_name></span>: <span class=_text></span>
 			</div>				
 		</templates>
+		
+		<script src='js/three.min.js'></script>
+		<script src='js/gtlfloader.three.2.js'></script>		
 		<script src='js/main.php?35<?php //echo rand(0, 1000000); ?>'></script>	
 		<!-- Yandex.Metrika counter -->
 		<script type="text/javascript" >
