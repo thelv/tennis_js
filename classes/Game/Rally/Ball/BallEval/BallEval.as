@@ -1,10 +1,9 @@
-aaaaa=0;
 Game.Rally.Ball.BallEval.BallEval=function(ball)
 {
 	var Ball=Game.Rally.Ball.Ball;
 	
 	var r=0, v=0, w=0, a=0, t=0;
-	var DT=3, K_DRUG=0.01, K_COR=0, K_DRUG_A=0, m=0.0585, R=0.0667, I=m*R*R*0.92;
+	var DT=3, K_DRUG=0.01, K_COR=0.0002, K_DRUG_A=0.000002, m=0.0585, R=0.03335, I=m*R*R*0.92;
 	
 	var res=
 	{							
@@ -56,6 +55,8 @@ Game.Rally.Ball.BallEval.BallEval=function(ball)
 				if(dirChange<0) v_=V.s(v_, V.ps(-dirChange/vAbs/vAbs, v));
 				var r_=V.s(r, V.ps(dts/2, V.s(v, v_)));
 				var w_=V.s(w, V.ps(dts/I, M));
+				var dirChange=V.p(w_, w);
+				if(dirChange<0) w_=[0, 0, 0];
 				var a_=V.s(a, V.ps(dts/2, V.s(w, w_)));
 								
 				if(t_==tGoal)

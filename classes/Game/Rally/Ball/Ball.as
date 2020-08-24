@@ -1,9 +1,9 @@
-Game.Rally.Ball.Ball=function(game)
+Game.Rally.Ball.Ball=function(game, player0)
 {
 	var BallEval=Game.Rally.Ball.BallEval.BallEval;
 	var BallCollisions=Game.Rally.Ball.BallCollisions.BallCollisions;
 	
-	var a=[0, 0, 0], eval=0,	collisions=0, r=[0, 0, 0], v=[0, 0, 0], w=[0, 0, 0], view=0, R=0.0667;
+	var a=[0, 0, 0], eval=0, collisions=0, r=[0, 0, 0], v=[0, 0, 0], w=[0, 0, 0], view=0, R=0.03335;
 	
 	var res= 
 	{			
@@ -28,9 +28,8 @@ Game.Rally.Ball.Ball=function(game)
 				
 				this.eval = BallEval(this);
 				this.a = [0, 0, 0];
-				this.setControlPoint([0, 0, 2], [0, 0, 0], [0, 0, 0], 0);				
-				this.collisions = BallCollisions(game, this);
-				
+				this.collisions = BallCollisions(game, this, player0);
+				this.setControlPoint([0, 0, 2], [0, 0, 0], [0, 0, 0], 0);								
 				//view
 				view = Game.Rally.Ball.BallView(this);
 				this.viewShowPos();				
@@ -51,6 +50,7 @@ Game.Rally.Ball.Ball=function(game)
 				this.v=v;
 				this.w=w;
 				eval.init(t);
+				this.collisions.init(t);
 				
 				if(game.type=='local' && game.rally.player1)
 				{
@@ -62,6 +62,7 @@ Game.Rally.Ball.Ball=function(game)
 			{								
 				eval.eval(t);
 				collisions.collise(t);
+				if(r[2]<R) r[2]=R;
 				this.viewShowPos(); //view
 				
 				//game.rally.middleLines.ballPos(x);
@@ -72,7 +73,7 @@ Game.Rally.Ball.Ball=function(game)
 				who=true;
 				if (start)
 				{
-					this.setControlPoint([0, 0, 3], [0, 4, 0], [0, 100, 0], t);
+					this.setControlPoint([0, 0, 2], [20, 0, 0], [0, 0, 0], t);
 					collisions.init(t);
 				}
 				else
@@ -107,12 +108,12 @@ Game.Rally.Ball.Ball=function(game)
 			
 			destroy: function()
 			{
-				view.remove();
+				//view.remove();
 			},
 			
 			opponentLeave: function()
 			{
-				this.setControlPoint(x, y, 0, 0, va, game.rally.time.get());
+				//this.setControlPoint(x, y, 0, 0, va, game.rally.time.get());
 			}
 						
 	}

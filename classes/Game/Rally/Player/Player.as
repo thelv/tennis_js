@@ -37,7 +37,7 @@ Game.Rally.Player.Player=function(game, side)
 				this.side = side;
 				evalXY = PlayerEvalXY(this);
 				evalA = PlayerEvalA(this);
-				holded = true;
+				holded = false;
 				startX = side ? 360: -360;
 				startA = side ? -Math.PI / 2 : Math.PI / 2;
 				this.setControlPointXY(startX, 0, 0, 0, 0, 0, 0);

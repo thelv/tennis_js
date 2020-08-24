@@ -15,6 +15,8 @@ Game.Rally.Rally=function(game)
 
 	var referee=0, fieldLines=0, borderLines=0, middleLines=0, serveLines=0, time=0, timer=0, ball=0, player0=0, player1=0;
 
+	var t_=0;
+
 	var serveLinesNode=document.querySelector('#border_serve');
 
 	var res=
@@ -40,10 +42,10 @@ Game.Rally.Rally=function(game)
 			borderLines = BorderLines();
 			middleLines = MiddleLines();
 			serveLines = ServeLines();
-			referee = Referee(game);
-			ball = Ball(game);
+			referee = Referee(game);		
 			player0 =  (game.type!=='view') ? LocalPlayer(game, true) : RemotePlayer(game, true);
 			player1 = (game.type == 'local') ? BotPlayer(game, false) : RemotePlayer(game, false);
+			ball = Ball(game, player0);
 			
 			//view
 			/*game.view.addChild(middleLines.view);
@@ -75,6 +77,13 @@ Game.Rally.Rally=function(game)
 			viewBall.position.x=ball.r[1];
 			viewBall.position.z=100+ball.r[0];
 			viewBall.position.y=ball.r[2];
+			var wAbs=V.abs(ball.w);
+			if(wAbs)
+			{
+				var wNorm=V.ps(1/wAbs, ball.w);
+				viewBall.rotateOnWorldAxis(new THREE.Vector3(wNorm[1], wNorm[2], wNorm[0]), wAbs*(t-t_)/1000);
+			}
+			//viewBall.rotateOnWorldAxis(new THREE.Vector3(0, 0, 1), 0001);
 			//viewBall.rotation.y=ball.a;
 			
 			ballShadow.position.x=ball.r[1];
@@ -92,6 +101,8 @@ Game.Rally.Rally=function(game)
 			
 			
 			renderer.render(scene, camera);
+			
+			t_=t;
 		},
 		
 		viewShowServeLines: function(show)
