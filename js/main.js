@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', function()
 	
 
 	scene=new THREE.Scene();
-	camera=new THREE.PerspectiveCamera(75, window.innerWidth / (window.innerHeight*1.6), 0.1, 200);
+	camera=new THREE.PerspectiveCamera(60, window.innerWidth / (window.innerHeight*1.6), 0.1, 200);
 	camera.position.y=2.1;//1.92;//2.05;
-	cameraOffset=3.0;//2.7;
+	cameraOffset=4.0;//3.0;//2.7;
 	
 	//camera.position.y=2.5;//1.92;//2.05;
 	//cameraOffset=3.5;//2.7;
@@ -53,6 +53,22 @@ document.addEventListener('DOMContentLoaded', function()
 	renderer.setSize(window.innerWidth, window.innerHeight*1.6);
 	renderer.setClearColor( new THREE.Color("rgb(136, 231, 136)"), 1);
 	document.getElementById('canvas_cont').appendChild(renderer.domElement);	
+		
+	var phoneSocket=new WebSocket('ws://192.168.1.56:41789/');
+	phoneSocket.onmessage=function(m)
+	{		
+		m=JSON.parse(m.data);
+		//console.log(m);
+		hitN=m[0];
+		hitN[2]=-hitN[2];
+		hitV=m[1];
+		//hitV[2]=-hitV[2];
+		//hitV=[m[1][1], m[1][0], m[1][2]];
+	//	var m=quaternionMatrix(m[0], m[1], m[2], m[3]), [0, 1, 0]);
+	//	var tilt0=m[2][1];
+	//	var tilt1=m[2][2];
+		//console.log(v);
+	};
 		
 	new THREE.TextureLoader().load( "img/field.png" , function(texture)
 	{
@@ -85,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function()
 			
 			new THREE.TextureLoader().load("img/favicon.png", function(texture)
 			{			
-				geometry=new THREE.SphereGeometry(0.0667, 10, 10);
+				geometry=new THREE.SphereGeometry(0.03335*2, 10, 10);
 				texture.wrapS = THREE.RepeatWrapping;
 				texture.wrapT = THREE.RepeatWrapping;
 				texture.repeat.set(1, 1);
@@ -142,6 +158,12 @@ document.addEventListener('DOMContentLoaded', function()
 						var material = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.DoubleSide});
 						ballShadow = new THREE.Mesh(geometry, material);
 						ballShadow.rotation.x=Math.PI/2;
+						
+						var geometry = new THREE.CircleGeometry( 0.0667, 10 );
+						var material = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.DoubleSide,  transparent: true, opacity: 0.2});
+						ballShadow2 = new THREE.Mesh(geometry, material);
+						ballShadow2.rotation.order='YXZ';
+						//ballShadow2.rotation.x=Math.PI/2;
 						//ballShadow.position.y=1;
 						
 
@@ -168,12 +190,28 @@ document.addEventListener('DOMContentLoaded', function()
 							  //bus.frame.z=105;
 							  //bus.frame.y=3
 							  
+							  var geometry=new THREE.CylinderGeometry(0.03, 0.03, 2, 15);
+							  var material = new THREE.MeshBasicMaterial({color: 0x888800, side: THREE.DoubleSide});
+							  racket=new THREE.Mesh(geometry, material);
+							  racket.rotation.order='YXZ';
+							  racket.position.y=1;
+							  
+							  var geometry=new THREE.CylinderGeometry(0.03, 0.03, 2, 15);
+							  var material = new THREE.MeshBasicMaterial({color: 0x880000, side: THREE.DoubleSide});
+							  racketSpeed=new THREE.Mesh(geometry, material);
+							  racketSpeed.rotation.order='YXZ'
+							  racketSpeed.position.y=1;
+							  
+							  
 							  scene.add(field);
 								scene.add(net);
 								scene.add(ball);
 								scene.add(ballShadow);
 								scene.add(player1);
-								scene.add(player0);						
+								scene.add(player0);		
+								//scene.add(racket);
+								//scene.add(racketSpeed);
+								//scene.add(ballShadow2);	
 								/*field.y=-10;
 								field.rotation.x=Math.PI/1.6;
 								scene.add(field);

@@ -2,7 +2,7 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball, player)
 {
 	var Ball=Game.Rally.Ball.Ball;
 	
-	var r0=0, t0=0, m=0.0585, R=0.03335, I=m*R*R*0.92,  pr0=0, pa0=0;
+	var r0=0, t0=0, m=0.0585, R=0.03335*2, I=m*R*R*0.92,  pr0=0, pa0=0;
 	
 	var res=
 	{		
@@ -34,8 +34,9 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball, player)
 			var [k, r1]=segmentPlaneIntersection(r0, V.d(ball.r, r0), [0, 0, R], [0, 0, 1]);
 			if(k>0 && k<=1)
 			{
+				//tttt=1;
 				var t1=t0+(t-t0)*k;
-				var [v_, w_]=hit(ball.v, ball.w, R, m, I, [0, 0, 0], [0, 0, 1], 0.08, 0, 0.85);
+				var [v_, w_]=hit(ball.v, ball.w, R, m, I, [0, 0, 0], [0, 0, 1], 0.2, 0, 0.8);
 				ball.setControlPoint(r1, v_, w_, t1);
 				ball.shiftTime(t);
 				return;
@@ -63,12 +64,13 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball, player)
 			//if(window.tttt) return;				
 			var pn=[Math.cos(player.a+Math.PI/2), Math.sin(player.a+Math.PI/2), 0];
 			[k, r1, pr1]=segmentPlayerIntersection(r0, ball.r, pr0, [Math.cos(pa0+Math.PI/2), Math.sin(pa0+Math.PI/2)], [player.x/36, player.y/36, 0], pn, [1, 2]);
-			console.log(k);			
+			//console.log(k);			
 			if(k!==false && ! window.tttt)
 			{
 				tttt=1;
 				t1=t0+(t-t0)*k;
-				[v_, w_]=hit(ball.v, ball.w, R, m, I, [player.vx/0.036, player.vy/0.036, 0], pn, 0.16, 0, 0.85);
+				[v_, w_]=hit(ball.v, ball.w, R, m, I, V.s([player.vx/0.036, player.vy/0.036, 0], V.ps(5, hitV)), hitN, 0.2, 0.2, 0.5);
+				console.log(hitV);
 				ball.setControlPoint(r1, v_, w_, t1);
 				pr0=pr1;
 				ball.shiftTime(t);

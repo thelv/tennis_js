@@ -1,6 +1,8 @@
 <?php	
-	header("Cache-control: public");
-	header("Expires: " . gmdate("D, d M Y H:i:s", time() + 60*60*24) . " GMT");
+	//header("Cache-control: public");
+	//header("Expires: " . gmdate("D, d M Y H:i:s", time() + 60*60*24) . " GMT");
+	header('Cache-control: max-age=0');
+	header('Pragme: no-cache');
 	echo "\n\n"; readfile('main.js');	
 	echo "\n\n"; readfile('V.js');
 	echo "\n\n"; readfile('phys.js');

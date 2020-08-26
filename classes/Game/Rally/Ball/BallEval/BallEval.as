@@ -3,7 +3,7 @@ Game.Rally.Ball.BallEval.BallEval=function(ball)
 	var Ball=Game.Rally.Ball.Ball;
 	
 	var r=0, v=0, w=0, a=0, t=0;
-	var DT=3, K_DRUG=0.01, K_COR=0.0002, K_DRUG_A=0.000002, m=0.0585, R=0.03335, I=m*R*R*0.92;
+	var DT=3, K_DRUG=0.00005, K_COR=0.00015, K_DRUG_A=0/*0.000002*/, m=0.0585, R=0.03335*2, I=m*R*R*0.92;
 	
 	var res=
 	{							
@@ -47,7 +47,8 @@ Game.Rally.Ball.BallEval.BallEval=function(ball)
 				);	
 				F[2]-=9.81*m;
 
-				var	M=V.ps(-K_DRUG_A*V.abs(w), w);
+				var wAbs=V.abs(w);
+				var	M=V.ps(-K_DRUG_A*wAbs*Math.sqrt(wAbs), w);
 				
 				
 				var v_=V.s(v, V.ps(dts/m, F));

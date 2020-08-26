@@ -89,6 +89,13 @@ Game.Rally.Rally=function(game)
 			ballShadow.position.x=ball.r[1];
 			ballShadow.position.z=100+ball.r[0];	
 			
+			ballShadow2.position.x=ball.r[1];
+			ballShadow2.position.z=101+player0.x/36;	
+			ballShadow2.position.y=ball.r[2];
+			
+//			ballShadow2.rotation.y=Math.atan(hitN[1]/hitN[0]);
+	//		ballShadow2.rotation.x=Math.asin(-hitN[2]);
+			
 			viewPlayer0.position.z=100+player0.x/36;
 			viewPlayer0.position.x=player0.y/36;
 			viewPlayer0.rotation.y=player0.a-Math.PI/2;
@@ -96,6 +103,20 @@ Game.Rally.Rally=function(game)
 			viewPlayer1.position.z=100+player1.x/36;
 			viewPlayer1.position.x=player1.y/36;
 			viewPlayer1.rotation.y=player1.a-Math.PI/2;
+			
+			racket.position.z=100+player0.x/36;
+			racket.position.x=player0.y/36;
+			
+			racketSpeed.position.z=100+player0.x/36;
+			racketSpeed.position.x=player0.y/36;
+						
+			racket.rotation.y=Math.atan(hitN[1]/hitN[0]);
+			racket.rotation.x=Math.asin(-hitN[2])+Math.PI/2;
+						
+			var hitVAbs=Math.sqrt(hitV[0]*hitV[0]+hitV[1]*hitV[1]+hitV[2]*hitV[2]);
+			racketSpeed.scale.set(1, hitVAbs/5, 1);
+			if(hitV[0]!=0) racketSpeed.rotation.y=Math.atan(hitV[1]/hitV[0]);
+			racketSpeed.rotation.x=Math.asin(hitV[2]/hitVAbs)+Math.PI/2;
 			
 			//viewPlayer0.position.z=-2;//player1.x/36;
 			

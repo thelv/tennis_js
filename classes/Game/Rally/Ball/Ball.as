@@ -3,7 +3,7 @@ Game.Rally.Ball.Ball=function(game, player0)
 	var BallEval=Game.Rally.Ball.BallEval.BallEval;
 	var BallCollisions=Game.Rally.Ball.BallCollisions.BallCollisions;
 	
-	var a=[0, 0, 0], eval=0, collisions=0, r=[0, 0, 0], v=[0, 0, 0], w=[0, 0, 0], view=0, R=0.03335;
+	var a=[0, 0, 0], eval=0, collisions=0, r=[0, 0, 0], v=[0, 0, 0], w=[0, 0, 0], view=0, R=0.03335*2;
 	
 	var res= 
 	{			
@@ -73,7 +73,7 @@ Game.Rally.Ball.Ball=function(game, player0)
 				who=true;
 				if (start)
 				{
-					this.setControlPoint([0, 0, 2], [20, 0, 0], [0, 0, 0], t);
+					this.setControlPoint([-4, 0, 2], [10, 0, 0], [0, 0, 0], t);
 					collisions.init(t);
 				}
 				else
