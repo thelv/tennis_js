@@ -3,7 +3,7 @@ Game.Rally.Ball.BallEval.BallEval=function(ball)
 	var Ball=Game.Rally.Ball.Ball;
 	
 	var r=0, v=0, w=0, a=0, t=0;
-	var DT=3, K_DRUG=0.00005, K_COR=0.00015, K_DRUG_A=0/*0.000002*/, m=0.0585, R=0.03335*2, I=m*R*R*0.92;
+	var DT=3, K_DRUG=0.0004, K_COR=0.00015, K_DRUG_A=0.000000005/*0.000002*/, m=0.0585, R=0.03335*2, I=m*R*R*0.92;
 	
 	var res=
 	{							

@@ -60,6 +60,7 @@ Game.Rally.Ball.Ball=function(game, player0)
 			
 			shiftTime: function(t)
 			{								
+				if(hitPromise) return;
 				eval.eval(t);
 				collisions.collise(t);
 				if(r[2]<R) r[2]=R;

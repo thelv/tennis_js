@@ -78,7 +78,7 @@ Game.Rally.Rally=function(game)
 			viewBall.position.z=100+ball.r[0];
 			viewBall.position.y=ball.r[2];
 			var wAbs=V.abs(ball.w);
-			if(wAbs)
+			if(wAbs && ! hitPromise)
 			{
 				var wNorm=V.ps(1/wAbs, ball.w);
 				viewBall.rotateOnWorldAxis(new THREE.Vector3(wNorm[1], wNorm[2], wNorm[0]), wAbs*(t-t_)/1000);
@@ -89,9 +89,9 @@ Game.Rally.Rally=function(game)
 			ballShadow.position.x=ball.r[1];
 			ballShadow.position.z=100+ball.r[0];	
 			
-			ballShadow2.position.x=ball.r[1];
-			ballShadow2.position.z=101+player0.x/36;	
-			ballShadow2.position.y=ball.r[2];
+			ballShadow2.position.x=player0.y/36;
+			ballShadow2.position.z=99.9+player0.x/36;	
+			//ballShadow2.position.y=ball.r[2];
 			
 //			ballShadow2.rotation.y=Math.atan(hitN[1]/hitN[0]);
 	//		ballShadow2.rotation.x=Math.asin(-hitN[2]);
@@ -110,13 +110,36 @@ Game.Rally.Rally=function(game)
 			racketSpeed.position.z=100+player0.x/36;
 			racketSpeed.position.x=player0.y/36;
 						
-			racket.rotation.y=Math.atan(hitN[1]/hitN[0]);
-			racket.rotation.x=Math.asin(-hitN[2])+Math.PI/2;
+									
+			viewHitAxy.position.z=100+player0.x/36;
+			viewHitAxy.position.x=player0.y/36;						
+			var l=Math.sin(hitN[2])/2;
+			if(hitN[2]<0) viewHitAxy.material.color.setHex(0x009900);
+			else viewHitAxy.material.color.setHex(0x000099);
+			viewHitAxy.position.y=-l+1;		
+			viewHitAxy.scale.set(1, l, 1);			
+						
+			//racket.rotation.y=Math.atan(hitN[1]/hitN[0]);
+			//racket.rotation.x=Math.asin(-hitN[2])+Math.PI/2;
+			racket.rotation.z=Math.PI/2+hitNAz;
 						
 			var hitVAbs=Math.sqrt(hitV[0]*hitV[0]+hitV[1]*hitV[1]+hitV[2]*hitV[2]);
-			racketSpeed.scale.set(1, hitVAbs/5, 1);
-			if(hitV[0]!=0) racketSpeed.rotation.y=Math.atan(hitV[1]/hitV[0]);
-			racketSpeed.rotation.x=Math.asin(hitV[2]/hitVAbs)+Math.PI/2;
+			//racketSpeed.scale.set(1, hitVAbs/5, 1);
+			//racketSpeed.scale.set(1, hitVAbs/4, 1);
+			//racketSpeed.position.y=1+hitVAbs/4;
+			//if(hitV[0]!=0) racketSpeed.rotation.y=Math.atan(hitV[1]/hitV[0]);
+			//racketSpeed.rotation.x=Math.asin(hitV[2]/hitVAbs)+Math.PI/2;
+			
+			if(hitFrozeView)
+			{
+				hitVAbs=hitFrozeV;
+				racketSpeed.material.color.setHex(0x883333);
+			}
+			else
+			{
+				racketSpeed.material.color.setHex(0x990000);
+			}
+			racketSpeed.scale.set(1, Math.max(0.0225, hitVAbs/8), 1);
 			
 			//viewPlayer0.position.z=-2;//player1.x/36;
 			

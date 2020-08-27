@@ -25,6 +25,9 @@ Game=
 };
 NetworkClient={};
 
+var hitPromise=false;
+var hitFrozeView=false;
+
 document.addEventListener('DOMContentLoaded', function()
 {				
 	window.addEventListener('resize', resize);
@@ -34,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function()
 	scene=new THREE.Scene();
 	camera=new THREE.PerspectiveCamera(60, window.innerWidth / (window.innerHeight*1.6), 0.1, 200);
 	camera.position.y=2.1;//1.92;//2.05;
-	cameraOffset=4.0;//3.0;//2.7;
+	cameraOffset=4.5;//4.0;//3.0;//2.7;
 	
 	//camera.position.y=2.5;//1.92;//2.05;
 	//cameraOffset=3.5;//2.7;
@@ -54,14 +57,41 @@ document.addEventListener('DOMContentLoaded', function()
 	renderer.setClearColor( new THREE.Color("rgb(136, 231, 136)"), 1);
 	document.getElementById('canvas_cont').appendChild(renderer.domElement);	
 		
-	var phoneSocket=new WebSocket('ws://192.168.1.56:41789/');
+	phoneSocket=new WebSocket('ws://192.168.1.61:41789/');
 	phoneSocket.onmessage=function(m)
 	{		
+		hitReceiveTime=time.get();
+	
+		//console.log(1);
 		m=JSON.parse(m.data);
-		//console.log(m);
+		
 		hitN=m[0];
 		hitN[2]=-hitN[2];
+		
+		var a=Math.atan(hitN[1]/hitN[0]);
+		hitNAz=a/2;
+		var k=Math.sqrt(1-hitN[2]*hitN[2]);
+		hitNx=Math.cos(hitNAz);
+		hitNy=Math.sin(hitNAz);
+		
+		hitN[0]=hitNx*k;
+		hitN[1]=hitNy*k;
+		
 		hitV=m[1];
+		hitV=[hitV[0]*hitNx-hitV[1]*hitNy, hitV[0]*hitNy+hitV[1]*hitNx, hitV[2]];				
+		
+		if(/*m[2] &&*/ hitPromise)
+		{
+			setTimeout(function()
+			{
+				if(hitPromise) 
+				{
+					hitPromise();
+					hitPromise=false;
+				}
+			}, 10);
+		}
+				
 		//hitV[2]=-hitV[2];
 		//hitV=[m[1][1], m[1][0], m[1][2]];
 	//	var m=quaternionMatrix(m[0], m[1], m[2], m[3]), [0, 1, 0]);
@@ -118,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function()
 			
 				new THREE.TextureLoader().load("img/player.png", function(texture)
 				{			
-					geometry=new THREE.PlaneGeometry(1, 2, 1);
+					geometry=new THREE.PlaneGeometry(1.5, 2, 1);
 					texture.wrapS = THREE.RepeatWrapping;
 					texture.wrapT = THREE.RepeatWrapping;
 					texture.repeat.set(1, 1);
@@ -154,15 +184,18 @@ document.addEventListener('DOMContentLoaded', function()
 						
 						viewPlayer1=player1;
 			
-						var geometry = new THREE.CircleGeometry( 0.0667, 10 );
-						var material = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.DoubleSide});
+						var geometry = new THREE.CircleGeometry( 0.1667, 10 );
+						var material = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.DoubleSide, transparent: true, opacity: 0.6});
 						ballShadow = new THREE.Mesh(geometry, material);
 						ballShadow.rotation.x=Math.PI/2;
+						ballShadow.position.y=0.02;
 						
-						var geometry = new THREE.CircleGeometry( 0.0667, 10 );
-						var material = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.DoubleSide,  transparent: true, opacity: 0.2});
+						var geometry = new THREE.PlaneGeometry( 0.0667, 0.0667, 1);
+						var material = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.DoubleSide});
 						ballShadow2 = new THREE.Mesh(geometry, material);
-						ballShadow2.rotation.order='YXZ';
+						//ballShadow2.rotation.order='YXZ';
+						ballShadow2.position.y=0.02;						
+						ballShadow2.rotation.x=Math.PI/2;
 						//ballShadow2.rotation.x=Math.PI/2;
 						//ballShadow.position.y=1;
 						
@@ -190,17 +223,37 @@ document.addEventListener('DOMContentLoaded', function()
 							  //bus.frame.z=105;
 							  //bus.frame.y=3
 							  
-							  var geometry=new THREE.CylinderGeometry(0.03, 0.03, 2, 15);
+							 /* var geometry=new THREE.CylinderGeometry(0.03, 0.03, 1, 15);
 							  var material = new THREE.MeshBasicMaterial({color: 0x888800, side: THREE.DoubleSide});
 							  racket=new THREE.Mesh(geometry, material);
 							  racket.rotation.order='YXZ';
 							  racket.position.y=1;
+							  //racket.rotation.y=Math.PI/2;
+							 // racket.rotation.x=Math.PI/2;*/
+							 
+							 var geometry=new THREE.CylinderGeometry(0.03, 0.03, /*2*/1.05, 15);
+							  var material = new THREE.MeshBasicMaterial({color: 0x888800, side: THREE.DoubleSide, transparent: true, opacity: 0.5});
+							  racket=new THREE.Mesh(geometry, material);
+							  racket.rotation.order='YXZ';
+							  racket.position.y=1;
+							  //racket.rotation.y=Math.PI/2;
+							 // racket.rotation.x=Math.PI/2;
 							  
-							  var geometry=new THREE.CylinderGeometry(0.03, 0.03, 2, 15);
-							  var material = new THREE.MeshBasicMaterial({color: 0x880000, side: THREE.DoubleSide});
+							  var geometry=new THREE.CylinderGeometry(0.03, 0.03, 3, 15);
+							  var material = new THREE.MeshBasicMaterial({color: /*0x880000*/0x990000, side: THREE.DoubleSide, transparent: true, opacity: 0.7/*0.5*/});
 							  racketSpeed=new THREE.Mesh(geometry, material);
 							  racketSpeed.rotation.order='YXZ'
-							  racketSpeed.position.y=1;
+							  racketSpeed.position.y=1;							  
+							  racketSpeed.position.y=0.015;//1.985;
+							  racketSpeed.rotation.z=Math.PI/2;
+							 
+							  var geometry=new THREE.CylinderGeometry(0.03, 0.03, 2, 15);
+							  var material = new THREE.MeshBasicMaterial({color: 0x009900, side: THREE.DoubleSide, transparent: true, opacity: 0.5});
+							  viewHitAxy=new THREE.Mesh(geometry, material);
+							  viewHitAxy.rotation.order='YXZ';
+							  viewHitAxy.position.y=1;
+							  
+							  //viewHitAxy.rotation.z=Math.PI/2;
 							  
 							  
 							  scene.add(field);
@@ -209,8 +262,9 @@ document.addEventListener('DOMContentLoaded', function()
 								scene.add(ballShadow);
 								scene.add(player1);
 								scene.add(player0);		
-								//scene.add(racket);
-								//scene.add(racketSpeed);
+								scene.add(racket);
+								scene.add(racketSpeed);
+								scene.add(viewHitAxy);
 								//scene.add(ballShadow2);	
 								/*field.y=-10;
 								field.rotation.x=Math.PI/1.6;

@@ -54,10 +54,10 @@ Game.Wait.Wait=function(game)
 		},
 		
 		ready: function(event)
-		{			
-		tttt=0;
+		{						
 			if(event.keyCode == 32 && ! keySpaceOccupied)
-			{					
+			{				
+				tttt1=0;			
 			///	Main.stage.removeEventListener(KeyboardEvent.KEY_UP, ready);
 				//document.body.removeEventListener('keydown', ready);
 				game.referee.rallyStart(time.get());
