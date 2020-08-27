@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function()
 	scene=new THREE.Scene();
 	camera=new THREE.PerspectiveCamera(60, window.innerWidth / (window.innerHeight*1.6), 0.1, 200);
 	camera.position.y=2.1;//1.92;//2.05;
-	cameraOffset=4.5;//4.0;//3.0;//2.7;
+	cameraOffset=4.8;//4.0;//3.0;//2.7;
 	
 	//camera.position.y=2.5;//1.92;//2.05;
 	//cameraOffset=3.5;//2.7;
@@ -190,12 +190,12 @@ document.addEventListener('DOMContentLoaded', function()
 						ballShadow.rotation.x=Math.PI/2;
 						ballShadow.position.y=0.02;
 						
-						var geometry = new THREE.PlaneGeometry( 0.0667, 0.0667, 1);
-						var material = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.DoubleSide});
+						var geometry = new THREE.CircleGeometry( 0.0667, 10);
+						var material = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.DoubleSide, transparent: true, opacity: 0.3});
 						ballShadow2 = new THREE.Mesh(geometry, material);
 						//ballShadow2.rotation.order='YXZ';
-						ballShadow2.position.y=0.02;						
-						ballShadow2.rotation.x=Math.PI/2;
+						//ballShadow2.position.y=0.02;						
+						//ballShadow2.rotation.x=Math.PI/2;
 						//ballShadow2.rotation.x=Math.PI/2;
 						//ballShadow.position.y=1;
 						
@@ -246,6 +246,15 @@ document.addEventListener('DOMContentLoaded', function()
 							  racketSpeed.position.y=1;							  
 							  racketSpeed.position.y=0.015;//1.985;
 							  racketSpeed.rotation.z=Math.PI/2;
+							  
+							  var geometry=new THREE.CylinderGeometry(0.03, 0.03, 3, 15);
+							  var material = new THREE.MeshBasicMaterial({color: /*0x880000*/0x990000, side: THREE.DoubleSide, transparent: true, opacity: 0.6/*0.5*/});
+							  racketSpeed2=new THREE.Mesh(geometry, material);
+							  racketSpeed2.rotation.order='YXZ'
+							  racketSpeed2.position.y=1;							  
+							  racketSpeed2.position.y=0.015;//1.985;
+							  racketSpeed2.rotation.z=Math.PI/2;
+							  racketSpeed.scale.y=1.5/3;
 							 
 							  var geometry=new THREE.CylinderGeometry(0.03, 0.03, 2, 15);
 							  var material = new THREE.MeshBasicMaterial({color: 0x009900, side: THREE.DoubleSide, transparent: true, opacity: 0.5});
@@ -264,6 +273,8 @@ document.addEventListener('DOMContentLoaded', function()
 								scene.add(player0);		
 								scene.add(racket);
 								scene.add(racketSpeed);
+								scene.add(racketSpeed2);
+								
 								scene.add(viewHitAxy);
 								//scene.add(ballShadow2);	
 								/*field.y=-10;

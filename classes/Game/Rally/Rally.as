@@ -89,9 +89,12 @@ Game.Rally.Rally=function(game)
 			ballShadow.position.x=ball.r[1];
 			ballShadow.position.z=100+ball.r[0];	
 			
-			ballShadow2.position.x=player0.y/36;
+			//ballShadow2.position.x=player0.y/36;
 			ballShadow2.position.z=99.9+player0.x/36;	
-			//ballShadow2.position.y=ball.r[2];
+			ballShadow2.position.y=ball.r[2];
+			ballShadow2.position.x=ball.r[1];
+			
+			if(player0.x/36-ball.r[0]<2) ballShadow2.material.opacity=0.4; else ballShadow2.material.opacity=0.0;
 			
 //			ballShadow2.rotation.y=Math.atan(hitN[1]/hitN[0]);
 	//		ballShadow2.rotation.x=Math.asin(-hitN[2]);
@@ -109,6 +112,9 @@ Game.Rally.Rally=function(game)
 			
 			racketSpeed.position.z=100+player0.x/36;
 			racketSpeed.position.x=player0.y/36;
+			
+			racketSpeed2.position.z=100+player0.x/36;
+			racketSpeed2.position.x=player0.y/36;			
 						
 									
 			viewHitAxy.position.z=100+player0.x/36;
@@ -133,13 +139,13 @@ Game.Rally.Rally=function(game)
 			if(hitFrozeView)
 			{
 				hitVAbs=hitFrozeV;
-				racketSpeed.material.color.setHex(0x883333);
+				racketSpeed2.material.color.setHex(0x229922);
 			}
 			else
 			{
-				racketSpeed.material.color.setHex(0x990000);
+				racketSpeed2.material.color.setHex(0x009900);
 			}
-			racketSpeed.scale.set(1, Math.max(0.0225, hitVAbs/8), 1);
+			racketSpeed2.scale.set(1, Math.max(0.0225, hitVAbs/8), 1);
 			
 			//viewPlayer0.position.z=-2;//player1.x/36;
 			
