@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function()
 	scene=new THREE.Scene();
 	camera=new THREE.PerspectiveCamera(60, window.innerWidth / (window.innerHeight*1.6), 0.1, 200);
 	camera.position.y=2.1;//1.92;//2.05;
-	cameraOffset=4.8;//4.0;//3.0;//2.7;
+	cameraOffset=4.0;//4.8;//4.0;//3.0;//2.7;
 	
 	//camera.position.y=2.5;//1.92;//2.05;
 	//cameraOffset=3.5;//2.7;
@@ -58,12 +58,26 @@ document.addEventListener('DOMContentLoaded', function()
 	document.getElementById('canvas_cont').appendChild(renderer.domElement);	
 		
 	phoneSocket=new WebSocket('ws://192.168.1.61:41789/');
+	phoneSocket.onopen=function()
+	{
+		phoneSync=new Sync(function(f)
+		{
+			phoneSocket.send('echo');			
+			phoneEchoCallback=f;
+		}, true);
+	}
 	phoneSocket.onmessage=function(m)
-	{		
-		hitReceiveTime=time.get();
+	{		 		
 	
 		//console.log(1);
 		m=JSON.parse(m.data);
+		if(m[0]=='echo')
+		{
+			phoneEchoCallback(m[1]);
+			return;
+		}
+		
+		hitReceiveTime=time.shift(m[2]+phoneSync.shiftTime);
 		
 		hitN=m[0];
 		hitN[2]=-hitN[2];
@@ -81,15 +95,12 @@ document.addEventListener('DOMContentLoaded', function()
 		hitV=[hitV[0]*hitNx-hitV[1]*hitNy, hitV[0]*hitNy+hitV[1]*hitNx, hitV[2]];				
 		
 		if(/*m[2] &&*/ hitPromise)
-		{
-			setTimeout(function()
+		{			
+			if(hitPromise && hitPromiseTime-hitReceiveTime<20) 
 			{
-				if(hitPromise) 
-				{
-					hitPromise();
-					hitPromise=false;
-				}
-			}, 10);
+				hitPromise();
+				hitPromise=false;
+			}			
 		}
 				
 		//hitV[2]=-hitV[2];
@@ -257,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function()
 							  racketSpeed.scale.y=1.5/3;
 							 
 							  var geometry=new THREE.CylinderGeometry(0.03, 0.03, 2, 15);
-							  var material = new THREE.MeshBasicMaterial({color: 0x009900, side: THREE.DoubleSide, transparent: true, opacity: 0.5});
+							  var material = new THREE.MeshBasicMaterial({color: 0x009900, side: THREE.DoubleSide, transparent: true, opacity: 0.7});
 							  viewHitAxy=new THREE.Mesh(geometry, material);
 							  viewHitAxy.rotation.order='YXZ';
 							  viewHitAxy.position.y=1;

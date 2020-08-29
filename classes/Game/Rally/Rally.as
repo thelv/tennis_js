@@ -145,7 +145,7 @@ Game.Rally.Rally=function(game)
 			{
 				racketSpeed2.material.color.setHex(0x009900);
 			}
-			racketSpeed2.scale.set(1, Math.max(0.0225, hitVAbs/8), 1);
+			racketSpeed2.scale.set(1, Math.max(0.0225, hitVAbs/ /*8*/2), 1);
 			
 			//viewPlayer0.position.z=-2;//player1.x/36;
 			

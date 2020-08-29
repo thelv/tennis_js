@@ -16,6 +16,7 @@ Game.Rally.Timer.Timer=function(game)
 		
 		action: function(event)
 		{
+			if(hitPromise) return;
 			game.rally.shiftTime(time.get());
 		},
 		

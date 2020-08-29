@@ -60,7 +60,7 @@ Game.Rally.Ball.Ball=function(game, player0)
 			
 			shiftTime: function(t)
 			{								
-				if(hitPromise) return;
+				//if(hitPromise) return;
 				eval.eval(t);
 				collisions.collise(t);
 				if(r[2]<R) r[2]=R;
@@ -74,7 +74,7 @@ Game.Rally.Ball.Ball=function(game, player0)
 				who=true;
 				if (start)
 				{
-					this.setControlPoint([-4, 0, 2], [10, 0, 0], [0, 0, 0], t);
+					this.setControlPoint([0.2, 0, 2], [10, 0, 0], [0, 0, 0], t);
 					collisions.init(t);
 				}
 				else
