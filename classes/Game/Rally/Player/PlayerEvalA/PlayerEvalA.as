@@ -24,7 +24,9 @@ Game.Rally.Player.PlayerEvalA.PlayerEvalA=function(player)
 		
 		eval: function(t)
 		{
-			player.a = controlPointA - player.movingA * velocity * (t - controlPointTime);
+			//player.a = controlPointA - player.movingA * velocity * (t - controlPointTime);		
+			controlPointA=player.a;
+			controlPointTime=t;
 			//console.log(player.a);
 		}
 	}

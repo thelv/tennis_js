@@ -112,9 +112,11 @@ Game.Rally.Rally=function(game)
 			
 			racketSpeed.position.z=100+player0.x/36;
 			racketSpeed.position.x=player0.y/36;
+			racketSpeed.rotation.y=player0.a-Math.PI/2;
 			
 			racketSpeed2.position.z=100+player0.x/36;
 			racketSpeed2.position.x=player0.y/36;			
+			racketSpeed2.rotation.y=player0.a-Math.PI/2;
 						
 									
 			viewHitAxy.position.z=100+player0.x/36;

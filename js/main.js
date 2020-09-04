@@ -81,12 +81,22 @@ document.addEventListener('DOMContentLoaded', function()
 		
 		hitN=m[0];
 		hitN[2]=-hitN[2];
+		var b=Math.asin(hitN[2]);
+		b=b-0.3;
+		hitN[2]=Math.sin(b);
 		
 		var a=Math.atan(hitN[1]/hitN[0]);
-		hitNAz=a/2;
+		hitNAz=a/2;//+0.15;//+0.15;//0.15;
 		var k=Math.sqrt(1-hitN[2]*hitN[2]);
+		
+		Main.game.rally.player0.movingA=Math.abs(hitNAz)>0.1 ? -hitNAz : 0;
+		//console.log(Main.game.rally.player0.movingA);
+		Main.game.rally.player0.a=hitNAz-Math.PI/2;
+		
+		hitNAz=-(-Main.game.rally.player0.a-Math.PI/2) || 0;
 		hitNx=Math.cos(hitNAz);
 		hitNy=Math.sin(hitNAz);
+		
 		
 		hitN[0]=hitNx*k;
 		hitN[1]=hitNy*k;
@@ -282,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function()
 								scene.add(ballShadow);
 								scene.add(player1);
 								scene.add(player0);		
-								scene.add(racket);
+								//scene.add(racket);
 								scene.add(racketSpeed);
 								scene.add(racketSpeed2);
 								
