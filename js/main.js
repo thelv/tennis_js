@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function()
 	renderer.setClearColor( new THREE.Color("rgb(136, 231, 136)"), 1);
 	document.getElementById('canvas_cont').appendChild(renderer.domElement);	
 		
-	phoneSocket=new WebSocket('ws://192.168.1.61:41789/');
+	phoneSocket=new WebSocket('ws://192.168.1.56:41789/');
 	phoneSocket.onopen=function()
 	{
 		phoneSync=new Sync(function(f)
@@ -70,6 +70,12 @@ document.addEventListener('DOMContentLoaded', function()
 	{		 		
 	
 		//console.log(1);
+		if(m.data=='reset')
+		{
+			racket.material.opacity=0.5;
+			return;
+		}
+		
 		m=JSON.parse(m.data);
 		if(m[0]=='echo')
 		{
@@ -80,29 +86,31 @@ document.addEventListener('DOMContentLoaded', function()
 		hitReceiveTime=time.shift(m[2]+phoneSync.shiftTime);
 		
 		hitN=m[0];
-		hitN[2]=-hitN[2];
+		//hitN[2]=-hitN[2];
 		var b=Math.asin(hitN[2]);
 		b=b-0.3;
-		hitN[2]=Math.sin(b);
+		//hitN[2]=Math.sin(b);
 		
 		var a=Math.atan(hitN[1]/hitN[0]);
-		hitNAz=a/2;//+0.15;//+0.15;//0.15;
+		hitNAz=a;
+		//hitNAz=a/2;//+0.15;//+0.15;//0.15;
+		//hitNAz=Main.game.rally.player0.a;
 		var k=Math.sqrt(1-hitN[2]*hitN[2]);
 		
-		Main.game.rally.player0.movingA=Math.abs(hitNAz)>0.1 ? -hitNAz : 0;
+		//Main.game.rally.player0.movingA=Math.abs(hitNAz)>0.1 ? -hitNAz : 0;
 		//console.log(Main.game.rally.player0.movingA);
-		Main.game.rally.player0.a=hitNAz-Math.PI/2;
+		//Main.game.rally.player0.a=hitNAz-Math.PI/2;
 		
-		hitNAz=-(-Main.game.rally.player0.a-Math.PI/2) || 0;
+		//hitNAz=-(-Main.game.rally.player0.a-Math.PI/2) || 0;
 		hitNx=Math.cos(hitNAz);
 		hitNy=Math.sin(hitNAz);
 		
 		
-		hitN[0]=hitNx*k;
-		hitN[1]=hitNy*k;
+		//hitN[0]=hitNx*k;
+		//hitN[1]=hitNy*k;
 		
 		hitV=m[1];
-		hitV=[hitV[0]*hitNx-hitV[1]*hitNy, hitV[0]*hitNy+hitV[1]*hitNx, hitV[2]];				
+		//hitV=[hitV[0]*hitNx-hitV[1]*hitNy, hitV[0]*hitNy+hitV[1]*hitNx, hitV[2]];				
 		
 		if(/*m[2] &&*/ hitPromise)
 		{			
@@ -253,10 +261,13 @@ document.addEventListener('DOMContentLoaded', function()
 							 // racket.rotation.x=Math.PI/2;*/
 							 
 							 var geometry=new THREE.CylinderGeometry(0.03, 0.03, /*2*/1.05, 15);
+							 geometry.translate(0, -0.5, 0);
 							  var material = new THREE.MeshBasicMaterial({color: 0x888800, side: THREE.DoubleSide, transparent: true, opacity: 0.5});
 							  racket=new THREE.Mesh(geometry, material);
-							  racket.rotation.order='YXZ';
+							  racket.rotation.order='XYZ';
 							  racket.position.y=1;
+							  racket.position.y=1;
+							  racket.rotation.x=Math.PI/2;
 							  //racket.rotation.y=Math.PI/2;
 							 // racket.rotation.x=Math.PI/2;
 							  
@@ -292,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function()
 								scene.add(ballShadow);
 								scene.add(player1);
 								scene.add(player0);		
-								//scene.add(racket);
+								scene.add(racket);
 								scene.add(racketSpeed);
 								scene.add(racketSpeed2);
 								

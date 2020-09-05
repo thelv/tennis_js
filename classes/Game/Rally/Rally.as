@@ -107,7 +107,7 @@ Game.Rally.Rally=function(game)
 			viewPlayer1.position.x=player1.y/36;
 			viewPlayer1.rotation.y=player1.a-Math.PI/2;
 			
-			racket.position.z=100+player0.x/36;
+			racket.position.z=100+player0.x/36-0.01;
 			racket.position.x=player0.y/36;
 			
 			racketSpeed.position.z=100+player0.x/36;
@@ -129,7 +129,9 @@ Game.Rally.Rally=function(game)
 						
 			//racket.rotation.y=Math.atan(hitN[1]/hitN[0]);
 			//racket.rotation.x=Math.asin(-hitN[2])+Math.PI/2;
-			racket.rotation.z=Math.PI/2+hitNAz;
+			//racket.rotation.z=Math.PI/2+hitNAz;
+			racket.rotation.z=-Math.atan(hitN[1]/hitN[0]);
+			
 						
 			var hitVAbs=Math.sqrt(hitV[0]*hitV[0]+hitV[1]*hitV[1]+hitV[2]*hitV[2]);
 			//racketSpeed.scale.set(1, hitVAbs/5, 1);

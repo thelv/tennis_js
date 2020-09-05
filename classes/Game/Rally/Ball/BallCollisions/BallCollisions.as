@@ -43,13 +43,13 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball, player)
 			}
 			
 			var [k, r1]=segmentPlaneIntersection(r0, V.d(ball.r, r0), [0, 0, 0], [1, 0, 0]);
-			//if(k>0 && k<=1 && Math.abs(ball.r[2]-0.5)<0.5 && Math.abs(ball.r[1]<5.75))
-			if(k>0 && k<=1 && Math.abs(ball.r[2]-2)<2 && Math.abs(ball.r[1]<5.75))
+			if(k>0 && k<=1 && Math.abs(ball.r[2]-0.5)<0.5 && Math.abs(ball.r[1]<5.75))
+			//if(k>0 && k<=1 && Math.abs(ball.r[2]-2)<2 && Math.abs(ball.r[1]<5.75))
 			{
 				window.tttt1=false;
 				var t1=t0+(t-t0)*k;
-				//var [v_, w_]=hit(ball.v, ball.w, R, m, I, [0, 0, 0], [1, 0, 0], 0.3, 0, 0.11);
-				var [v_, w_]=hit(ball.v, ball.w, R, m, I, [0, 0, 0], [1, 0, 0], 0.2, 0, 0.8);
+				var [v_, w_]=hit(ball.v, ball.w, R, m, I, [0, 0, 0], [1, 0, 0], 0.3, 0, 0.11);
+				//var [v_, w_]=hit(ball.v, ball.w, R, m, I, [0, 0, 0], [1, 0, 0], 0.2, 0, 0.8);
 				ball.setControlPoint(r1, v_, w_, t1);
 				ball.shiftTime(t);
 				return;
@@ -100,8 +100,10 @@ console.log(t-hitReceiveTime);
 				hitFrozeV=Math.sqrt(hitV[0]*hitV[0]+hitV[1]*hitV[1]+hitV[2]*hitV[2]);
 				setTimeout(function(){hitFrozeView=false;}, 1000);
 				//[v_, w_]=hit(ball.v, ball.w, R, m, I, V.s([player.vx/0.036, player.vy/0.036, 0], V.ps(/*5*/0.9, hitV)), hitN, 0.22, 0.2, 0.5);
-				[v_, w_]=hit(ball.v, ball.w, R, m, I, V.s([player.vx/0.036, player.vy/0.036, 0], V.ps(/*5*//*1.5*//*0.9*/20, hitV)), hitN, 0.22, 0.2, /*0.5*/0.3);
+				[v_, w_]=hit(ball.v, ball.w, R, m, I, V.s([player.vx/0.036, player.vy/0.036, 0], V.ps(/*5*//*1.5*//*0.9*/15, hitV)), hitN, 0.22, 0.2, /*0.5*/0.3);
 				console.log(hitV);
+				phoneSocket.send('hit');
+				racket.material.opacity=0;
 				ball.setControlPoint(r1, v_, w_, t1);
 				pr0=pr1;
 				ball.shiftTime(t);
