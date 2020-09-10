@@ -29,7 +29,7 @@ Game.Rally.Ball.Ball=function(game, player0)
 				this.eval = BallEval(this);
 				this.a = [0, 0, 0];
 				this.collisions = BallCollisions(game, this, player0);
-				this.setControlPoint([0, 0, 2], [0, 0, 0], [0, 0, 0], 0);								
+				this.setControlPoint([0, 0, -1], [0, 0, 0], [0, 0, 0], 0);								
 				//view
 				view = Game.Rally.Ball.BallView(this);
 				this.viewShowPos();				
@@ -71,15 +71,16 @@ Game.Rally.Ball.Ball=function(game, player0)
 			
 			serve: function(start, who, t)
 			{	
-				who=true;
+				//who=true;
 				if (start)
 				{
-					this.setControlPoint([0.2, 0, 2], [10, 0, 0], [0, 0, 0], t);
+					this.setControlPoint([0, 0, 2], [who ? 10 : -10, 0, 0], [0, 0, 0], t);
 					collisions.init(t);
+					collisions.reset();
 				}
 				else
 				{
-					this.setControlPoint([0, 0, 2], [0, 0, 0], [0, 0, 0], game.rally.time.get());
+					this.setControlPoint([0, 0, -1], [0, 0, 0], [0, 0, 0], game.rally.time.get());
 					collisions.init(t);
 				}
 			},
@@ -87,7 +88,7 @@ Game.Rally.Ball.Ball=function(game, player0)
 			messageSendHit: function(t)
 			{					
 				game.messageSend(
-					{tp: 'bh', t: t, x: this.x, y: this.y, vx: this.vx, vy: this.vy, va: this.va}
+					{tp: 'bh', t: t, r: this.r, v: this.v, w: this.w}
 					,{firstConnection: 9, connectionsRange: 3, connectionsCount: 2, seriesName: 'bh'}
 				);
 				//"bh" == "ball hit"
@@ -98,7 +99,15 @@ Game.Rally.Ball.Ball=function(game, player0)
 				switch(message.tp)
 				{
 					case 'bh':
-						this.setControlPoint( -message.x, -message.y, -message.vx, -message.vy, message.va, message.t);
+						message.r[0]=-message.r[0];
+						message.r[1]=-message.r[1];
+						message.v[0]=-message.v[0];
+						message.v[1]=-message.v[1];
+						message.w[0]=-message.w[0];
+						message.w[1]=-message.w[1];
+
+						//this.setControlPoint( -message.x, -message.y, -message.vx, -message.vy, message.va, message.t);
+						this.setControlPoint(message.r, message.v, message.w, message.t);
 						game.rally.middleLines.hit(1, -message.x, message.t);
 						game.rally.referee.collision('player', 1);
 						collisions.hitWas(1);

@@ -18,7 +18,7 @@ Game.Rally.Referee.Referee=function(game)
 		start: function(whoServe, t)
 		{						
 			wasOurHit = ! whoServe;
-			stage = 'on win';
+			stage = 'after hit';
 			this.whoServe = whoServe;	
 			
 			if(game.type=='local') game.rally.player1.rallyState('side'+(whoServe ? 0 : 1));
@@ -33,7 +33,9 @@ Game.Rally.Referee.Referee=function(game)
 		
 		collision: function(type, number)
 		{			
+			if(game.type=='local') return;			
 			if(game.type=='view') return;
+			
 			if ((game.type == 'local') || (! wasOurHit) || (type=='player'))
 			{									
 				if (type == 'player')

@@ -5,6 +5,8 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball, player)
 	
 	var r0=0, t0=0, m=0.0585, R=0.03335*2, I=m*R*R*0.92,  pr0=0, pa0=0;
 	
+	var excludePlayer=false;
+	
 	var res=
 	{		
 		get game(){return game;}, set game(a){game=a;},
@@ -40,6 +42,16 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball, player)
 				var [v_, w_]=hit(ball.v, ball.w, R, m, I, [0, 0, 0], [0, 0, 1], 0.2, 0, 0.8);
 				ball.setControlPoint(r1, v_, w_, t1);
 				ball.shiftTime(t);
+				
+				if(Math.abs(ball.r[1])<5.485 && Math.abs(ball.r[0])<11.835)
+				{
+					game.rally.referee.collision('field', ball.r[0]>0 ? 0 : 2);
+				}
+				else
+				{
+					game.rally.referee.collision('border', 0);
+				}
+				
 				return;
 			}
 			
@@ -47,7 +59,7 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball, player)
 			if(k>0 && k<=1 && Math.abs(ball.r[2]-0.5)<0.5 && Math.abs(ball.r[1]<5.75))
 			//if(k>0 && k<=1 && Math.abs(ball.r[2]-2)<2 && Math.abs(ball.r[1]<5.75))
 			{
-				window.tttt1=false;
+				//window.tttt1=false;
 				var t1=t0+(t-t0)*k;
 				var [v_, w_]=hit(ball.v, ball.w, R, m, I, [0, 0, 0], [1, 0, 0], 0.3, 0, 0.11);
 				//var [v_, w_]=hit(ball.v, ball.w, R, m, I, [0, 0, 0], [1, 0, 0], 0.2, 0, 0.8);
@@ -79,8 +91,9 @@ Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball, player)
 			var pn=[Math.cos(player.a+Math.PI/2), Math.sin(player.a+Math.PI/2), 0];			
 			[k, r1, pr1]=segmentPlayerIntersection(r0, ball.r, pr0, [Math.cos(pa0+Math.PI/2), Math.sin(pa0+Math.PI/2)], [player.x/36, player.y/36, 0], pn, [1, 2]);
 			//console.log(k);			
-			if(k!==false && ! window.tttt1)
+			if(k!==false && ! excludePlayer)
 			{
+				excludePlayer=true;
 				tttt1=1;
 				t1=t0+(t-t0)*k;		
 console.log(t-hitReceiveTime);		
@@ -108,6 +121,8 @@ console.log(t-hitReceiveTime);
 				phoneSocket.send('hit'+hitForce);
 				//racket.material.opacity=0;
 				ball.setControlPoint(r1, v_, w_, t1);
+				ball.messageSendHit(t1);
+				game.rally.referee.collision('player', 0);
 				pr0=pr1;
 				ball.shiftTime(t);
 				return;
@@ -118,12 +133,13 @@ console.log(t-hitReceiveTime);
 		
 		hitWas: function(playerNumber)
 		{
-			//
+			excludePlayer=false;
+			game.rally.referee.collision('player', 1);
 		},
 		
 		reset: function()
 		{
-			//
+			excludePlayer=false;
 		}
 	}
 	

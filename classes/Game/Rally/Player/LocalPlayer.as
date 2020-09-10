@@ -27,7 +27,7 @@ Game.Rally.Player.LocalPlayer=function(game, side)
 					//KeyHandler(this, 52, 82, 69, 84, 78, 66)
 				:
 					//KeyHandler(this, 65, 68, 83, 87, 39, 37)
-					KeyHandler(this, 65, 68, 83, 87, 39, 37)
+					KeyHandler(this, 87, 83, 65, 68, 39, 37)
 			)	
 			:
 				KeyHandler(this, -1, -1, -1, -1, -1, -1)

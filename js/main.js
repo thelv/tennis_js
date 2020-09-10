@@ -60,79 +60,89 @@ document.addEventListener('DOMContentLoaded', function()
 	renderer.setSize(window.innerWidth, window.innerHeight*1.6);
 	//renderer.setClearColor( new THREE.Color("rgb(136, 231, 136)"), 1);
 	document.getElementById('canvas_cont').appendChild(renderer.domElement);	
-		
-	phoneSocket=new WebSocket('ws://192.168.1.57:41789/');
-	phoneSocket.onopen=function()
+			
+	phoneConnect=function(ip)
 	{
-		phoneSync=new Sync(function(f)
+		localStorage.phoneIp=ip;
+		phoneSocket=new WebSocket('ws://'+localStorage.phoneIp+':41789/');
+		phoneSocket.onopen=function()
 		{
-			phoneSocket.send('echo');			
-			phoneEchoCallback=f;
-		}, true);
-	}
-	phoneSocket.onmessage=function(m)
-	{		 		
-	
-		//console.log(1);
-		if(m.data=='reset')
-		{
-			//racket.material.opacity=0.5;
-			return;
-		}
-		
-		m=JSON.parse(m.data);
-		if(m[0]=='echo')
-		{
-			phoneEchoCallback(m[1]);
-			return;
-		}
-		
-		hitReceiveTime=time.shift(m[2]+phoneSync.shiftTime);
-		
-		hitN=m[0];
-		//hitN[2]=-hitN[2];
-		var b=Math.asin(hitN[2]);
-		b=b-0.3;
-		//hitN[2]=Math.sin(b);
-		
-		var a=Math.atan(hitN[1]/hitN[0]);
-		hitNAz=a;
-		//hitNAz=a/2;//+0.15;//+0.15;//0.15;
-		//hitNAz=Main.game.rally.player0.a;
-		var k=Math.sqrt(1-hitN[2]*hitN[2]);
-		
-		//Main.game.rally.player0.movingA=Math.abs(hitNAz)>0.1 ? -hitNAz : 0;
-		//console.log(Main.game.rally.player0.movingA);
-		//Main.game.rally.player0.a=hitNAz-Math.PI/2;
-		
-		//hitNAz=-(-Main.game.rally.player0.a-Math.PI/2) || 0;
-		hitNx=Math.cos(hitNAz);
-		hitNy=Math.sin(hitNAz);
-		
-		
-		//hitN[0]=hitNx*k;
-		//hitN[1]=hitNy*k;
-		
-		hitV=m[1];
-		//hitV=[hitV[0]*hitNx-hitV[1]*hitNy, hitV[0]*hitNy+hitV[1]*hitNx, hitV[2]];				
-		
-		if(/*m[2] &&*/ hitPromise)
-		{			
-			if(hitPromise && hitPromiseTime-hitReceiveTime<20) 
+			phoneSync=new Sync(function(f)
 			{
-				hitPromise();
-				hitPromise=false;
-			}			
+				phoneSocket.send('echo');			
+				phoneEchoCallback=f;
+			}, true);
 		}
-				
-		//hitV[2]=-hitV[2];
-		//hitV=[m[1][1], m[1][0], m[1][2]];
-	//	var m=quaternionMatrix(m[0], m[1], m[2], m[3]), [0, 1, 0]);
-	//	var tilt0=m[2][1];
-	//	var tilt1=m[2][2];
-		//console.log(v);
-	};
+		phoneSocket.onmessage=function(m)
+		{		 		
+		
+			//console.log(1);
+			if(m.data=='reset')
+			{
+				//racket.material.opacity=0.5;
+				return;
+			}
+			
+			m=JSON.parse(m.data);
+			if(m[0]=='echo')
+			{
+				phoneEchoCallback(m[1]);
+				return;
+			}
+			
+			hitReceiveTime=time.shift(m[2]+phoneSync.shiftTime);
+			
+			hitN=m[0];
+			//hitN[2]=-hitN[2];
+			var b=Math.asin(hitN[2]);
+			b=b-0.3;
+			//hitN[2]=Math.sin(b);
+			
+			var a=Math.atan(hitN[1]/hitN[0]);
+			hitNAz=a;
+			//hitNAz=a/2;//+0.15;//+0.15;//0.15;
+			//hitNAz=Main.game.rally.player0.a;
+			var k=Math.sqrt(1-hitN[2]*hitN[2]);
+			
+			//Main.game.rally.player0.movingA=Math.abs(hitNAz)>0.1 ? -hitNAz : 0;
+			//console.log(Main.game.rally.player0.movingA);
+			//Main.game.rally.player0.a=hitNAz-Math.PI/2;
+			
+			//hitNAz=-(-Main.game.rally.player0.a-Math.PI/2) || 0;
+			hitNx=Math.cos(hitNAz);
+			hitNy=Math.sin(hitNAz);
+			
+			
+			//hitN[0]=hitNx*k;
+			//hitN[1]=hitNy*k;
+			
+			hitV=m[1];
+			//hitV=[hitV[0]*hitNx-hitV[1]*hitNy, hitV[0]*hitNy+hitV[1]*hitNx, hitV[2]];				
+			
+			if(/*m[2] &&*/ hitPromise)
+			{			
+				if(hitPromise && hitPromiseTime-hitReceiveTime<20) 
+				{
+					hitPromise();
+					hitPromise=false;
+				}			
+			}
+					
+			//hitV[2]=-hitV[2];
+			//hitV=[m[1][1], m[1][0], m[1][2]];
+		//	var m=quaternionMatrix(m[0], m[1], m[2], m[3]), [0, 1, 0]);
+		//	var tilt0=m[2][1];
+		//	var tilt1=m[2][2];
+			//console.log(v);
+		};
+	}
+	if(localStorage.phoneIp) phoneConnect(localStorage.phoneIp);
 	
+	phoneChangeIp=function()
+	{
+		var ip=prompt('Введите ip телефона');
+		phoneConnect(ip);
+	}
 	
 	new THREE.TextureLoader().load( "img/field2.png" , function(texture)	
 	{
