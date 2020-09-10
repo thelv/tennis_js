@@ -1,4 +1,8 @@
 /* this is a partually port from as3 so this is a mess */
+hitNy=0;
+hitN=[-1,0,0];
+hitV=[0,0,0];
+hitNx=1
 Game=
 {
 	Rally: 
@@ -54,10 +58,10 @@ document.addEventListener('DOMContentLoaded', function()
 	//camera.lookAt(0, 2, 0);
 	renderer=new THREE.WebGLRenderer({alpha: true});
 	renderer.setSize(window.innerWidth, window.innerHeight*1.6);
-	renderer.setClearColor( new THREE.Color("rgb(136, 231, 136)"), 1);
+	//renderer.setClearColor( new THREE.Color("rgb(136, 231, 136)"), 1);
 	document.getElementById('canvas_cont').appendChild(renderer.domElement);	
 		
-	phoneSocket=new WebSocket('ws://192.168.1.56:41789/');
+	phoneSocket=new WebSocket('ws://192.168.1.57:41789/');
 	phoneSocket.onopen=function()
 	{
 		phoneSync=new Sync(function(f)
@@ -72,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function()
 		//console.log(1);
 		if(m.data=='reset')
 		{
-			racket.material.opacity=0.5;
+			//racket.material.opacity=0.5;
 			return;
 		}
 		
@@ -128,21 +132,49 @@ document.addEventListener('DOMContentLoaded', function()
 	//	var tilt1=m[2][2];
 		//console.log(v);
 	};
-		
-	new THREE.TextureLoader().load( "img/field.png" , function(texture)
+	
+	
+	new THREE.TextureLoader().load( "img/field2.png" , function(texture)	
 	{
 		geometry=new THREE.PlaneGeometry(10.97, 23.77, 1);
 		texture.wrapS = THREE.RepeatWrapping;
 		texture.wrapT = THREE.RepeatWrapping;
 		texture.repeat.set(1, 1);
 		material=new THREE.MeshBasicMaterial({transparent: true, opacity: 1, map: texture, shading: THREE.FlatShading, side: THREE.BackSide});
+		field_=new THREE.Mesh(geometry, material);
+		field_.position.y=0;
+		field_.position.x=0;//10.97/2;
+		field_.position.z=100;//23.77/2;
+		field_.rotation.x=Math.PI/2;
+		
+	new THREE.TextureLoader().load( "img/grass.jpg" , function(texture)
+	{
+		geometry=new THREE.PlaneGeometry(10.97, 23.77, 1);
+		texture.wrapS = THREE.RepeatWrapping;
+		texture.wrapT = THREE.RepeatWrapping;
+		texture.repeat.set(10.97/2.5*3, 23.77/2.5*3);
+		material=new THREE.MeshBasicMaterial({map: texture, shading: THREE.FlatShading, side: THREE.BackSide});
 		field=new THREE.Mesh(geometry, material);
 		field.position.y=0;
 		field.position.x=0;//10.97/2;
 		field.position.z=100;//23.77/2;
 		field.rotation.x=Math.PI/2;
 		
-		new THREE.TextureLoader().load( "img/net5.png" , function(texture)
+	new THREE.TextureLoader().load( "img/earth.jpg" , function(texture)
+	{
+		geometry=new THREE.PlaneGeometry(1000.97, 2300.77, 1);
+		texture.wrapS = THREE.RepeatWrapping;
+		texture.wrapT = THREE.RepeatWrapping;
+		texture.repeat.set(1000.97/2.5*3, 2300.77/2.5*3);
+		material=new THREE.MeshBasicMaterial({map: texture, shading: THREE.FlatShading, side: THREE.BackSide});
+		earth=new THREE.Mesh(geometry, material);
+		earth.position.y=-0.01;
+		earth.position.x=0;//10.97/2;
+		earth.position.z=100;//23.77/2;
+		earth.position.z=100;//23.77/2;
+		earth.rotation.x=Math.PI/2;
+		
+		new THREE.TextureLoader().load( "img/net7.png" , function(texture)
 		{
 			
 			geometry=new THREE.PlaneGeometry(11.97, 1.07, 1);
@@ -297,7 +329,12 @@ document.addEventListener('DOMContentLoaded', function()
 							  //viewHitAxy.rotation.z=Math.PI/2;
 							  
 							  
-							  scene.add(field);
+							  var light = new THREE.PointLight( 0xffffff, 100, 100 );
+							light.position.set( 0, 100, 0);
+							//scene.add( light );
+							  
+							  
+							  scene.add(field_);scene.add(field);scene.add(earth);
 								scene.add(net);
 								scene.add(ball);
 								scene.add(ballShadow);
@@ -325,6 +362,10 @@ document.addEventListener('DOMContentLoaded', function()
 				});
 			});
 		});
+	});
+	
+	});
+	
 	});
 	
 	keySpaceOccupied=false;

@@ -52,8 +52,8 @@ Game.Rally.Player.PlayerEvalXY.PlayerEvalXY=function(player)
 					var movingX=player.movingX;
 					var movingY=player.movingY;								
 					
-					movingY=player.movingX*hitNy+player.movingY*hitNx;
-					movingX=player.movingX*hitNx-player.movingY*hitNy;
+				//	movingY=player.movingX*hitNy+player.movingY*hitNx;
+					//movingX=player.movingX*hitNx-player.movingY*hitNy;
 					
 					if(movingX==0 && movingY==0)
 					//авто-остановка игрока

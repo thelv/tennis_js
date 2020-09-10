@@ -1,3 +1,4 @@
+hitSense=20;
 Game.Rally.Ball.BallCollisions.BallCollisions=function(game, ball, player)
 {
 	var Ball=Game.Rally.Ball.Ball;
@@ -100,10 +101,12 @@ console.log(t-hitReceiveTime);
 				hitFrozeV=Math.sqrt(hitV[0]*hitV[0]+hitV[1]*hitV[1]+hitV[2]*hitV[2]);
 				setTimeout(function(){hitFrozeView=false;}, 1000);
 				//[v_, w_]=hit(ball.v, ball.w, R, m, I, V.s([player.vx/0.036, player.vy/0.036, 0], V.ps(/*5*/0.9, hitV)), hitN, 0.22, 0.2, 0.5);
-				[v_, w_]=hit(ball.v, ball.w, R, m, I, V.s([player.vx/0.036, player.vy/0.036, 0], V.ps(/*5*//*1.5*//*0.9*/15, hitV)), hitN, 0.22, 0.2, /*0.5*/0.3);
+				[v_, w_]=hit(ball.v, ball.w, R, m, I, V.s([player.vx/0.036, player.vy/0.036, 0], V.ps(/*5*//*1.5*//*0.9*/hitSense, hitV)), hitN, 0.22, 0.2, /*0.5*/0.3);
+				//var hitForce=Math.max(0, Math.round(V.abs(V.d(v_, ball.v))-20)*10);
+				var hitForce=Math.max(0, Math.round(V.abs(V.d(v_, ball.v)))*5);
 				console.log(hitV);
-				phoneSocket.send('hit');
-				racket.material.opacity=0;
+				phoneSocket.send('hit'+hitForce);
+				//racket.material.opacity=0;
 				ball.setControlPoint(r1, v_, w_, t1);
 				pr0=pr1;
 				ball.shiftTime(t);

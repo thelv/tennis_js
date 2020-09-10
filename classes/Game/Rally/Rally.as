@@ -122,7 +122,7 @@ Game.Rally.Rally=function(game)
 			viewHitAxy.position.z=100+player0.x/36;
 			viewHitAxy.position.x=player0.y/36;						
 			var l=Math.sin(hitN[2])/2;
-			if(hitN[2]<0) viewHitAxy.material.color.setHex(0x009900);
+			if(hitN[2]<0) viewHitAxy.material.color.setHex(0x225522);//0x009900);
 			else viewHitAxy.material.color.setHex(0x000099);
 			viewHitAxy.position.y=-l+1;		
 			viewHitAxy.scale.set(1, l, 1);			
@@ -149,7 +149,7 @@ Game.Rally.Rally=function(game)
 			{
 				racketSpeed2.material.color.setHex(0x009900);
 			}
-			racketSpeed2.scale.set(1, Math.max(0.0225, hitVAbs/ /*8*/2), 1);
+			racketSpeed2.scale.set(1, Math.max(0.0225, 0/*hitVAbs*// /*8*/2), 1);
 			
 			//viewPlayer0.position.z=-2;//player1.x/36;
 			
