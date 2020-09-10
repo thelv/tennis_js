@@ -84,7 +84,7 @@
 			<div id=auth>
 				<!-- <a>Авторизуйтесь</a>, чтобы не потерять накопленный рейтинг.<br>
 				Реальные данные аккаунта будут скрыты. -->
-				<a href='tennis.apk' target=_blank>скачать приложение на тел.</a><br>
+				<a href='tennis.apk' target="_blank">скачать приложение на тел.</a><br>
 				<button onclick='phoneChangeIp();'>подключить телефон по IP</button><br><br>
 				Привет, <span id=name>user</span> (<!-- - <div style='display:none;height:5px'></div>--><a id=name_change>изменить имя</a><!--, <a>выйти</a>-->).
 			</div>
