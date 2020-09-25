@@ -68,12 +68,44 @@ Game.Rally.Rally=function(game)
 			player1.shiftTime(t);
 			ball.shiftTime(t);	
 
+		
+		//	if(ball.v[0]+ball.v[1]<1) bv=[0.01,0.01,0.01]; else bv=ball.v;
+		/*bv=ball.v;
+			var dv=V.d(bv, [player0.vx*1000/36, player0.vy*1000/36, 0]);
+			var dv=bv;
+			if(dv[0]!=0) player0.a=Math.atan(dv[1]/dv[0])-Math.PI/2;
+			else player0.a=-Math.PI/2;*/
+			
+			//if(Math.abs(ball.v[1])>ball.v[0]*0.5 && ball.v[0]>0) player0.a=Math.PI/6*Math.sign(ball.v[1])-Math.PI/2; else player0.a=-Math.PI/2;
+
+/*var an=Math.atan((player0.y/36)/(player0.x/36+5));
+//if(an<0) an+=Math.PI;
+//player0.a=-Math.PI/2+(Math.PI/2-an)*Math.min(1, Math.max(0, (7-player0.x/36)));
+an=Math.sign(an)*Math.max(0, Math.abs(an)-Math.PI/ 18);//15
+player0.a=Math.PI/2+an;*/
+
+/*var an=Math.atan((player0.y/36)/(player0.x/36+8));
+//if(an<0) an+=Math.PI;
+//player0.a=-Math.PI/2+(Math.PI/2-an)*Math.min(1, Math.max(0, (7-player0.x/36)));
+an=Math.sign(an)*Math.max(0, Math.abs(an)-Math.PI/ 23);//15
+player0.a=Math.PI/2+an;*/
+
+var an=Math.atan((player0.y/36)/(player0.x/36+6.5));
+//if(an<0) an+=Math.PI;
+//player0.a=-Math.PI/2+(Math.PI/2-an)*Math.min(1, Math.max(0, (7-player0.x/36)));
+an=Math.sign(an)*Math.max(0, Math.abs(an)-Math.PI/ 20);//15
+//player0.a=Math.PI/2+an;
 
 			//viewBall.rotation.y=t*0.001;
-			camera.position.z=100+player0.x/360*10-cameraOffset*Math.cos(player0.a-Math.PI/2);
-			camera.position.x=player0.y/360*10-cameraOffset*Math.sin(player0.a-Math.PI/2);
+			camera.position.z=100+player0.x/360*10-cameraOffset*Math.cos(/*player0.a*/-Math.PI/2-Math.PI/2);
+			camera.position.x=player0.y/360*10-cameraOffset*Math.sin(/*player0.a*/-Math.PI/2-Math.PI/2);
 			camera.lookAt(player0.y/36, camera.position.y, 100+player0.x/36);
 			//camera.lookAt(0, camera.position.y-1, 0);
+			
+	/*	camera.lookAt(0,0,0);
+		camera.position.x=0;
+		camera.position.y=8.5;
+		camera.position.z=127;*/
 			viewBall.position.x=ball.r[1];
 			viewBall.position.z=100+ball.r[0];
 			viewBall.position.y=ball.r[2];
@@ -102,6 +134,16 @@ Game.Rally.Rally=function(game)
 			viewPlayer0.position.z=100+player0.x/36;
 			viewPlayer0.position.x=player0.y/36;
 			viewPlayer0.rotation.y=player0.a-Math.PI/2;
+			
+			/*var d=V.d(ball.r, [player0.x/36, player0.y/36, ball.r[2]]);
+			if(V.absSquare(d)>2)
+			{
+				var n=V.norm(V.d(ball.r, [player0.x/36, player0.y/36, ball.r[2]]));
+				var na=Math.atan(n[1]/n[0]);				
+				viewPlayer0.rotation.y=na;//;
+				racketSpeed2.rotation.y=na;
+				racketSpeed.rotation.y=na;
+			}*/	
 			
 			viewPlayer1.position.z=100+player1.x/36;
 			viewPlayer1.position.x=player1.y/36;

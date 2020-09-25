@@ -8,6 +8,7 @@
 
 	function segmentPlayerIntersection(r0, r1, R0, n0, R1, n1, size)
 	{	
+	  n1=n0;
 		var dr=V.d(r1, r0);	
 	
 		var r0_=V.d(r0, R0);

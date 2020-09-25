@@ -64,6 +64,7 @@
 			body{-background:transparent}
 			#border_out{display:none}
 			//#wait_{display:none !important}
+			#help, #help_open, #lobb-y, #chat, #game_network_head {display:none !important}
 		</style>
 	</head>	
 	<body>		

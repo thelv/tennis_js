@@ -45,6 +45,11 @@
 			return Math.sqrt(a[0]*a[0]+a[1]*a[1]+a[2]*a[2]);
 		},
 		
+		absSquare: function(a)
+		{
+			return a[0]*a[0]+a[1]*a[1]+a[2]*a[2];
+		},
+		
 		norm: function(a)
 		{
 			var abs=V.abs(a);

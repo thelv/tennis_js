@@ -42,6 +42,10 @@ document.addEventListener('DOMContentLoaded', function()
 	camera=new THREE.PerspectiveCamera(60, window.innerWidth / (window.innerHeight*1.6), 0.1, 200);
 	camera.position.y=2.1;//1.92;//2.05;
 	cameraOffset=4.0;//4.8;//4.0;//3.0;//2.7;
+	camera.lookAt(0, 0, 0);
+	//camera.position.y=4;
+	camera.position.z=120;
+	camera.position.x=1;
 	
 	//camera.position.y=2.5;//1.92;//2.05;
 	//cameraOffset=3.5;//2.7;
@@ -90,13 +94,23 @@ document.addEventListener('DOMContentLoaded', function()
 				return;
 			}
 			
-			hitReceiveTime=time.shift(m[2]+phoneSync.shiftTime);
+//			Main.game.rally.player0.a=m[2]/15000-Math.PI/2;
+			
+			hitReceiveTime=time.shift(m[3]+phoneSync.shiftTime);
 			
 			hitN=m[0];
 			//hitN[2]=-hitN[2];
-			var b=Math.asin(hitN[2]);
-			b=b-0.3;
+			//var b=Math.asin(hitN[2]);
+			//b=b-0.3;
 			//hitN[2]=Math.sin(b);
+			
+			//hitN=[1,0,0];
+			
+//			var cos66=Math.cos(Main.game.rally.player0.a+Math.PI/2);
+	//		var sin66=-Math.sin(Main.game.rally.player0.a+Math.PI/2);						
+		//	hitN=[hitN[0]*cos66+hitN[1]*sin66, -hitN[0]*sin66+hitN[1]*cos66, hitN[2]];
+			
+			
 			
 			var a=Math.atan(hitN[1]/hitN[0]);
 			hitNAz=a;
@@ -117,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function()
 			//hitN[1]=hitNy*k;
 			
 			hitV=m[1];
+		//	hitV=[hitV[0]*cos66+hitV[1]*sin66, -hitV[0]*sin66+hitV[1]*cos66, hitV[2]];
 			//hitV=[hitV[0]*hitNx-hitV[1]*hitNy, hitV[0]*hitNy+hitV[1]*hitNx, hitV[2]];				
 			
 			if(/*m[2] &&*/ hitPromise)
@@ -255,8 +270,8 @@ document.addEventListener('DOMContentLoaded', function()
 						
 						viewPlayer1=player1;
 			
-						var geometry = new THREE.CircleGeometry( 0.1667, 10 );
-						var material = new THREE.MeshBasicMaterial({color: 0xff0000, side: THREE.DoubleSide, transparent: true, opacity: 0.6});
+						var geometry = new THREE.CircleGeometry( 0.03335*2.4, 10 );
+						var material = new THREE.MeshBasicMaterial({color: 0x333355, side: THREE.DoubleSide, transparent: true, opacity: 0.6});
 						ballShadow = new THREE.Mesh(geometry, material);
 						ballShadow.rotation.x=Math.PI/2;
 						ballShadow.position.y=0.02;
@@ -285,10 +300,10 @@ document.addEventListener('DOMContentLoaded', function()
 							  cube1.castShadow = true;
 							  
 							  
-							  camera.position.x=0;
+							  //camera.position.x=0;
 							 // camera.position.y=3;
-							  camera.position.z=10;
-							  scene.add(cube1);		
+							  //camera.position.z=10;
+							  //scene.add(cube1);		
 							  //bus.frame.add(bus.body);*/
 							  
 							  //bus.frame.z=105;
@@ -638,3 +653,8 @@ document.addEventListener('DOMContentLoaded', function()
 	
 	teaching.start();
 });								
+
+randDiapason=function(fr, to)
+{
+	return Math.random()*(to-fr)+fr;
+}

@@ -72,6 +72,15 @@ Game.Rally.Ball.Ball=function(game, player0)
 			serve: function(start, who, t)
 			{	
 				//who=true;
+				if(game.type=='local')
+				{
+					this.setControlPoint([randDiapason(-2, 0), randDiapason(-2, 2), randDiapason(1.5, 3)], [randDiapason(0, 20), randDiapason(-5, 5), randDiapason(-5, 5)], [randDiapason(-20, 20), randDiapason(-20, 20), randDiapason(-20, 20)], t);
+					collisions.init(t);
+					collisions.reset();
+					
+					return;
+				}
+				
 				if (start)
 				{
 					this.setControlPoint([0, 0, 2], [who ? 10 : -10, 0, 0], [0, 0, 0], t);
