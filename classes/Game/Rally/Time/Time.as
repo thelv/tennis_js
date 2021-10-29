@@ -74,7 +74,7 @@ Game.Rally.Time.Time=function()
 			var shiftTime_=0;
 			for (var j=0; j<l; j++)
 			{
-				shiftTime_+=shiftTimes[i];
+				shiftTime_+=shiftTimes[j];
 			}
 			shiftTime=shiftTime_/10;
 			this.latencyCalc();
