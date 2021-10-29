@@ -64,7 +64,7 @@ Game.Rally.Player.Player=function(game, side)
 				{
 					if (hold)
 					{
-						if(teaching.stage>2) { holded = true; }
+						//if(teaching.stage>2) { holded = true; }
 						this.setControlPointXY(startX, 0, 0, 0, movingX, movingY, t);						
 						this.setControlPointA(startA, 0, movingA, t)						
 						collisions.init(t);
